@@ -4,14 +4,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#CE9833',
+        primary: '#C79947',
         gray: {
           ...colors.gray,
         },
-        white: '#FFFFFF'
+        white: '#FFFFFF',
+      },
+      fontFamily: {
+        circular: 'Circular Std, sans-serif, serif',
       },
     },
   },
   variants: {},
-  plugins: []
-}
+  plugins: [],
+};

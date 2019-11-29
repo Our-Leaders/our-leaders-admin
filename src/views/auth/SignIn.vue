@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap h-full">
-    <our-alert :alert-type="info.type" :display="displayInfo">
+    <our-alert :alert-type="info.type" :display="displayInfo" @close="displayInfo = false">
       <p class="font-bold">{{info.header}}</p>
       <p class="text-sm">{{info.details}}</p>
     </our-alert>
@@ -18,7 +18,7 @@
         <span class="block text-5xl mb-10">Admin Log in</span>
         <form @submit.prevent="proceed">
           <div class="mb-6">
-            <label class="block font-semibold" for="email">Email</label>
+            <label class="block font-semibold font-circular" for="email">Email</label>
             <input class="field w-full py-2"
               type="text"
               id="email"
@@ -28,23 +28,23 @@
               required/>
           </div>
           <div class="mb-6">
-            <!-- <label class="block" for="password">
-              <span class="font-semibold">Password</span>
-              <span
+            <label class="block" for="password">
+              <span class="font-semibold font-circular">Password</span>
+              <!-- <span
                 class="block cursor-pointer font-regular text-sm
                 text-gray-500 float-right align-middle">
                 Forgot Password?
-              </span>
-            </label> -->
-            <div class="input-fields">
-              <input class="w-11/12 py-2"
+              </span> -->
+            </label>
+            <div class="relative">
+              <input class="field w-full py-2"
                 :type="!displayPassword ? 'password' : 'text'"
                 id="password"
                 name="password"
                 v-model="data.password"
                 placeholder="Enter your password"
                 required>
-              <div class="inline-block w-1/12 p-1">
+              <div class="inline-flex content-center absolute right-0 h-full">
                 <img class="inline-block cursor-pointer m-auto"
                   src="../../assets/img/password-eye.svg"
                   v-if="!displayPassword"
@@ -107,7 +107,6 @@ export default {
           // redirect the user to the appropriate page
         }
       } catch (err) {
-        console.log('why isn\'t this working');
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       } finally {
         this.loading = false;
