@@ -4,7 +4,7 @@
       <p class="font-bold">{{info.header}}</p>
       <p class="text-sm">{{info.details}}</p>
     </our-alert>
-    <div class="w-1/3 bg-primary bg-overlay relative">
+    <div class="hidden lg:inline-block lg:w-1/3 bg-primary bg-overlay relative">
       <img class="h-16 my-6 mx-12 absolute" src="../../assets/img/logo-w.svg"/>
       <div class="flex flex-col justify-center h-full px-12">
         <span class="text-white text-4xl mb-6">
@@ -13,7 +13,8 @@
         <!-- <hr class="text-white w-20"/> -->
       </div>
     </div>
-    <div class="w-2/3 flex flex-col justify-center">
+    <img class="lg:hidden h-16 my-6 mx-12 absolute" src="../../assets/img/logo-b.svg"/>
+    <div class="w-full md:w-full lg:w-2/3 xl:w-2/3 flex flex-col justify-center">
       <div class="mx-auto w-6/12">
         <span class="block text-5xl mb-10">Admin Log in</span>
         <form @submit.prevent="proceed">
