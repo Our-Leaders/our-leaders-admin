@@ -24,7 +24,7 @@
               id="email"
               name="email"
               v-model="data.email"
-              placeholder="Enter email"
+              placeholder="Enter your email"
               required/>
           </div>
           <div class="mb-6">
@@ -42,7 +42,7 @@
                 id="password"
                 name="password"
                 v-model="data.password"
-                placeholder="Enter password"
+                placeholder="Enter your password"
                 required>
               <div class="inline-block w-1/12 p-1">
                 <img class="inline-block cursor-pointer m-auto"
@@ -96,10 +96,18 @@ export default {
         this.loading = true;
         this.hasError = false;
         const response = await this.authServices.login(this.data);
-        this.$store.commit('setCurrentUser', response.data.user);
-        this.$store.commit('setJWT', response.data.token);
-        this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
+        const { user, token } = response.data;
+
+        if (!['superadmin', 'admin'].includes(user.role)) {
+          this.showInfo('Unauthorised', 'You\'re not allowed to  access this resource', 'error');
+        } else {
+          this.$store.commit('setCurrentUser', user);
+          this.$store.commit('setJWT', token);
+          this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
+          // redirect the user to the appropriate page
+        }
       } catch (err) {
+        console.log('why isn\'t this working');
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
       } finally {
         this.loading = false;
