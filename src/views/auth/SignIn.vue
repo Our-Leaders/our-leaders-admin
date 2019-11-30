@@ -126,7 +126,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
   .bg-overlay {
     background-image: url('../../assets/img/auth-bg-pattern.svg');
     background-size: cover;
