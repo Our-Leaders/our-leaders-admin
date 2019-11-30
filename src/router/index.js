@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Pages from '../views/index';
+import Components from '../components';
 
 Vue.use(VueRouter);
 
@@ -9,7 +10,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Pages.Home,
+    components: {
+      nav: Components.Navigation,
+      default: Pages.Home,
+    },
   },
   {
     path: '/auth/sign-in',
