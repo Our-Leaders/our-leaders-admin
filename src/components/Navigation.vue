@@ -9,7 +9,7 @@
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
           type="text"
-          id="text"
+          id="search"
           name="text"
           placeholder="Search leader, party or user"
           required
@@ -42,7 +42,7 @@
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
           type="text"
-          id="text"
+          id="mobile-search"
           name="text"
           placeholder="Search leader or party"
           required
@@ -73,9 +73,11 @@ export default {
       this.openNav = !this.openNav;
     },
   },
-  computed: mapState({
-    user: 'currentUser',
-  }),
+  computed: {
+    ...mapState({
+      user: state => state.currentUser || {},
+    }),
+  },
 };
 </script>
 
