@@ -18,11 +18,9 @@ const routes = [
     },
     beforeEnter: (to, from, next) => {
       console.log(store.state.jwtToken, '1');
-      if (store.state.jwtToken) {
-        // user is logged in
+      if (store.getters.isLoggedIn) {
         next();
       } else {
-        // user isn't logged in
         next({ name: 'sign-in' });
       }
     },
@@ -32,11 +30,9 @@ const routes = [
     name: 'sign-in',
     component: Pages.SignIn,
     beforeEnter: (to, from, next) => {
-      if (store.state.jwtToken) {
-        // user is logged in
+      if (store.getters.isLoggedIn) {
         next({ name: 'home' });
       } else {
-        // user isn't logged in
         next();
       }
     },
