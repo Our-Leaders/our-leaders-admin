@@ -6,7 +6,8 @@
     <div class="w-2/3 h-10">
       <div class="w-1/2 xl:w-5/12 mx-auto relative hidden lg:block">
         <input
-          class="w-full pl-1 py-2 border-b border-gray-400"
+          class="w-full pl-1 py-2 field border-b border-gray-400"
+          v-model="searchQuery"
           type="text"
           id="text"
           name="text"
@@ -24,8 +25,8 @@
       </div>
       <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
       <div class="admin-info leading-tight hidden lg:block">
-        <div class="admin-name text-sm">Chidimma</div>
-        <div class="admin-info text-xs text-gray-96">Chidimma@ourleaders.africa</div>
+        <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
+        <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
       </div>
       <div class="block lg:hidden">
         <button @click="toggleNav" :class="{'open': openNav}" class="nav-menu flex items-center focus:outline-none">
@@ -38,7 +39,8 @@
     <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center">
       <div class="w-5/6 md:w-1/2 relative">
         <input
-          class="w-full pl-1 py-2 border-b border-gray-400"
+          class="w-full pl-1 py-2 field border-b border-gray-400"
+          v-model="searchQuery"
           type="text"
           id="text"
           name="text"
@@ -56,11 +58,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   name: 'navigation',
   data() {
     return {
       openNav: false,
+      searchQuery: '',
     };
   },
   methods: {
@@ -68,6 +73,9 @@ export default {
       this.openNav = !this.openNav;
     },
   },
+  computed: mapState({
+    user: 'currentUser',
+  }),
 };
 </script>
 
