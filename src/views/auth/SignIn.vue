@@ -46,10 +46,7 @@
                 placeholder="Enter your password"
                 required>
               <div class="inline-flex content-center absolute right-0 h-full">
-                <img class="inline-block cursor-pointer m-auto"
-                  src="../../assets/img/password-eye.svg"
-                  v-if="!displayPassword"
-                  @click="togglePassword"/>
+                <img class="inline-block cursor-pointer m-auto" src="../../assets/img/password-eye.svg" v-if="!displayPassword" @click="togglePassword"/>
                 <img class="inline-block cursor-pointer m-auto"
                   src="../../assets/img/password-eye-off.svg"
                   v-if="displayPassword"
@@ -106,6 +103,7 @@ export default {
           this.$store.commit('setJWT', token);
           this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
           // redirect the user to the appropriate page
+          this.$router.push({ name: 'home' });
         }
       } catch (err) {
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
@@ -126,7 +124,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
   .bg-overlay {
     background-image: url('../../assets/img/auth-bg-pattern.svg');
     background-size: cover;

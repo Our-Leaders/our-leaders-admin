@@ -5,5 +5,6 @@ export const authMutations = {
 };
 
 export const authGetters = {
+  isLoggedIn: state => state.jwtToken !== null,
   jwt: state => state.jwtToken,
 };
