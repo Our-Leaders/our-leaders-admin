@@ -1,5 +1,5 @@
 <template>
-  <div class="side-nav lg:fixed lg:bottom-0 lg:left-0 lg:right-0 lg:w-1/4 xl:w-1/6 pl-8 pr-12 overflow-y-scroll">
+  <div class="side-nav lg:fixed lg:bottom-0 lg:left-0 lg:right-0 lg:w-1/4 xl:w-1/6 pl-8 pr-12 overflow-y-scroll hidden lg:block">
     <button class="relative border-black border-2 w-full py-2 px-3 flex justify-between items-center">
       <span>New</span>
       <span><img src="@/assets/img/add.svg" alt=""></span>
@@ -36,17 +36,9 @@ export default {
 
     &:after {
       content: '';
-      height: 60%;
+      height: 90%;
       width: 1px;
-      @apply border-gray-c4 border-r;
-    }
-
-    .nav-links {
-      a {
-        &.active {
-          @apply border-primary;
-        }
-      }
+      @apply border-gray-c4 border-r absolute top-0 right-0;
     }
   }
 </style>

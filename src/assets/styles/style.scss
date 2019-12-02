@@ -1,0 +1,7 @@
+.nav-links {
+  a {
+    &.active {
+      @apply border-primary;
+    }
+  }
+}

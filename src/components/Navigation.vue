@@ -1,6 +1,6 @@
 <template>
   <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white">
-    <div class="nav-icon w-1/12">
+    <div class="nav-icon lg:w-1/12">
       <img class src="@/assets/img/logo.svg" />
     </div>
     <div class="w-2/3 h-10">
@@ -49,10 +49,27 @@
         />
         <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto">
       </div>
+      <div>
+        <button class="relative border-black border w-40 py-2 px-3 flex justify-between items-center my-4">
+          <span>New</span>
+          <span><img src="@/assets/img/add.svg" alt=""></span>
+        </button>
+      </div>
+      <div class="w-12 h-1 border-b border-gray-db my-2"></div>
+      <div class="nav-links mt-10">
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center active">Homes</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Leaders</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Web pages</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Political Parties</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Analytics</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Admins</a>
+      </div>
       <div class="w-12 h-1 border-b border-gray-db"></div>
-      <button class="h-10 w-40 border border-gray-96 font-circular">
-        Log out
-      </button>
+      <div>
+        <button class="h-10 w-40 border border-gray-96 font-circular mt-4">
+          Log out
+        </button>
+      </div>
     </div>
   </nav>
 </template>
