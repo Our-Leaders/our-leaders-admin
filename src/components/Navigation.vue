@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center border-b lg:border-0 py-4 px-6 relative">
+  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white">
     <div class="nav-icon w-1/12">
       <img class src="@/assets/img/logo.svg" />
     </div>
@@ -36,7 +36,7 @@
         </button>
       </div>
     </div>
-    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center">
+    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
       <div class="w-5/6 md:w-1/2 relative">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -83,6 +83,8 @@ export default {
 
 <style lang="scss" scoped>
 nav {
+  z-index:99999;
+
   @screen xl {
     min-height: 6.25rem;
     margin-left: 2.375em;
@@ -156,7 +158,7 @@ nav {
   }
 
   .mobile-menu {
-    top: 6.25rem;
+    top: 6rem;
 
     & > *:not(:first-child) {
       @apply mt-5;

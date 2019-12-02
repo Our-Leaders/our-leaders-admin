@@ -1,11 +1,13 @@
 <template>
-  <div class="home pt-12 flex relative h-full">
+  <div class="home pt-12 flex relative h-full mt-24">
     <our-side-navbar />
-    <div class="w-1/2">
-      content
-    </div>
-    <div class="w-1/3">
-      aside
+    <div class="content lg:w-3/4 xl:w-5/6 flex h-full inset-y-0 right-0">
+      <div class="lg:w-2/3 xl:w-3/5">
+        content
+      </div>
+      <div class="lg:w-1/3 xl:w-2/5">
+        aside
+      </div>
     </div>
   </div>
 </template>
@@ -15,3 +17,15 @@ export default {
   name: 'home',
 };
 </script>
+
+<style lang="scss" scoped>
+  .content {
+    @screen lg {
+      margin-left: 25%;
+    }
+
+    @screen xl {
+      margin-left: 16.666667%;
+    }
+  }
+</style>
