@@ -1,6 +1,6 @@
 <template>
-  <nav class="flex items-center border-b lg:border-0 py-4 px-6 relative">
-    <div class="nav-icon w-1/12">
+  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white">
+    <div class="nav-icon lg:w-1/12">
       <img class src="@/assets/img/logo.svg" />
     </div>
     <div class="w-2/3 h-10">
@@ -9,7 +9,7 @@
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
           type="text"
-          id="text"
+          id="search"
           name="text"
           placeholder="Search leader, party or user"
           required
@@ -36,23 +36,40 @@
         </button>
       </div>
     </div>
-    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center">
+    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
       <div class="w-5/6 md:w-1/2 relative">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
           type="text"
-          id="text"
+          id="mobile-search"
           name="text"
           placeholder="Search leader or party"
           required
         />
         <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto">
       </div>
+      <div>
+        <button class="relative border-black border w-40 py-2 px-3 flex justify-between items-center my-4">
+          <span>New</span>
+          <span><img src="@/assets/img/add.svg" alt=""></span>
+        </button>
+      </div>
+      <div class="w-12 h-1 border-b border-gray-db my-2"></div>
+      <div class="nav-links mt-10">
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center active">Homes</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Leaders</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Web pages</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Political Parties</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Analytics</a>
+        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Admins</a>
+      </div>
       <div class="w-12 h-1 border-b border-gray-db"></div>
-      <button class="h-10 w-40 border border-gray-96 font-circular">
-        Log out
-      </button>
+      <div>
+        <button class="h-10 w-40 border border-gray-96 font-circular mt-4">
+          Log out
+        </button>
+      </div>
     </div>
   </nav>
 </template>
@@ -73,14 +90,18 @@ export default {
       this.openNav = !this.openNav;
     },
   },
-  computed: mapState({
-    user: 'currentUser',
-  }),
+  computed: {
+    ...mapState({
+      user: state => state.currentUser || {},
+    }),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 nav {
+  z-index:99999;
+
   @screen xl {
     min-height: 6.25rem;
     margin-left: 2.375em;
@@ -154,7 +175,7 @@ nav {
   }
 
   .mobile-menu {
-    top: 6.25rem;
+    top: 6rem;
 
     & > *:not(:first-child) {
       @apply mt-5;
