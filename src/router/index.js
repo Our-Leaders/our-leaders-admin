@@ -11,11 +11,22 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'home',
     components: {
       nav: Components.Navigation,
       default: Pages.Home,
     },
+    children: [
+      {
+        name: 'home',
+        path: 'home',
+        component: Pages.AdminHome,
+      },
+      {
+        name: 'leaders',
+        path: 'leaders',
+        component: Pages.Leaders,
+      },
+    ],
     beforeEnter: (to, from, next) => {
       console.log(store.state.jwtToken, '1');
       if (store.getters.isLoggedIn) {
