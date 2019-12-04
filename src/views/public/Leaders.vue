@@ -6,7 +6,6 @@
           Leaders (239)
         </h5>
         <our-country-selector v-model="country" />
-        <!-- <our-country-selector :country="country" @country-change="countryChange" /> -->
       </header>
       <div class="w-full">
         <header class="flex w-full border-b border-primary mt-10 leader-nav">
@@ -21,7 +20,16 @@
         <div class="leaders-grid flex flex-wrap">
           <div class="leader-profile" v-for="(leader, index) of leaders" :key="index">
             <img class="w-full mb-3" src="@/assets/img/osibanjo.png" alt="">
-            <div class="likes"></div>
+            <div class="flex likes mb-3 font-circular text-2xl lg:text-sm text-gray-96">
+              <span class="flex mr-3 items-baseline cursor-pointer">
+                <img class="mr-2 w-8 lg:w-6 relative" src="@/assets/img/upvote.svg" alt="upvote">
+                {{leader.upvotes}}
+              </span>
+              <span class="flex items-baseline cursor-pointer">
+                <img class="mr-2 w-8 lg:w-6 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
+                {{leader.downvotes}}
+              </span>
+            </div>
             <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold">{{leader.name}}</p>
             <p class="position text-lg lg:text-sm xl:text-base">{{leader.position}}</p>
           </div>
@@ -43,43 +51,63 @@ export default {
       leaders: [
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
         {
           name: 'Muhamadu Buhari',
-          position: 'Preseident of the Federal Republic of Nigeria',
+          position: 'President of the Federal Republic of Nigeria',
+          upvotes: '12543',
+          downvotes: '874',
         },
       ],
     };
@@ -165,7 +193,7 @@ export default {
       flex: 0 0 22%;
     }
 
-    @apply /* border border-gray-c4 */ h-auto mb-12;
+    @apply h-auto mb-12;
 
     .position {
       overflow-x: hidden;
@@ -182,6 +210,14 @@ export default {
 
       @screen xl {
         max-width: 10.6rem;
+      }
+    }
+
+    .downvote {
+      top: 12px;
+
+      @screen lg {
+        top: 8px;
       }
     }
   }
