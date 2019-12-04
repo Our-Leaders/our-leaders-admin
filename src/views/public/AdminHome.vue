@@ -1,6 +1,6 @@
 <template>
   <div class="lg:flex">
-    <div class="lg:w-2/3 xl:w-3/5">
+    <div class="xl:w-2/3">
       <div class="banner w-full relative bg-primary h-32 text-white py-5 px-6">
         <h3 class="text-4xl">You're now 403 leaders strong!</h3>
         <p>Keep making African leadership better</p>
@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="lg:w-1/3 xl:w-2/5">aside</div>
+    <div class="w-full xl:w-1/3 xl:ml-10">aside</div>
   </div>
 </template>
 
