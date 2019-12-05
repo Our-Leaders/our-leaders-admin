@@ -8,6 +8,8 @@ import './components/index';
 import './main.css';
 import '@/assets/styles/style.scss';
 
+import '@/filters';
+
 Vue.config.productionTip = false;
 
 Vue.prototype.$serviceFactory = serviceFactory;
