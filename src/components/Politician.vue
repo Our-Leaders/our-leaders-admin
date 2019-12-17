@@ -3,25 +3,39 @@
     <img class="w-full mb-3" src="@/assets/img/osibanjo.png" alt="">
     <div class="flex likes mb-3 font-circular text-2xl lg:text-sm text-gray-96">
       <span class="flex mr-3 items-baseline cursor-pointer">
-        <img class="mr-2 w-8 lg:w-6 relative" src="@/assets/img/upvote.svg" alt="upvote">
-        {{politician.upvotes}}
+        <img class="mr-2 w-8 lg:w-5 relative" src="@/assets/img/upvote.svg" alt="upvote">
+        {{politician.vote.up | numberFormat}}
       </span>
       <span class="flex items-baseline cursor-pointer">
-        <img class="mr-2 w-8 lg:w-6 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
-        {{politician.downvotes}}
+        <img class="mr-2 w-8 lg:w-5 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
+        {{politician.vote.down | numberFormat}}
       </span>
     </div>
-    <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold">{{politician.name}}</p>
-    <p class="position text-lg lg:text-sm xl:text-base">{{politician.position}}</p>
+    <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold leading-tight">{{politician.name}}</p>
+    <p class="position text-lg lg:text-sm xl:text-base">{{position}}</p>
   </div>
 </template>
 
 <script>
+import find from 'lodash.find';
+
 export default {
   name: 'Politician',
   props: {
     politician: {
       type: Object,
+    },
+  },
+  computed: {
+    position() {
+      const { politicalBackground = [] } = this.politician;
+      const presentPosition = find(politicalBackground, { inOffice: true });
+
+      if (presentPosition) {
+        return presentPosition.position;
+      }
+
+      return '';
     },
   },
 };
