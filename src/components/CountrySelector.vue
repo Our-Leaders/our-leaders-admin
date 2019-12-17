@@ -1,6 +1,6 @@
 <template>
   <div class="selector-container relative inline-block">
-    <div @click="toggleCountryList" class="w-24 flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 font-circular items-center relative">
+    <div @click="toggleCountryList" class="country-indicator flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 font-circular items-center relative">
       <img class="mr-3" :src="countryFlag(selectedCountry.flag)"/>
       <span class="mr-3">{{selectedCountry.acronym}}</span>
       <img src="@/assets/img/chevron-down.svg"/>
@@ -62,11 +62,16 @@ export default {
     cursor: pointer;
   }
 
+  .country-indicator {
+    min-width: 7rem;
+  }
+
   .country-list {
     top: 2.5rem;
     max-height: 20rem;
     height: auto;
     overflow-y: scroll;
+    z-index: 999;
 
     ul li:not(:last-child) {
       @apply mb-3;

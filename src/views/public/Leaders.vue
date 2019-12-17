@@ -1,11 +1,14 @@
 <template>
   <div class="lg:pr-2 xl:pr-0 xl:flex">
     <div class="w-full xl:w-2/3">
-      <header class="flex justify-between items-end">
+      <header class="flex justify-between">
         <h5 class="text-4xl">
           Leaders ({{leadersCount}})
         </h5>
-        <our-country-selector v-model="country" />
+        <div class="flex justify-between items-center">
+          <button class="relative border-black border w-full py-1 px-3 flex justify-between items-center font-circular mr-4">Leader Updates</button>
+          <our-country-selector v-model="country" />
+        </div>
       </header>
       <div class="w-full">
         <header class="flex w-full border-b border-primary mt-10 leader-nav">
