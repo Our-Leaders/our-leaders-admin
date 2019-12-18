@@ -1,0 +1,17 @@
+{
+  "ngr": {
+    "name": "Nigeria",
+    "acronym": "Ngr",
+    "flag": "nigeria.svg"
+  },
+  "sa": {
+    "name": "South Africa",
+    "acronym": "SA",
+    "flag": "south-africa.svg"
+  },
+  "gh": {
+    "name": "Ghana",
+    "acronym": "Gh",
+    "flag": "ghana.svg"
+  }
+}
