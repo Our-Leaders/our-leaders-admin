@@ -1,9 +1,10 @@
 <template>
   <div class="dropdown relative">
-    <div class="trigger" @click="trigger" @focusout="closeDropdown">
+    <div class="trigger" @click="trigger">
+    <!-- <div class="trigger" @click="trigger" @focusout="closeDropdown"> -->
       <slot name="trigger"></slot>
     </div>
-    <ul class="dropdown-list absolute bg-white w-full shadow" v-if="showDropdown">
+    <ul class="dropdown-list absolute bg-white w-full shadow mt-1 pt-1" v-if="showDropdown">
       <slot name="items"></slot>
     </ul>
   </div>
