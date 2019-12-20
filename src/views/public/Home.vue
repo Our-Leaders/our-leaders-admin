@@ -4,6 +4,7 @@
     <div class="content w-full lg:w-3/4 xl:w-5/6 h-full inset-y-0 right-0 pl-5 lg:pl-10">
       <router-view></router-view>
     </div>
+    <our-modal-manager></our-modal-manager>
   </div>
 </template>
 

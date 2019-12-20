@@ -57,12 +57,16 @@
 .form-icon img,
 .form-icon:before {
   display: inline-block;
-  vertical-align: bottom;
+  vertical-align: middle;
 }
 
 .form-icon:before {
   content: '';
   width: 0;
   height: 100%
+}
+
+.form-icon + input {
+  text-indent: 1.75rem;
 }
 /* end of styling for form input icon */
