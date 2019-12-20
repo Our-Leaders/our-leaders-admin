@@ -1,21 +1,21 @@
 <template>
-  <div class="side-nav lg:fixed lg:bottom-0 lg:left-0 lg:right-0 lg:w-1/4 xl:w-1/6 pl-8 pr-12 overflow-y-scroll hidden lg:block">
-  <div>
-    <our-dropdown>
-      <template v-slot:trigger>
-        <button class="relative focus:outline-none border-black border-2 w-full py-2 px-3 flex justify-between items-center">
-          <span>New</span>
-          <span><img src="@/assets/img/add.svg" alt=""></span>
-        </button>
-      </template>
-      <template v-slot:items class="font-circular">
-        <our-dropdown-item>New accomplishment</our-dropdown-item>
-        <our-dropdown-item>New update</our-dropdown-item>
-        <our-dropdown-divider />
-        <our-dropdown-item>New job post</our-dropdown-item>
-        <our-dropdown-divider />
-        <our-dropdown-item>New admin</our-dropdown-item>
-        <our-dropdown-item>New party</our-dropdown-item>
+  <div class="side-nav lg:fixed lg:bottom-0 lg:left-0 lg:right-0 lg:w-1/4 xl:w-1/6 pl-8 pr-12 overflow-y-scroll hidden lg:block z-40">
+    <div>
+      <our-dropdown>
+        <template v-slot:trigger>
+          <button class="relative focus:outline-none border-black border-2 w-full py-2 px-3 flex justify-between items-center">
+            <span>New</span>
+            <span><img src="@/assets/img/add.svg" alt=""></span>
+          </button>
+        </template>
+        <template v-slot:items class="font-circular">
+          <our-dropdown-item>New accomplishment</our-dropdown-item>
+          <our-dropdown-item>New update</our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item>New job post</our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item>New admin</our-dropdown-item>
+          <our-dropdown-item>New party</our-dropdown-item>
         <our-dropdown-item>New Leader</our-dropdown-item>
         <our-dropdown-item>New User</our-dropdown-item>
       </template>
@@ -57,7 +57,7 @@ export default {
       content: '';
       height: 90%;
       width: 1px;
-      @apply border-gray-c4 border-r absolute top-0 right-0;
+      @apply border-gray-c4 border-r absolute top-0 right-0 z-30;
     }
   }
 </style>

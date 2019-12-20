@@ -1,5 +1,5 @@
 <template>
-  <li class="p-3 flex justify-between items-center relative z-50 cursor-pointer font-circular text-sm">
+  <li class="px-3 py-2 flex justify-between items-center relative cursor-pointer font-circular text-sm">
     <slot></slot>
     <!-- <ul class="absolute bg-white w-full shadow">
       <slot name="item-child">
@@ -24,7 +24,6 @@ export default {
 
     & > ul {
       top: 0;
-      z-index: 51;
       left: 100%;
     }
 
