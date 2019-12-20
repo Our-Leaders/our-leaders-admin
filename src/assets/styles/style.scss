@@ -42,3 +42,13 @@
   }
 }
 /* end of styling for v-select component */
+
+/* styling for the datepicker */
+.vdp-datepicker__calendar .cell.selected {
+  @apply bg-primary text-white #{!important};
+}
+
+.vdp-datepicker__calendar .cell:hover {
+  @apply border border-primary #{!important};
+}
+/* end of styling for the datepicker */

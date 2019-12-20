@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import vSelect from 'vue-select';
+import Datepicker from 'vuejs-datepicker';
 import App from './App.vue';
 import router from './router';
 import serviceFactory from './services/factory';
@@ -20,6 +21,8 @@ vSelect.props.components.default = () => ({
   },
 });
 /** end of vselect */
+
+Vue.component('v-datepicker', Datepicker);
 
 Vue.config.productionTip = false;
 
