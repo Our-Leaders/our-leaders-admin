@@ -1,3 +1,5 @@
+@import "vue-select/src/scss/vue-select.scss";
+
 .nav-links {
   a {
     &.active {
@@ -5,3 +7,38 @@
     }
   }
 }
+
+/* styling for v-select component */
+.our-select .vs__dropdown-toggle {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
+  @apply w-full pl-1 py-2 border-b border-gray-400;
+}
+
+.our-select .vs__selected-options, 
+.our-select .vs__search, 
+.our-select .vs__selected {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.our-select .vs__dropdown-menu {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
+  @apply shadow;
+
+  li.vs__dropdown-option {
+    @apply p-2;
+  
+    &:hover, &--highlight {
+      // @apply bg-gray-f0;
+      background-color: darken($color: #f0f0f0, $amount: 10%)
+    }
+  }
+}
+/* end of styling for v-select component */
