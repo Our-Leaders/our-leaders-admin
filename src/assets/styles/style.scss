@@ -52,3 +52,17 @@
   @apply border border-primary #{!important};
 }
 /* end of styling for the datepicker */
+
+/* styling for form input icon */
+.form-icon img,
+.form-icon:before {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.form-icon:before {
+  content: '';
+  width: 0;
+  height: 100%
+}
+/* end of styling for form input icon */

@@ -103,7 +103,7 @@ export default {
           this.$store.commit('setJWT', token);
           this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
           // redirect the user to the appropriate page
-          this.$router.push({ name: 'home' });
+          this.$router.push({ name: 'leaders' });
         }
       } catch (err) {
         this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');

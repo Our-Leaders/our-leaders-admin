@@ -1,6 +1,7 @@
 <template>
-  <div class="modal fixed z-40 inset-0 flex justify-center items-center h-full w-full">
-    <div class="modal-container bg-white px-12 pt-10 pb-12 bg-white z-50 relative">
+  <div class="modal fixed inset-0 flex justify-center items-center h-full w-full z-50" v-if="open">
+    <!-- <div class="modal-container bg-white bg-white relative"> -->
+    <div class="modal-container bg-white px-10 pt-10 pb-12 bg-white relative" :class="size">
       <button class="close-modal-button absolute" @click="closeModal">
         <img src="@/assets/img/close.svg" alt="close modal">
       </button>
@@ -25,6 +26,13 @@ export default {
       type: Boolean,
       default: false,
     },
+    size: {
+      type: String,
+      default: 'normal',
+      validator(value) {
+        return ['normal', 'large'].indexOf(value) !== -1;
+      },
+    },
   },
   methods: {
     closeModal() {
@@ -43,8 +51,14 @@ export default {
   .modal-container {
     min-width: 31.25rem;
     min-height: 10rem;
+    max-height: calc(100vh - 20%);
+    overflow-y: auto;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 0px 6px rgba(0, 0, 0, 0.1);
     transition: all .3s ease;
+
+    &.large {
+      width: 45rem;
+    }
   }
 
   .close-modal-button {

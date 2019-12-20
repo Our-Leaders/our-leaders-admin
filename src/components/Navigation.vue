@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white">
+  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white z-30">
     <div class="nav-icon lg:w-1/12">
       <img class src="@/assets/img/logo.svg" />
     </div>
