@@ -196,13 +196,24 @@ export default {
   name: 'NewLeaderModal',
   data() {
     return {
+      politicalPartyServices: this.$serviceFactory.politicalParty,
       nigerianStates,
+      politicalParties: [],
     };
   },
   methods: {
     closeModal() {
       this.$emit('close-modal');
     },
+  },
+  async mounted() {
+    if (this.$store.state.politicalParties.length === 0) {
+      const { data } = await this.politicalPartyServices.getPoliticalParties();
+      this.$store.commit('storePoliticalParties', data.politicalParties);
+    }
+
+    const { politicalParties } = this.$store.state;
+    this.politicalParties = politicalParties;
   },
 };
 </script>
