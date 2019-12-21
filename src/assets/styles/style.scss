@@ -17,6 +17,10 @@
   @apply w-full pl-1 py-2 border-b border-gray-400;
 }
 
+.our-select.has-error .vs__dropdown-toggle {
+  @apply border-red-600 #{!important};
+}
+
 .our-select .vs__selected-options, 
 .our-select .vs__search, 
 .our-select .vs__selected {
@@ -70,3 +74,7 @@
   text-indent: 1.75rem;
 }
 /* end of styling for form input icon */
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed #{!important};
+}

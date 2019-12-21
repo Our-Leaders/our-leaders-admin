@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import vSelect from 'vue-select';
 import Datepicker from 'vuejs-datepicker';
+
 import App from './App.vue';
 import router from './router';
 import serviceFactory from './services/factory';
@@ -12,6 +13,7 @@ import '@/assets/styles/style.scss';
 import dropdownIndicator from './assets/img/dropdown-indicator.svg';
 
 import '@/filters';
+import '@/vee-validate';
 
 /** import and configure vselect */
 Vue.component('v-select', vSelect);
