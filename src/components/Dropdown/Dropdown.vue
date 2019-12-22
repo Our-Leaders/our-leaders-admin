@@ -35,6 +35,9 @@ export default {
   mounted() {
     this.$on('close-dropdown', this.closeDropdown);
   },
+  destroyed() {
+    this.$off('close-dropdown');
+  },
 };
 </script>
 
