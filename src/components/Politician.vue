@@ -66,7 +66,7 @@ export default {
       margin-top: 0.7rem;
       margin-left: 0.7rem;
       margin-right: 0.7rem;
-      flex: 0 0 22%;
+      flex: 0 0 30%;
     }
 
     @apply h-auto mb-12;

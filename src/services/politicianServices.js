@@ -12,4 +12,7 @@ export default {
     }
     return instance.get(url);
   },
+  createNewPolitician(payload) {
+    return instance.post(resource, payload);
+  },
 };

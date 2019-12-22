@@ -159,7 +159,10 @@
             </div>
           </div>
           <div class="flex mt-12">
-            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid">Save</button>
+            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid || creatingPoliticianLoading">
+              <span v-if="!creatingPoliticianLoading">Save</span>
+              <span v-else>Submitting...</span>
+            </button>
             <button class="font-circular py-3 px-12" @click="closeModal()">Cancel</button>
           </div>
         </form>
@@ -176,6 +179,7 @@ export default {
   data() {
     return {
       politicalPartyServices: this.$serviceFactory.politicalParty,
+      politicianServices: this.$serviceFactory.politicians,
       nigerianStates,
       politicianData: {
         socials: {
@@ -191,14 +195,30 @@ export default {
         status: '',
       },
       politicalParties: [],
+      creatingPoliticianLoading: false,
     };
   },
   methods: {
     closeModal() {
       this.$emit('close-modal');
     },
-    submit() {
+    async submit() {
+      this.creatingPoliticianLoading = true;
       console.log(this.politicianData);
+      try {
+        // create the politician
+        await this.politicianServices.createNewPolitician(this.politicianData);
+
+        // update the list of politicians
+        const { data } = await this.politicianServices.getPoliticians();
+        const { politicians } = data;
+        this.$store.commit('storePoliticians', politicians);
+      } catch (err) {
+        // do something with the error here
+      } finally {
+        this.creatingPoliticianLoading = false;
+        this.closeModal();
+      }
     },
     datePickerClasses(invalid) {
       let classNames = 'w-full pl-1 py-2 field border-b';
