@@ -204,10 +204,20 @@ export default {
     },
     async submit() {
       this.creatingPoliticianLoading = true;
-      console.log(this.politicianData);
+
+      const payload = { ...this.politicianData };
+
+      if (payload.status === '') {
+        delete payload.status;
+      }
+
+      if (payload.politicalParty === '') {
+        delete payload.politicalParty;
+      }
+
       try {
         // create the politician
-        await this.politicianServices.createNewPolitician(this.politicianData);
+        await this.politicianServices.createNewPolitician(payload);
 
         // update the list of politicians
         const { data } = await this.politicianServices.getPoliticians();
