@@ -213,11 +213,11 @@ export default {
         const { data } = await this.politicianServices.getPoliticians();
         const { politicians } = data;
         this.$store.commit('storePoliticians', politicians);
+        this.closeModal();
       } catch (err) {
         // do something with the error here
       } finally {
         this.creatingPoliticianLoading = false;
-        this.closeModal();
       }
     },
     datePickerClasses(invalid) {
