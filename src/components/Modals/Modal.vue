@@ -1,7 +1,7 @@
 <template>
   <div class="modal fixed inset-0 flex justify-center items-center h-full w-full z-50" v-if="open">
     <!-- <div class="modal-container bg-white bg-white relative"> -->
-    <div class="modal-container bg-white px-10 pt-10 pb-12 bg-white relative" :class="size">
+    <div class="modal-container bg-white px-10 pt-10 bg-white relative block" :class="size">
       <button class="close-modal-button absolute" @click="closeModal">
         <img src="@/assets/img/close.svg" alt="close modal">
       </button>
@@ -11,7 +11,7 @@
       <div class="modal-content w-full">
         <slot name="content"></slot>
       </div>
-      <div class="modal-footer w-full">
+      <div class="modal-footer w-full pb-12">
         <slot name="footer"></slot>
       </div>
     </div>

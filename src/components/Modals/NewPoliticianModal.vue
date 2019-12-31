@@ -9,7 +9,14 @@
         <form @submit.prevent="handleSubmit(submit)">
           <div class="flex mt-6 social-links">
             <div class="w-1/3 flex">
-              <div class="w-40 h-32 bg-gray-c4"></div>
+              <label for="politician-image" class="w-40 h-32 block cursor-pointer">
+                <input type="file" name="politician image" id="politician-image" class="hidden" accept="image/*" @change="onFileUpload($event);">
+                <div class="w-full h-full politician-profile-image flex items-center justify-center" v-if="!uploadedImageSrc">
+                  <span class="text-white text-sm font-circular">Upload picture</span>
+                </div>
+                <!-- thinking of using canvas here so I can make modifications to the image after upload -->
+                <div v-bind:style="{ 'background-image': 'url('+ uploadedImageSrc +')'  }" class="w-full h-full bg-cover bg-no-repeat"></div>
+              </label>
             </div>
             <div class="w-2/3">
               <div class="flex mb-3">
@@ -196,6 +203,8 @@ export default {
       },
       politicalParties: [],
       creatingPoliticianLoading: false,
+      uploadedImageSrc: '',
+      profileImageFile: '',
     };
   },
   methods: {
@@ -205,14 +214,35 @@ export default {
     async submit() {
       this.creatingPoliticianLoading = true;
 
-      const payload = { ...this.politicianData };
+      // const payload = { ...this.politicianData };
+      let payload;
 
-      if (payload.status === '') {
-        delete payload.status;
-      }
+      if (this.uploadedImageSrc) {
+        payload = new FormData();
 
-      if (payload.politicalParty === '') {
-        delete payload.politicalParty;
+        Object.keys(this.politicianData).forEach((key) => {
+          payload.set(key, this.politicianData[key]);
+        });
+
+        payload.set('file', this.profileImageFile);
+
+        if (payload.get('status') === '') {
+          payload.delete('status');
+        }
+
+        if (payload.get('politicalParty') === '') {
+          payload.delete('politicalParty');
+        }
+      } else {
+        payload = { ...this.politicianData };
+
+        if (payload.status === '') {
+          delete payload.status;
+        }
+
+        if (payload.politicalParty === '') {
+          delete payload.politicalParty;
+        }
       }
 
       try {
@@ -241,6 +271,19 @@ export default {
 
       return classNames;
     },
+    onFileUpload($event) {
+      if ($event.target.files.length > 0) {
+        const file = $event.target.files[0];
+
+        const self = this;
+        const fileReader = new FileReader();
+        fileReader.onload = function onload() {
+          self.uploadedImageSrc = this.result;
+        };
+        fileReader.readAsDataURL(file);
+        this.profileImageFile = file;
+      }
+    },
   },
   async mounted() {
     if (this.$store.state.politicalParties.length === 0) {
@@ -255,5 +298,9 @@ export default {
 </script>
 
 <style>
-
+  .politician-profile-image {
+    background-image: url('../../assets/img/default-avatar.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 </style>
