@@ -1,6 +1,8 @@
 <template>
   <div class="leader-profile">
-    <img class="w-full mb-3" src="@/assets/img/osibanjo.png" alt="">
+    <!-- <img v-if="politician.profileImage.url" class="w-full mb-3" :src="politician.profileImage.url" alt=""> -->
+    <!-- <img v-else class="w-full mb-3" src="@/assets/img/osibanjo.png" alt=""> -->
+    <div v-bind:style="{ 'background-image': 'url('+ politicianImage +')'  }" class="w-full h-48 bg-cover bg-no-repeat mb-3 bg-center"></div>
     <div class="flex likes mb-3 font-circular text-2xl lg:text-sm text-gray-96">
       <span class="flex mr-3 items-baseline cursor-pointer">
         <img class="mr-2 w-8 lg:w-5 relative" src="@/assets/img/upvote.svg" alt="upvote">
@@ -18,6 +20,7 @@
 
 <script>
 import find from 'lodash.find';
+import defaultAvatar from '@/assets/img/default-avatar.svg';
 
 export default {
   name: 'Politician',
@@ -36,6 +39,13 @@ export default {
       }
 
       return '';
+    },
+    politicianImage() {
+      if (this.politician.profileImage && this.politician.profileImage.url) {
+        return this.politician.profileImage.url;
+      }
+
+      return defaultAvatar;
     },
   },
 };
