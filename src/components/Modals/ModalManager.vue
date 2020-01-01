@@ -6,6 +6,7 @@
 import { mapState } from 'vuex';
 
 import NewPoliticianModal from './NewPoliticianModal.vue';
+import NewPoliticalPartyModal from './NewPoliticalPartyModal.vue';
 
 export default {
   name: 'ModalManager',
@@ -13,6 +14,7 @@ export default {
     return {
       modals: {
         NewPoliticianModal,
+        NewPoliticalPartyModal,
       },
     };
   },
