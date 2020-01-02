@@ -26,6 +26,11 @@ const routes = [
         path: 'leaders',
         component: Pages.Leaders,
       },
+      {
+        name: 'parties',
+        path: 'parties',
+        component: Pages.Parties,
+      },
     ],
     beforeEnter: (to, from, next) => {
       console.log(store.state.jwtToken, '1');

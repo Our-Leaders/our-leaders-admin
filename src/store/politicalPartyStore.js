@@ -4,4 +4,6 @@ export const politicalPartyMutations = {
   },
 };
 
-export const politicalPartyGetters = {};
+export const politicalPartyGetters = {
+  politicalPartyCount: state => state.politicalParties.length,
+};

@@ -10,8 +10,8 @@
           <our-country-selector v-model="country" />
         </div>
       </header>
-      <div class="w-full">
-        <header class="flex w-full border-b border-primary mt-10 leader-nav">
+      <div class="w-full mt-10">
+        <header class="flex w-full border-b border-primary leader-nav">
           <div class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : leaderFilter === 'current' }" @click="setLeaderFilter('current')">
             <div class="active" v-if="leaderFilter === 'current'"></div>Current Leaders
             </div>
