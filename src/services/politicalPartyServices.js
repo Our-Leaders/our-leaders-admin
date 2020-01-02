@@ -1,9 +1,9 @@
 import instance from './services';
 
-const resource = '/politicians';
+const resource = '/political-party';
 
 export default {
-  getPoliticians(filter = {}) {
+  getPoliticalParties(filter = {}) {
     const queryString = Object.keys(filter).map(key => `${key}=${filter[key]}`).join('&');
     let url = `${resource}`;
 
@@ -12,7 +12,7 @@ export default {
     }
     return instance.get(url);
   },
-  createNewPolitician(payload) {
+  createNewPoliticalParty(payload) {
     return instance.post(resource, payload);
   },
 };

@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     customClass() {
-      let style = 'our-alert rounded-b m-6 px-4 py-3 shadow-md z-10 ';
+      let style = 'our-alert rounded-b m-6 px-4 py-3 shadow-md ';
       if (this.alertType === 'info') {
         style += 'bg-yellow-100 text-yellow-900';
       } else if (this.alertType === 'error') {
