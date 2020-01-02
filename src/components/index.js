@@ -10,11 +10,13 @@ import ModalManager from './Modals/ModalManager.vue';
 import Dropdown from './Dropdown/Dropdown.vue';
 import DropdownItem from './Dropdown/DropdownItem.vue';
 import DropdownDivider from './Dropdown/DropdownDivider.vue';
+import PoliticalParty from './Politicalparty.vue';
 
 Vue.component('our-alert', Alert);
 Vue.component('our-country-selector', CountryList);
 Vue.component('our-side-navbar', SideNavigation);
 Vue.component('our-politician', Politician);
+Vue.component('our-party', PoliticalParty);
 Vue.component('our-modal', Modal);
 Vue.component('our-modal-manager', ModalManager);
 Vue.component('our-dropdown', Dropdown);
