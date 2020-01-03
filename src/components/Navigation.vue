@@ -58,9 +58,9 @@
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
       <div class="nav-links mt-10">
         <router-link :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
-      <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
+        <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Web pages</a>
-        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Political Parties</a>
+        <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Analytics</a>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Admins</a>
       </div>

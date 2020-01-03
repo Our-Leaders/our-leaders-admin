@@ -25,7 +25,7 @@
       <router-link :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Home</router-link>
       <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Leaders</router-link>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Web pages</a>
-      <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</a>
+      <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</router-link>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</a>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Admins</a>
     </div>
