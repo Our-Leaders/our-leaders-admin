@@ -2,7 +2,7 @@
   <div class="lg:flex">
     <div class="xl:w-2/3">
       <div class="banner w-full relative bg-primary h-32 text-white py-5 px-6">
-        <h3 class="text-4xl">You're now {{statistics.leaders}} leader(s) strong!</h3>
+        <h3 class="text-4xl">You're now {{statistics.leaders}} {{'leader' | pluralize(statistics.leaders)}} strong!</h3>
         <p>Keep making African leadership better</p>
       </div>
       <div class="stats flex mt-6">
