@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import { authGetters, authMutations } from './authStore';
 import { userGetters, userMutations } from './userStore';
 import { politicianGetters, politicianMutations } from './politicianStore';
+import { statisticGetters, statisticMutations } from './statisticsStore';
 import { modalGetters, modalMutations } from './modalStore';
 import { politicalPartyGetters, politicalPartyMutations } from './politicalPartyStore';
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     politicians: [],
     activeModal: null,
     politicalParties: [],
+    statistics: {},
   },
   getters: Object.assign(
     {},
@@ -24,6 +26,7 @@ export default new Vuex.Store({
     politicianGetters,
     modalGetters,
     politicalPartyGetters,
+    statisticGetters,
   ),
   mutations: Object.assign(
     {},
@@ -32,9 +35,8 @@ export default new Vuex.Store({
     politicianMutations,
     modalMutations,
     politicalPartyMutations,
+    statisticMutations,
   ),
-  actions: {
-  },
-  modules: {
-  },
+  actions: {},
+  modules: {},
 });

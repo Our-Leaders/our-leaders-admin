@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import vSelect from 'vue-select';
 import Datepicker from 'vuejs-datepicker';
+import VuePluralize from 'vue-pluralize';
 
 import App from './App.vue';
 import router from './router';
@@ -25,6 +26,9 @@ vSelect.props.components.default = () => ({
 /** end of vselect */
 
 Vue.component('v-datepicker', Datepicker);
+
+// configure the pluralize lib
+Vue.use(VuePluralize);
 
 Vue.config.productionTip = false;
 
