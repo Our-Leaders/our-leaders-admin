@@ -1,5 +1,6 @@
 import Vue from 'vue';
 
+import Tab from './Tabs.vue';
 import Alert from './Alert.vue';
 import Navigation from './Navigation.vue';
 import CountryList from './CountrySelector.vue';
@@ -12,6 +13,7 @@ import DropdownItem from './Dropdown/DropdownItem.vue';
 import DropdownDivider from './Dropdown/DropdownDivider.vue';
 import PoliticalParty from './Politicalparty.vue';
 
+Vue.component('our-tabs', Tab);
 Vue.component('our-alert', Alert);
 Vue.component('our-country-selector', CountryList);
 Vue.component('our-side-navbar', SideNavigation);

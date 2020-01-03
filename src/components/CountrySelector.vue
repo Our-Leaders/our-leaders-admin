@@ -7,7 +7,7 @@
     </div>
     <div class="absolute w-64 country-list px-4 py-3 shadow right-0 bg-white" v-if="countryListOpen">
       <ul>
-        <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative" @click="countrySelect(key)">
+        <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative" @click="countrySelect(key)" :class="{ 'active': value === key }">
           <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
           <div class="flag-container mr-3 bg-gray-c4">
             <img :src="countryFlag(countryObject.flag)"/>
@@ -74,6 +74,14 @@ export default {
 
     ul li:not(:last-child) {
       @apply mb-3;
+    }
+
+    ul li {
+      opacity: 0.3;
+
+      &.active, &:hover {
+        opacity: 1;
+      }
     }
   }
 
