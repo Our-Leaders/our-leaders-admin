@@ -7,6 +7,7 @@ import { politicianGetters, politicianMutations } from './politicianStore';
 import { statisticGetters, statisticMutations } from './statisticsStore';
 import { modalGetters, modalMutations } from './modalStore';
 import { politicalPartyGetters, politicalPartyMutations } from './politicalPartyStore';
+import { adminGetters, adminMutations } from './adminStore';
 
 Vue.use(Vuex);
 
@@ -18,10 +19,12 @@ export default new Vuex.Store({
     activeModal: null,
     politicalParties: [],
     statistics: {},
+    admins: [],
   },
   getters: Object.assign(
     {},
     authGetters,
+    adminGetters,
     userGetters,
     politicianGetters,
     modalGetters,
@@ -31,6 +34,7 @@ export default new Vuex.Store({
   mutations: Object.assign(
     {},
     authMutations,
+    adminMutations,
     userMutations,
     politicianMutations,
     modalMutations,
