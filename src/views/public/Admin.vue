@@ -9,15 +9,15 @@
       <div class="stats flex mt-6 mb-16">
         <div class="stat flex-grow">
           <p class="stat-title font-semibold font-circular">Total Admins</p>
-          <p class="stat-data">320</p>
+          <p class="stat-data">{{totalAdminCount}}</p>
         </div>
         <div class="stat flex-grow">
           <p class="stat-title font-semibold font-circular">Active Admins</p>
-          <p class="stat-data">83</p>
+          <p class="stat-data">{{activeAdminCount}}</p>
         </div>
         <div class="stat flex-grow">
           <p class="stat-title font-semibold font-circular">Inactive Admins</p>
-          <p class="stat-data">4</p>
+          <p class="stat-data">{{inactiveAdminCount}}</p>
         </div>
       </div>
       <our-tabs :tabs="tabs" @change="setAdminFilter"></our-tabs>
@@ -103,6 +103,9 @@ export default {
   computed: {
     ...mapGetters({
       filteredAdmins: 'getAdmins',
+      totalAdminCount: 'totalAdminCount',
+      activeAdminCount: 'activeAdminCount',
+      inactiveAdminCount: 'inactiveAdminCount',
     }),
   },
 };

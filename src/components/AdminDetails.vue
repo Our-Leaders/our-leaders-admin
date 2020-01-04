@@ -16,8 +16,8 @@
       </div>
       <div class="flex pt-6">
         <div class="w-1/4 font-circular font-bold">Name</div>
-        <div class="w-3/4">--</div>
-        <!-- <div class="w-3/4">{{admin.firstName}} {{admin.lastName}}</div> -->
+        <!-- <div class="w-3/4">--</div> -->
+        <div class="w-3/4">{{admin.firstName}} {{admin.lastName}}</div>
       </div>
       <div class="flex py-6 border-b border-gray-db">
         <div class="w-1/4 font-circular font-bold">Email</div>

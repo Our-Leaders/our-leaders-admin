@@ -18,4 +18,11 @@ export const adminGetters = {
       return state.admins;
     };
   },
+  totalAdminCount(state) { return state.admins.length; },
+  activeAdminCount(state) {
+    return state.admins.filter(admin => !admin.isDeleted).length;
+  },
+  inactiveAdminCount(state) {
+    return state.admins.filter(admin => admin.isDeleted).length;
+  },
 };
