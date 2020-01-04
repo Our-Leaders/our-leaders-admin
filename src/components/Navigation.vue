@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white">
+  <nav class="flex items-center border-b lg:border-0 py-4 px-2 fixed top-0 right-0 left-0 w-full h-24 bg-white z-30">
     <div class="nav-icon lg:w-1/12">
       <img class src="@/assets/img/logo.svg" />
     </div>
@@ -58,9 +58,9 @@
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
       <div class="nav-links mt-10">
         <router-link :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
-      <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
+        <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Web pages</a>
-        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Political Parties</a>
+        <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Analytics</a>
         <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Admins</a>
       </div>
@@ -100,8 +100,6 @@ export default {
 
 <style lang="scss" scoped>
 nav {
-  z-index:99999;
-
   @screen xl {
     min-height: 6.25rem;
     margin-left: 2.375em;

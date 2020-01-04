@@ -71,7 +71,6 @@ export default {
     max-height: 20rem;
     height: auto;
     overflow-y: scroll;
-    z-index: 999;
 
     ul li:not(:last-child) {
       @apply mb-3;
