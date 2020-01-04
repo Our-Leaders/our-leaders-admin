@@ -11,14 +11,7 @@
         </div>
       </header>
       <div class="w-full mt-10">
-        <header class="flex w-full border-b border-primary leader-nav">
-          <div class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : leaderFilter === 'current' }" @click="setLeaderFilter('current')">
-            <div class="active" v-if="leaderFilter === 'current'"></div>Current Leaders
-            </div>
-          <div class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : leaderFilter === 'upcoming' }" @click="setLeaderFilter('upcoming')">
-            <div class="active" v-if="leaderFilter === 'upcoming'"></div>Contesting Leaders
-            </div>
-        </header>
+        <our-tabs :tabs="tabs" @change="setLeaderFilter"></our-tabs>
         <p class="font-circular text-gray-c4 text-sm pt-5 pb-5">
           {{filteredLeadersCount}} {{ leaderFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
         </p>
@@ -43,6 +36,13 @@ export default {
       politicianServices: this.$serviceFactory.politicians,
       country: 'ngr',
       leaderFilter: 'current',
+      tabs: [{
+        label: 'Current Leaders',
+        value: 'current',
+      }, {
+        label: 'Upcoming Leaders',
+        value: 'upcoming',
+      }],
     };
   },
   methods: {
