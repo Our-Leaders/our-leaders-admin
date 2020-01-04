@@ -1,5 +1,6 @@
 <template>
-  <div class="w-full h-full">
+  <div class="h-full">
+  <!-- <div class="h-full fixed overflow-y-scroll"> -->
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
@@ -36,8 +37,27 @@
       </div>
       <div class="pt-6">
         <div class="text-sm font-circular font-bold">Privileges</div>
+        <div class="h-64 overflow-y-scroll">
+          <label :for="permissionKey" v-for="(permissionObject, permissionKey) of admin.permissions" :key="permissionKey" class="border-b border-gray-300 relative block permission">
+            <input type="checkbox" :name="permissionKey" :id="permissionKey" class="invisible absolute">
+            <header class="py-2 px-1 flex justify-between items-center cursor-pointer capitalize">
+              <span>{{permissionKey | camelCaseSeperator}}</span>
+              <img src="./../assets/img/dropdown-indicator.svg" alt="dropdown indicator">
+            </header>
+            <div class="permission-items">
+              <div
+                @click.prevent="togglePermission(`${permissionKey}.${action}`)"
+                v-for="(value, action) of permissionObject"
+                :key="`${permissionKey}_${action}`"
+                :class="{'selected': value}"
+                class="permission-item flex items-center justify-between h-10 pl-3 cursor-pointer capitalize">
+                {{action}}
+              </div>
+            </div>
+          </label>
+        </div>
       </div>
-      <div class="flex pt-6 actions">
+      <div class="flex pt-16 actions">
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isBlocked">Block</button>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted">Delete</button>
       </div>
@@ -64,6 +84,11 @@ export default {
       },
     };
   },
+  methods: {
+    togglePermission(value) {
+      console.log(value);
+    },
+  },
 };
 </script>
 
@@ -89,5 +114,40 @@ export default {
     width: 3.75rem;
     border-radius: 50%;
     background-color: #F0F0F0;
+  }
+
+  .permission header img {
+    transform: rotate(-90deg);
+    transition: 0.4s transform;
+    height: 0.5rem;
+  }
+
+  .permission-items {
+    display: none;
+  }
+
+  .permission input[type="checkbox"]:checked ~ header img {
+    transform: rotate(0deg);
+  }
+
+  input[type="checkbox"]:checked ~ .permission-items {
+    display: block;
+  }
+
+  .permission-item {
+    &:after {
+      content: '';
+      height: 1rem;
+      width: 1rem;
+      border-radius: 50%;
+      border: 1px solid #dbdbdb;
+      position: relative;
+      margin-right: 0.625rem;
+    }
+
+    &.selected:after {
+      background-color: #00C543;
+      border-color: #00C543;
+    }
   }
 </style>

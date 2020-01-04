@@ -15,3 +15,5 @@ Vue.filter('numberFormat', (value) => {
 });
 
 Vue.filter('dateTimeFormat', value => moment(value).format('DD MMM, YYYY hh:mma'));
+
+Vue.filter('camelCaseSeperator', value => value.replace(/(?=[A-Z])/gm, ' '));
