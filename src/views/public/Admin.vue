@@ -41,7 +41,7 @@
         </table>
       </div>
     </div>
-    <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16">
+    <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
       <our-admin-details :admin="selectedAdmin"></our-admin-details>
     </div>
   </div>

@@ -1,6 +1,5 @@
 <template>
-  <div class="h-full">
-  <!-- <div class="h-full fixed overflow-y-scroll"> -->
+  <div class="admin-details fixed bottom-0 right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-16">
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
@@ -62,8 +61,8 @@
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted">Delete</button>
       </div>
     </div>
-    <div v-else class="flex items-center justify-center text-center h-full text-2xl text-gray-c4 mt-20">
-      Select an Admin from the right
+    <div v-else class="flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
+      Select an Admin from the left
     </div>
   </div>
 </template>
@@ -93,6 +92,10 @@ export default {
 </script>
 
 <style  lang="scss" scoped>
+  .admin-details {
+    top: 9rem;
+  }
+
   .admin-active {
     &:after {
       content: '';
