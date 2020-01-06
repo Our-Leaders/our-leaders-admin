@@ -17,3 +17,9 @@ Vue.filter('numberFormat', (value) => {
 Vue.filter('dateTimeFormat', value => moment(value).format('DD MMM, YYYY hh:mma'));
 
 Vue.filter('camelCaseSeperator', value => value.replace(/(?=[A-Z])/gm, ' '));
+
+Vue.filter('dateFormat', (value, seperator = ' ') => moment(value).format(`DD${seperator}MM${seperator}YYYY`));
+
+Vue.filter('shortDateFormat', value => moment(value).format('MMM DD YYYY'));
+
+Vue.filter('age', value => moment().diff(moment(value), 'year'));
