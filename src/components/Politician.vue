@@ -1,5 +1,5 @@
 <template>
-  <div class="leader-profile">
+  <div class="leader-profile cursor-pointer">
     <!-- <img v-if="politician.profileImage.url" class="w-full mb-3" :src="politician.profileImage.url" alt=""> -->
     <!-- <img v-else class="w-full mb-3" src="@/assets/img/osibanjo.png" alt=""> -->
     <div v-bind:style="{ 'background-image': 'url('+ politicianImage +')'  }" class="w-full h-48 bg-cover bg-no-repeat mb-3 bg-center"></div>

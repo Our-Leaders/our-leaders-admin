@@ -16,7 +16,7 @@
           {{filteredLeadersCount}} {{ leaderFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
         </p>
         <div class="leaders-grid flex flex-wrap">
-          <our-politician v-for="(leader, index) of filteredLeaders(leaderFilter)" :key="index" :politician="leader" />
+          <our-politician v-for="(leader, index) of filteredLeaders(leaderFilter)" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
         </div>
       </div>
     </div>
@@ -54,6 +54,9 @@ export default {
       const { data } = await this.politicianServices.getPoliticians();
       const { politicians } = data;
       this.$store.commit('storePoliticians', politicians);
+    },
+    goToPolitician(id) {
+      this.$router.push({ name: 'leaders-details', params: { id } });
     },
   },
   async mounted() {
