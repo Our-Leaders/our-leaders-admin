@@ -5,7 +5,7 @@
         <div class="politician-image h-32 w-40 bg-gray-96" :style="{ 'background-image': 'url('+ politicianImage +')'  }"></div>
       </header>
       <header class="w-full h-auto bg-white" ref="stickyHeader" style="padding-top: 2.5rem;">
-      <!-- <header class="w-full h-auto sticky bg-white" style="top: 6rem; padding-top: 2.5rem;"> -->
+        <!-- <header class="w-full h-auto sticky bg-white" style="top: 6rem; padding-top: 2.5rem;"> -->
         <div class="mb-12" v-if="!show">
           <p class="text-5xl leading-tight">{{politician.name}}</p>
           <div class="inline-flex likes mb-3 font-circular text-2xl lg:text-xs text-gray-96 pr-4 border-r border-gray-c4">
@@ -46,68 +46,11 @@
           </div>
         </div>
         <div class="pb-4">
-          <our-tabs :tabs="tabs"></our-tabs>
+          <our-tabs :tabs="tabs" @change="setDetailComponent"></our-tabs>
         </div>
       </header>
       <main class="pt-4 pb-24">
-        <div class="button-container mb-4 flex justify-end">
-          <button class="border-black border py-1 px-3 flex justify-between items-center font-circular">Edit Background</button>
-        </div>
-        <div>
-          <p class="font-circular text-xl font-semibold w-full mb-5">Personal background</p>
-          <div class="flex mb-3">
-            <div class="w-1/3">Political Party</div>
-            <div class="w-2/3 capitalize" v-if="politician.politicalParty">{{politician.politicalParty.name}} ({{politician.politicalParty.acronym}})</div>
-          </div>
-          <div class="flex mb-3">
-            <div class="w-1/3">DOB/Age</div>
-            <div class="w-2/3">{{politician.dob | dateFormat('-')}} / {{politician.dob | age}} years</div>
-          </div>
-          <div class="flex mb-3">
-            <div class="w-1/3">State of origin</div>
-            <div class="w-2/3 capitalize">{{politician.stateOfOrigin}}</div>
-          </div>
-        </div>
-        <div class="mt-8">
-          <p class="font-circular text-xl font-semibold w-full mb-5">Political background</p>
-          <div class="flex mb-3" v-for="(politicalBackground, index) of politician.politicalBackground" :key="index">
-            <div class="w-1/3">{{politicalBackground.position}}</div>
-            <div class="w-2/3">
-              <div>{{politicalBackground.description}}</div>
-              <div>
-                <span v-if="politicalBackground.startDate">{{politicalBackground.startDate | shortDateFormat}} - </span>
-                <span v-if="politicalBackground.endDate">{{politicalBackground.endDate | shortDateFormat}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="mt-8">
-          <p class="font-circular text-xl font-semibold w-full mb-5">Educational background</p>
-          <div class="flex mb-3" v-for="(educationalBackground, index) of politician.educationalBackground" :key="index">
-            <div class="w-1/3 capitalize">{{educationalBackground.degree}}</div>
-            <div class="w-2/3 capitalize">
-              <!-- University of Lagos. MBA Marketing, 1993 -->
-              <span class="capitalize">{{educationalBackground.institution}}</span> <span v-if="educationalBackground.startDate">{{getYear(educationalBackground.startDate)}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="mt-8">
-          <p class="font-circular text-xl font-semibold w-full mb-5">Professional background</p>
-          <div class="mb-3" v-for="(professionalBackground, index) of politician.professionalBackground" :key="index">
-            <div class="flex">
-              <div class="w-1/3">Title</div><div class="w-2/3">{{professionalBackground.title}}</div>
-            </div>
-            <div class="flex">
-              <div class="w-1/3">Description</div><div class="w-2/3">{{professionalBackground.description}}</div>
-            </div>
-            <div class="flex">
-              <div class="w-1/3">Duration</div><div class="w-2/3">
-                <span v-if="professionalBackground.startDate">{{getYear(professionalBackground.startDate)}} - </span>
-                <span v-if="professionalBackground.endDate">{{getYear(professionalBackground.endDate)}}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <component :is="detailComponents[visibleTab]" v-bind="{ politician }"></component>
       </main>
     </div>
     <!-- <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
@@ -126,11 +69,22 @@ import find from 'lodash.find';
 import stickbits from 'stickybits';
 import defaultAvatar from '@/assets/img/default-avatar.svg';
 
+// politician components
+import PoliticianBackground from '@/components/politicianDetails/PoliticianBackground.vue';
+import PoliticianManifesto from '@/components/politicianDetails/PoliticianManifesto.vue';
+import PoliticianAccomplishments from '@/components/politicianDetails/PoliticianAccomplishments.vue';
+
 export default {
   name: 'leaders-details',
   data() {
     return {
       show: false,
+      visibleTab: 'background',
+      detailComponents: {
+        background: PoliticianBackground,
+        manifesto: PoliticianManifesto,
+        accomplishments: PoliticianAccomplishments,
+      },
       tabs: [{
         label: 'Background',
         value: 'background',
@@ -149,6 +103,9 @@ export default {
   methods: {
     getYear(value) {
       return new Date(value).getFullYear();
+    },
+    setDetailComponent(value) {
+      this.visibleTab = value;
     },
   },
   mounted() {
