@@ -9,8 +9,8 @@
           <div class="avatar"></div>
         </div>
         <div class="w-3/4 flex">
-          <div class="border border-gray-db py-1 px-3 font-xs font-circular capitalize mr-3 admin-active flex items-center justify-between" :class="{'active': !admin.isDeleted}">{{admin.isDeleted ? 'inactive' : 'active'}}</div>
-          <div class="border border-gray-db py-1 px-3 font-xs font-circular capitalize admin-role">{{roles[admin.role]}}</div>
+          <div class="border border-gray-db py-1 px-3 text-xs font-circular capitalize mr-3 admin-active flex items-center justify-between" :class="{'active': !admin.isDeleted}">{{admin.isDeleted ? 'inactive' : 'active'}}</div>
+          <div class="border border-gray-db py-1 px-3 text-xs font-circular capitalize admin-role">{{roles[admin.role]}}</div>
         </div>
       </div>
       <div class="flex pt-6">

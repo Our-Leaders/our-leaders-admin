@@ -4,7 +4,7 @@
       <header ref="imageHere">
         <div class="politician-image h-32 w-40 bg-gray-96" :style="{ 'background-image': 'url('+ politicianImage +')'  }"></div>
       </header>
-      <header class="w-full h-auto bg-white" ref="stickyHeader" style="padding-top: 2.5rem;">
+      <header class="w-full h-auto bg-white z-50" ref="stickyHeader" style="padding-top: 2.5rem;">
         <!-- <header class="w-full h-auto sticky bg-white" style="top: 6rem; padding-top: 2.5rem;"> -->
         <div class="mb-12" v-if="!show">
           <p class="text-5xl leading-tight">{{politician.name}}</p>

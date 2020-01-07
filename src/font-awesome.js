@@ -5,16 +5,20 @@ import {
   faItalic,
   faUnderline,
   faParagraph,
+  faArrowRight,
   faHeading,
   faListOl,
   faListUl,
+  faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faBold,
+  faTrash,
   faItalic,
   faUnderline,
   faParagraph,
+  faArrowRight,
   faHeading,
   faListOl,
   faListUl);
