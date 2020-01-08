@@ -1,5 +1,5 @@
 <template>
-  <our-modal  @close-modal="closeModal()" :open="true" size="large">
+  <our-modal @close-modal="closeModal()" :open="true" size="large">
     <template v-slot:header>
       <p class="text-4xl">New Party</p>
     </template>

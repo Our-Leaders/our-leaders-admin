@@ -80,8 +80,8 @@ export default {
     },
   },
   methods: {
-    doSomething({ getHTML }) {
-      this.$emit('change', getHTML());
+    onUpdate({ getHTML }) {
+      this.$emit('input', getHTML());
     },
   },
   data() {
@@ -99,12 +99,16 @@ export default {
           new Italic(),
           new Underline(),
         ],
-        onUpdate: this.doSomething,
+        onUpdate: this.onUpdate,
       }),
     };
   },
   mounted() {
     this.editor.setContent(this.value);
+    const unwatch = this.$watch('value', (content) => {
+      this.editor.setContent(content);
+      unwatch();
+    });
   },
   beforeDestroy() {
     this.editor.destroy();
