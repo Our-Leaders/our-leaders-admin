@@ -9,8 +9,8 @@
           <div class="avatar"></div>
         </div>
         <div class="w-3/4 flex">
-          <div class="border border-gray-db py-1 px-3 font-xs font-circular capitalize mr-3 admin-active flex items-center justify-between" :class="{'active': !admin.isDeleted}">{{admin.isDeleted ? 'inactive' : 'active'}}</div>
-          <div class="border border-gray-db py-1 px-3 font-xs font-circular capitalize admin-role">{{roles[admin.role]}}</div>
+          <div class="border border-gray-db py-1 px-3 text-xs font-circular capitalize mr-3 admin-active flex items-center justify-between" :class="{'active': !admin.isDeleted}">{{admin.isDeleted ? 'inactive' : 'active'}}</div>
+          <div class="border border-gray-db py-1 px-3 text-xs font-circular capitalize admin-role">{{roles[admin.role]}}</div>
         </div>
       </div>
       <div class="flex pt-6">
@@ -37,12 +37,14 @@
       <div class="pt-6">
         <div class="text-sm font-circular font-bold">Privileges</div>
         <div class="h-64 overflow-y-scroll">
-          <label :for="permissionKey" v-for="(permissionObject, permissionKey) of admin.permissions" :key="permissionKey" class="border-b border-gray-300 relative block permission">
+          <div v-for="(permissionObject, permissionKey) of admin.permissions" :key="permissionKey" class="border-b border-gray-300 relative block permission">
             <input type="checkbox" :name="permissionKey" :id="permissionKey" class="invisible absolute">
-            <header class="py-2 px-1 flex justify-between items-center cursor-pointer capitalize">
+            <label :for="permissionKey">
+              <header class="py-2 px-1 flex justify-between items-center cursor-pointer capitalize">
               <span>{{permissionKey | camelCaseSeperator}}</span>
               <img src="./../assets/img/dropdown-indicator.svg" alt="dropdown indicator">
             </header>
+            </label>
             <div class="permission-items">
               <div
                 @click.prevent="togglePermission(`${permissionKey}.${action}`)"
@@ -53,7 +55,7 @@
                 {{action}}
               </div>
             </div>
-          </label>
+          </div>
         </div>
       </div>
       <div class="flex pt-16 actions">
@@ -129,7 +131,7 @@ export default {
     display: none;
   }
 
-  .permission input[type="checkbox"]:checked ~ header img {
+  .permission input[type="checkbox"]:checked ~ label header img {
     transform: rotate(0deg);
   }
 

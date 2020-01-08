@@ -9,4 +9,7 @@ export const politicianGetters = {
     return (status = 'current') => state.politicians.filter(politician => politician.status === status);
   },
   politicianCount: state => state.politicians.length,
+  getPolitician(state) {
+    return id => state.politicians.find(politician => politician.id === id);
+  },
 };

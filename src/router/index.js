@@ -27,6 +27,11 @@ const routes = [
         component: Pages.Leaders,
       },
       {
+        name: 'leaders-details',
+        path: 'leaders/:id',
+        component: Pages.LeaderDetails,
+      },
+      {
         name: 'parties',
         path: 'parties',
         component: Pages.Parties,

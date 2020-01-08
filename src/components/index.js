@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 import Tab from './Tabs.vue';
 import Alert from './Alert.vue';
+import TextEditor from './TextEditor.vue';
 import Navigation from './Navigation.vue';
 import AdminDetails from './AdminDetails.vue';
 import CountryList from './CountrySelector.vue';
@@ -16,6 +17,7 @@ import PoliticalParty from './Politicalparty.vue';
 
 Vue.component('our-tabs', Tab);
 Vue.component('our-alert', Alert);
+Vue.component('our-text-editor', TextEditor);
 Vue.component('our-admin-details', AdminDetails);
 Vue.component('our-country-selector', CountryList);
 Vue.component('our-side-navbar', SideNavigation);

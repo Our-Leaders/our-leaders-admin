@@ -15,6 +15,7 @@ import dropdownIndicator from './assets/img/dropdown-indicator.svg';
 
 import '@/filters';
 import '@/vee-validate';
+import '@/font-awesome';
 
 /** import and configure vselect */
 Vue.component('v-select', vSelect);
