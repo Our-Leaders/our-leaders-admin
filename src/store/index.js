@@ -17,6 +17,7 @@ export default new Vuex.Store({
     jwtToken: '',
     politicians: [],
     activeModal: null,
+    activeModalProps: {},
     politicalParties: [],
     statistics: {},
     admins: [],

@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     openModal(modalName) {
-      this.$store.commit('openModal', modalName);
+      this.$store.commit('openModal', { modalName });
     },
   },
 };
