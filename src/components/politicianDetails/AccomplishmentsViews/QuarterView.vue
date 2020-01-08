@@ -33,6 +33,7 @@
       </label>
       <div class="mb-4 pr-12 quarter-view-accomplishment-detail">
         <!-- image here -->
+        <div class="w-full h-48 mb-4 bg-gray-db bg-cover bg-center" v-if="accomplishment.image && accomplishment.image.url" :style="{ 'background-image': 'url('+ accomplishment.image.url +')'  }"></div>
         <p class="">{{accomplishment.description}}</p>
       </div>
     </div>

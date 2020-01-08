@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture', 'random 1', 'random 2', 'random 3', 'technology', 'religion', 'agriculture', 'random 1', 'random 2', 'random 3'],
+      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'], // we'll eventually populate this with tags from the db
       quarterTags: {
         q1: 'january - march',
         q2: 'april - june',
