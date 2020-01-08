@@ -1,11 +1,12 @@
 <template>
-  <component :is="modals[activeModal]" @close-modal="closeModal"></component>
+  <component :is="modals[activeModal]" v-bind="activeModalProps" @close-modal="closeModal"></component>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 
 import NewPoliticianModal from './NewPoliticianModal.vue';
+import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
 import NewPoliticalPartyModal from './NewPoliticalPartyModal.vue';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     return {
       modals: {
         NewPoliticianModal,
+        EditPoliticianManifestoModal,
         NewPoliticalPartyModal,
       },
     };
@@ -26,6 +28,7 @@ export default {
   computed: {
     ...mapState({
       activeModal: 'activeModal',
+      activeModalProps: 'activeModalProps',
     }),
   },
 };
