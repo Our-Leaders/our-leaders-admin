@@ -2,7 +2,8 @@
   <our-modal @close-modal="closeModal()" :open="true" size="large">
   <!-- <our-modal @close-modal="closeModal()" :open="showNewPoliticianModal" size="large"> -->
     <template v-slot:header>
-      <p class="text-4xl">New leader</p>
+      <p class="text-4xl" v-if="isNew">New leader</p>
+      <p class="text-4xl" v-else>Edit leader profile</p>
     </template>
     <template v-slot:content>
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
@@ -183,6 +184,12 @@ import nigerianStates from '@/assets/json/nigerianStates.json';
 
 export default {
   name: 'NewLeaderModal',
+  props: {
+    politicianId: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       politicalPartyServices: this.$serviceFactory.politicalParty,
@@ -217,7 +224,7 @@ export default {
       // const payload = { ...this.politicianData };
       let payload;
 
-      if (this.uploadedImageSrc) {
+      if (this.uploadedImageSrc && this.profileImageFile) {
         payload = new FormData();
 
         Object.keys(this.politicianData).forEach((key) => {
@@ -247,7 +254,11 @@ export default {
 
       try {
         // create the politician
-        await this.politicianServices.createNewPolitician(payload);
+        if (this.isNew) {
+          await this.politicianServices.createNewPolitician(payload);
+        } else {
+          await this.politicianServices.editPolitician(this.politicianId, payload);
+        }
 
         // update the list of politicians
         const { data } = await this.politicianServices.getPoliticians();
@@ -293,6 +304,37 @@ export default {
 
     const { politicalParties } = this.$store.state;
     this.politicalParties = politicalParties;
+
+    if (this.politicianId) {
+      const {
+        socials = { ...this.politicianData.socials },
+        name = '',
+        dob = '',
+        religion = '',
+        stateOfOrigin = '',
+        politicalParty = {},
+        status = '',
+        profileImage = {},
+      } = this.$store.getters.getPolitician(this.politicianId);
+
+      this.politicianData = {
+        socials,
+        name,
+        dob,
+        religion,
+        stateOfOrigin,
+        // eslint-disable-next-line no-underscore-dangle
+        politicalParty: politicalParty._id || '',
+        status,
+      };
+
+      this.uploadedImageSrc = profileImage.url;
+    }
+  },
+  computed: {
+    isNew() {
+      return !this.politicianId;
+    },
   },
 };
 </script>

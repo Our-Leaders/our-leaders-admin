@@ -43,7 +43,6 @@ const routes = [
       },
     ],
     beforeEnter: (to, from, next) => {
-      console.log(store.state.jwtToken, '1');
       if (store.getters.isLoggedIn) {
         next();
       } else {
