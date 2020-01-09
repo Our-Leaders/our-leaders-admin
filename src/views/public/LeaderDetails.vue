@@ -1,6 +1,7 @@
 <template>
   <div class="lg:flex">
-    <div class="xl:w-2/3">
+    <div class="xl:w-2/3 relative">
+      <button class="border-black border py-1 px-3 flex justify-between items-center font-circular absolute top-0 right-0" @click="editProfile">Edit Profile</button>
       <header ref="imageHere">
         <div class="politician-image h-32 w-40 bg-gray-96" :style="{ 'background-image': 'url('+ politicianImage +')'  }"></div>
       </header>
@@ -34,15 +35,16 @@
         </div>
         <div class="mb-12 flex items-center justify-between" v-else>
           <p class="text-2xl">{{politician.name}}</p>
-          <div class="flex likes font-circular text-2xl lg:text-xs text-gray-96">
-            <span class="flex mr-3 items-baseline cursor-pointer">
+          <div class="flex items-center">
+            <span class="flex mr-3 items-baseline cursor-pointer font-circular text-2xl lg:text-xs text-gray-96">
               <img class="mr-2 w-6 lg:w-4 relative" src="@/assets/img/upvote.svg" alt="upvote">
               {{politician.vote.up | numberFormat}}
             </span>
-            <span class="flex items-baseline cursor-pointer">
+            <span class="flex items-baseline cursor-pointer font-circular text-2xl lg:text-xs text-gray-96">
               <img class="mr-2 w-6 lg:w-4 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
               {{politician.vote.down | numberFormat}}
             </span>
+            <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4" @click="editProfile">Edit Profile</button>
           </div>
         </div>
         <div class="pb-4">
@@ -107,6 +109,9 @@ export default {
     setDetailComponent(value) {
       this.visibleTab = value;
     },
+    editProfile() {
+      this.$store.commit('openModal', { modalName: 'NewPoliticianModal', modalProps: { politicianId: this.politician.id } });
+    },
   },
   mounted() {
     stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
@@ -118,7 +123,7 @@ export default {
       } else {
         this.show = true;
       }
-    }, { threshold: 0.8 });
+    }, { threshold: 0.9 });
 
     observer.observe(this.$refs.imageHere);
   },
