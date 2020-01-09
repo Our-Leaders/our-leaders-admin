@@ -220,7 +220,6 @@ export default {
     },
     async submit() {
       this.creatingPoliticianLoading = true;
-      console.log(this.isNew);
 
       // const payload = { ...this.politicianData };
       let payload;
