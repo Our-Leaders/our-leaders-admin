@@ -37,6 +37,11 @@ const routes = [
         component: Pages.Parties,
       },
       {
+        name: 'party-details',
+        path: 'parties/:id',
+        component: Pages.PartyDetails,
+      },
+      {
         name: 'admins',
         path: 'admins',
         component: Pages.Admin,

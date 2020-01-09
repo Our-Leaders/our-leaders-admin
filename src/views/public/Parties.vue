@@ -11,7 +11,7 @@
       </header>
       <div class="w-full  mt-10">
         <div class="party-grid flex flex-wrap">
-          <our-party  v-for="(party, index) of parties" :key="index" :party="party"></our-party>
+          <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties" :key="index" :party="party"></our-party>
         </div>
       </div>
     </div>
@@ -38,6 +38,9 @@ export default {
       const { data } = await this.politicalPartyServices.getPoliticalParties();
       const { politicalParties } = data;
       this.$store.commit('storePoliticalParties', politicalParties);
+    },
+    goToPoliticalParty(id) {
+      this.$router.push({ name: 'party-details', params: { id } });
     },
   },
   computed: {
