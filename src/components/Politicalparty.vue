@@ -1,5 +1,5 @@
 <template>
-  <div class="party-profile">
+  <div class="party-profile cursor-pointer">
     <div v-bind:style="{ 'background-image': 'url('+ partyLogo +')'  }" class="w-full h-48 bg-cover bg-no-repeat mb-3 bg-center"></div>
     <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold leading-tight">{{party.name}} ({{party.acronym}})</p>
   </div>
