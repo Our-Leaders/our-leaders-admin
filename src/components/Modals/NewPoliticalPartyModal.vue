@@ -1,7 +1,8 @@
 <template>
   <our-modal @close-modal="closeModal()" :open="true" size="large">
     <template v-slot:header>
-      <p class="text-4xl">New Party</p>
+      <p class="text-4xl" v-if="isNew">New Party</p>
+      <p class="text-4xl" v-else>Edit Party</p>
     </template>
     <template v-slot:content>
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
@@ -28,7 +29,7 @@
                     id="politial-party-facebook-link"
                     name="politial-party-facebook-link"
                     placeholder="Facebook Link"
-                    v-model="partyData.socials.facebook"/>
+                    v-model="partyData.facebook"/>
                 </div>
                 <div class="w-1/2 ml-3 relative">
                   <div class="form-icon absolute pl-1 h-full">
@@ -40,7 +41,7 @@
                     id="politial-party-twitter-link"
                     name="politial-party-twitter-link"
                     placeholder="Twitter Link"
-                    v-model="partyData.socials.twitter"/>
+                    v-model="partyData.twitter"/>
                 </div>
               </div>
               <div class="flex">
@@ -54,7 +55,7 @@
                     id="politial-party-instagram-link"
                     name="politial-party-instagram-link"
                     placeholder="Instagram Link"
-                    v-model="partyData.socials.instagram"/>
+                    v-model="partyData.instagram"/>
                 </div>
                 <div class="w-1/2"></div>
               </div>
@@ -109,7 +110,7 @@
                   v-model="partyData.acronym" />
               </div>
             </div>
-            <div class="flex mb-3">
+            <div class="flex mb-6">
               <div class="w-1/3 self-end">
                 Year Established
               </div>
@@ -124,6 +125,17 @@
                     placeholder="Year Established"
                     v-model="partyData.yearEstablished" />
                 </ValidationProvider>
+              </div>
+            </div>
+            <div class="flex mb-">
+              <div class="w-1/3">
+                Party Background
+              </div>
+              <div class="w-2/3">
+                <textarea
+                  v-model="partyData.partyBackground"
+                  class="w-full pl-1 py-2 field border-b border-gray-400"
+                  rows="7"></textarea>
               </div>
             </div>
           </div>
@@ -143,19 +155,24 @@
 <script>
 export default {
   name: 'NewPartyModal',
+  props: {
+    politicalPartyId: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       politicalPartyServices: this.$serviceFactory.politicalParty,
       partyData: {
-        socials: {
-          instagram: '',
-          facebook: '',
-          twitter: '',
-        },
+        instagram: '',
+        facebook: '',
+        twitter: '',
         name: '',
         yearEstablished: '',
         partyLeader: '',
         acronym: '',
+        partyBackground: '',
       },
       creatingPartyLoading: false,
       uploadedLogoSrc: '',
@@ -171,7 +188,7 @@ export default {
 
       let payload;
 
-      if (this.uploadedLogoSrc) {
+      if (this.uploadedLogoSrc && this.logoFile) {
         payload = new FormData();
 
         Object.keys(this.partyData).forEach((key) => {
@@ -200,8 +217,12 @@ export default {
       }
 
       try {
+        if (this.isNew) {
         // create the political party
-        await this.politicalPartyServices.createNewPoliticalParty(payload);
+          await this.politicalPartyServices.createNewPoliticalParty(payload);
+        } else {
+          await this.politicalPartyServices.editPoliticalParty(this.politicalPartyId, payload);
+        }
 
         // update the list of political parties
         const { data } = await this.politicalPartyServices.getPoliticalParties();
@@ -235,6 +256,36 @@ export default {
     yearEstablishedValidationString() {
       return `required|min_value:1900|max_value:${this.maxYear}`;
     },
+    isNew() {
+      return !this.politicalPartyId;
+    },
+  },
+  async mounted() {
+    if (this.politicalPartyId) {
+      const {
+        socials = { ...this.partyData.socials },
+        name = '',
+        partyDescription = {},
+        acronym = '',
+        partyBackground = '',
+        logo = '',
+      } = this.$store.getters.getPoliticalParty(this.politicalPartyId);
+
+      this.partyData = {
+        socials,
+        name,
+        yearEstablished: partyDescription.founded,
+        partyLeader: partyDescription.partyChairman,
+        acronym,
+        partyBackground,
+      };
+
+      this.partyData.facebook = socials.facebook;
+      this.partyData.twitter = socials.twitter;
+      this.partyData.instagram = socials.instagram;
+
+      this.uploadedLogoSrc = logo;
+    }
   },
 };
 </script>
