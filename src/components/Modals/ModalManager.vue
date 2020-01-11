@@ -8,6 +8,7 @@ import { mapState } from 'vuex';
 import NewPoliticianModal from './NewPoliticianModal.vue';
 import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
 import NewPoliticalPartyModal from './NewPoliticalPartyModal.vue';
+import EditPoliticalPartyIdeologyModal from './EditPoliticalPartyIdeologyModal.vue';
 
 export default {
   name: 'ModalManager',
@@ -17,6 +18,7 @@ export default {
         NewPoliticianModal,
         EditPoliticianManifestoModal,
         NewPoliticalPartyModal,
+        EditPoliticalPartyIdeologyModal,
       },
     };
   },

@@ -196,24 +196,8 @@ export default {
         });
 
         payload.set('file', this.logoFile);
-
-        if (payload.get('acronym') === '') {
-          payload.delete('acronym');
-        }
-
-        if (payload.get('politicalParty') === '') {
-          payload.delete('politicalParty');
-        }
       } else {
         payload = { ...this.partyData };
-
-        if (payload.status === '') {
-          delete payload.status;
-        }
-
-        if (payload.politicalParty === '') {
-          delete payload.politicalParty;
-        }
       }
 
       try {
