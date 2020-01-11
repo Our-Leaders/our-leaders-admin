@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  name: 'PartyIdeology',
   props: {
     party: {
       type: Object,
@@ -20,7 +21,7 @@ export default {
   },
   methods: {
     editIdeology() {
-      // this.$store.commit('openModal', { modalName: 'EditPoliticianManifestoModal', modalProps: { politicianId: this.politician.id } });
+      this.$store.commit('openModal', { modalName: 'EditPoliticalPartyIdeologyModal', modalProps: { politicalPartyId: this.party.id } });
     },
   },
 };

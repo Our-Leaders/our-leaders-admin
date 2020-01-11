@@ -31,7 +31,7 @@
                     id="politician-facebook-link"
                     name="politician-facebook-link"
                     placeholder="Facebook Link"
-                    v-model="politicianData.socials.facebook"/>
+                    v-model="politicianData.facebook"/>
                 </div>
                 <div class="w-1/2 ml-3 relative">
                   <div class="form-icon absolute pl-1 h-full">
@@ -43,7 +43,7 @@
                     id="politician-twitter-link"
                     name="politician-twitter-link"
                     placeholder="Twitter Link"
-                    v-model="politicianData.socials.twitter"/>
+                    v-model="politicianData.twitter"/>
                 </div>
               </div>
               <div class="flex">
@@ -57,7 +57,7 @@
                     id="politician-instagram-link"
                     name="politician-instagram-link"
                     placeholder="Instagram Link"
-                    v-model="politicianData.socials.instagram"/>
+                    v-model="politicianData.instagram"/>
                 </div>
                 <div class="w-1/2"></div>
               </div>
@@ -196,11 +196,9 @@ export default {
       politicianServices: this.$serviceFactory.politicians,
       nigerianStates,
       politicianData: {
-        socials: {
-          instagram: '',
-          facebook: '',
-          twitter: '',
-        },
+        instagram: '',
+        facebook: '',
+        twitter: '',
         name: '',
         dob: '',
         religion: '',
@@ -318,7 +316,6 @@ export default {
       } = this.$store.getters.getPolitician(this.politicianId);
 
       this.politicianData = {
-        socials,
         name,
         dob,
         religion,
@@ -327,6 +324,10 @@ export default {
         politicalParty: politicalParty._id || '',
         status,
       };
+
+      this.politicianData.facebook = socials.facebook;
+      this.politicianData.twitter = socials.twitter;
+      this.politicianData.instagram = socials.instagram;
 
       this.uploadedImageSrc = profileImage.url;
     }

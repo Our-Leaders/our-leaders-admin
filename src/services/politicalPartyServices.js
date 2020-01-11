@@ -15,4 +15,7 @@ export default {
   createNewPoliticalParty(payload) {
     return instance.post(resource, payload);
   },
+  editPoliticalParty(politicalPartyId, payload) {
+    return instance.put(`${resource}/${politicalPartyId}`, payload);
+  },
 };

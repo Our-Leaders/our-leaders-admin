@@ -1,7 +1,7 @@
 <template>
   <div class="lg:flex">
     <div class="xl:w-2/3 relative">
-      <button class="border-black border py-1 px-3 flex justify-between items-center font-circular absolute top-0 right-0" @click="editProfile">Edit Profile</button>
+      <button class="border-black border py-1 px-3 flex justify-between items-center font-circular absolute top-0 right-0" @click="editProfile">Edit Party</button>
       <header ref="imageHere">
         <div class="politician-image h-32 w-40 bg-gray-96" :style="{ 'background-image': 'url('+ partyLogo +')'  }"></div>
       </header>
@@ -9,7 +9,7 @@
         <div class="mb-12" v-if="!show">
           <p class="text-5xl leading-tight">{{party.name}} ({{party.acronym}})</p>
           <div class="inline-flex mb-3 items-center">
-            <p class="font-circular text-xs">Share profile</p>
+            <p class="font-circular text-xs">Share party</p>
             <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/facebook.svg" alt="facebook link"></a>
             <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/twitter.svg" alt="twitter link"></a>
             <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/instagram.svg" alt="instagram link"></a>
@@ -21,7 +21,7 @@
         <div class="mb-12 flex items-center justify-between" v-else>
           <p class="text-2xl">{{party.name}} ({{party.acronym}})</p>
           <div class="flex items-center">
-            <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4" @click="editProfile">Edit Profile</button>
+            <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4" @click="editProfile">Edit Party</button>
           </div>
         </div>
         <div class="pb-4">
@@ -76,7 +76,7 @@ export default {
       this.visibleTab = value;
     },
     editProfile() {
-      // this.$store.commit('openModal', { modalName: 'NewPoliticianModal', modalProps: { politicianId: this.politician.id } });
+      this.$store.commit('openModal', { modalName: 'NewPoliticalPartyModal', modalProps: { politicalPartyId: this.party.id } });
     },
   },
   mounted() {
