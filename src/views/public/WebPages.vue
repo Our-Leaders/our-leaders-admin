@@ -38,6 +38,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'WebPages',
   created() {
@@ -69,6 +71,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     setSelectedTab(value) {
       this.selectedTab = value;
     },
@@ -77,7 +83,7 @@ export default {
         const response = await this.pagesServices.getPages();
         this.page = response.data.page;
       } catch (error) {
-        console.log(error);
+        this.displayError(error);
       }
     },
     enableEdit() {
@@ -88,8 +94,9 @@ export default {
       try {
         await this.pagesServices.updatePages(this.page);
         this.isAboutUsInEdit = false;
+        this.displaySuccess('About us page updated successfully.');
       } catch (error) {
-        console.log(error);
+        this.displayError(error);
       }
 
       this.isUpdatingPages = false;
