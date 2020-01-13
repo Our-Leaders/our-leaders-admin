@@ -34,7 +34,7 @@
     <div class="nav-links pt-6">
       <!-- <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">About us</a>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Contact</a> -->
-      <p class="text-gray-96 font-circular text-sm leading-snug">Olubrain Leadership Foundation, 2019</p>
+      <p class="text-gray-96 font-circular text-sm leading-snug">Olubrain Leadership Foundation, 2020</p>
     </div>
   </div>
 </template>
