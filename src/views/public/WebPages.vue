@@ -10,13 +10,17 @@
         <our-tabs :tabs="tabs" @change="setSelectedTab"/>
 
         <div v-if="selectedTab === 'about-us'">
-          <div class="btn-container">
-            <button class="btn">Edit About Us</button>
+          <div class="btn-container edit-btn-row" v-if="!isAboutUsInEdit">
+            <button class="btn" @click="enableEdit">Edit About Us</button>
           </div>
 
           <div class="tab-header">About Us</div>
 
-          <div class="core-content" v-html="page.aboutUs"></div>
+          <our-text-editor :editable="isAboutUsInEdit" :value.sync="page.aboutUs"/>
+
+          <div class="btn-container" v-if="isAboutUsInEdit">
+            <button class="btn update-btn" @click="enableEdit">Update</button>
+          </div>
         </div>
         <div v-if="selectedTab === 'careers'">
           Careers
@@ -31,8 +35,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
   name: 'WebPages',
   created() {
@@ -41,6 +43,7 @@ export default {
   data() {
     return {
       selectedTab: 'about-us',
+      isAboutUsInEdit: false,
       tabs: [
         {
           label: 'About Us',
@@ -56,15 +59,12 @@ export default {
         },
       ],
       page: {
-        aboutUs: null,
+        aboutUs: '',
       },
       pagesServices: this.$serviceFactory.pages,
     };
   },
   methods: {
-    ...mapActions([
-      'displayError',
-    ]),
     setSelectedTab(value) {
       this.selectedTab = value;
     },
@@ -73,8 +73,11 @@ export default {
         const response = await this.pagesServices.getPages();
         this.page = response.data.page;
       } catch (error) {
-        this.displayError(error);
+        console.log(error);
       }
+    },
+    enableEdit() {
+      this.isAboutUsInEdit = true;
     },
   },
 };
@@ -84,13 +87,33 @@ export default {
   .btn-container {
     width: 100%;
     display: flex;
-    flex-direction: row-reverse;
     margin-top: 20px;
+  }
 
-    .btn {
-      border: 2px solid #969696;
-      padding: 5px 10px;
-      font-family: 'Circular Std';
+  .edit-btn-row {
+    flex-direction: row-reverse;
+  }
+
+  .btn {
+    border: 2px solid #969696;
+    padding: 7px 13px;
+    font-family: 'Circular Std', sans-serif;
+
+    &:hover {
+      color: #969696;
+    }
+  }
+
+  .update-btn {
+    border: 2px #CE9833 solid;
+    color: white;
+    background-color: #CE9833;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:hover {
+      background-color: white;
+      color: #CE9833;
     }
   }
 
@@ -98,7 +121,7 @@ export default {
     margin-top: 20px;
     margin-bottom: 20px;
     font-weight: bold;
-    font-family: 'Circular Std';
+    font-family: 'Circular Std', sans-serif;
     font-size: 20px;
   }
 

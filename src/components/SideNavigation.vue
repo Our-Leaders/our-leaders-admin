@@ -9,13 +9,13 @@
           </button>
         </template>
         <template v-slot:items class="font-circular">
-          <our-dropdown-item>New accomplishment</our-dropdown-item>
-          <our-dropdown-item>New update</our-dropdown-item>
+          <our-dropdown-item>New Accomplishment</our-dropdown-item>
+          <our-dropdown-item>New Update</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>New job post</our-dropdown-item>
+          <our-dropdown-item>New Job Post</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>New admin</our-dropdown-item>
-          <our-dropdown-item @click.native="openModal('NewPoliticalPartyModal')">New party</our-dropdown-item>
+          <our-dropdown-item>New Admin</our-dropdown-item>
+          <our-dropdown-item @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
           <our-dropdown-item @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
           <our-dropdown-item>New User</our-dropdown-item>
         </template>

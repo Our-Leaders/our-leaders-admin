@@ -4,7 +4,7 @@
       <p class="text-4xl">Edit Manifesto</p>
     </template>
     <div slot="content" class="pt-8">
-      <our-text-editor v-model="manifesto.summary"></our-text-editor>
+      <our-text-editor v-model="manifesto.summary"/>
       <div class="flex mt-12 items-center">
         <div class="w-1/4">Manifesto link</div>
         <div class="w-3/4">
