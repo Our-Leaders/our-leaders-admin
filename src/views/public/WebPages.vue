@@ -11,9 +11,9 @@
 
         <div v-if="selectedTab === 'about-us'">
           <div class="btn-container">
-              <button class="btn"> Edit About Us</button>
+            <button class="btn"> Edit About Us</button>
           </div>
-          About Us
+          <div class="tab-header">About Us</div>
         </div>
         <div v-if="selectedTab === 'careers'">
           Careers
@@ -54,16 +54,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.btn-container {
-  width: 100%;
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 20px;
+  .btn-container {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 20px;
 
-  .btn {
-    border: 2px solid #969696;
-    padding: 5px 10px;
-    font-family: 'Circular Std';
+    .btn {
+      border: 2px solid #969696;
+      padding: 5px 10px;
+      font-family: 'Circular Std';
+    }
   }
-}
+
+  .tab-header {
+    margin-top: 20px;
+    font-weight: bold;
+    font-family: 'Circular Std';
+    font-size: 20px;
+  }
 </style>
