@@ -16,10 +16,13 @@
 
           <div class="tab-header">About Us</div>
 
-          <our-text-editor :editable="isAboutUsInEdit" :value.sync="page.aboutUs"/>
+          <our-text-editor :editable="isAboutUsInEdit" v-model="page.aboutUs"/>
 
           <div class="btn-container" v-if="isAboutUsInEdit">
-            <button class="btn update-btn" @click="enableEdit">Update</button>
+            <button class="btn update-btn" @click="updatePages" :disabled="isUpdatingPages">
+              <span v-if="!isUpdatingPages">Update</span>
+              <span v-else>Updating...</span>
+            </button>
           </div>
         </div>
         <div v-if="selectedTab === 'careers'">
@@ -62,6 +65,7 @@ export default {
         aboutUs: '',
       },
       pagesServices: this.$serviceFactory.pages,
+      isUpdatingPages: false,
     };
   },
   methods: {
@@ -78,6 +82,17 @@ export default {
     },
     enableEdit() {
       this.isAboutUsInEdit = true;
+    },
+    async updatePages() {
+      this.isUpdatingPages = true;
+      try {
+        await this.pagesServices.updatePages(this.page);
+        this.isAboutUsInEdit = false;
+      } catch (error) {
+        console.log(error);
+      }
+
+      this.isUpdatingPages = false;
     },
   },
 };

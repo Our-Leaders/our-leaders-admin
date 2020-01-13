@@ -10,4 +10,7 @@ export default {
   getPages() {
     return instance.get(resource);
   },
+  updatePages(page) {
+    return instance.put(resource, page);
+  },
 };
