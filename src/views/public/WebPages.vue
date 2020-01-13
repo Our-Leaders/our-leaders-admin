@@ -11,9 +11,12 @@
 
         <div v-if="selectedTab === 'about-us'">
           <div class="btn-container">
-            <button class="btn"> Edit About Us</button>
+            <button class="btn">Edit About Us</button>
           </div>
+
           <div class="tab-header">About Us</div>
+
+          <div class="core-content" v-html="page.aboutUs"></div>
         </div>
         <div v-if="selectedTab === 'careers'">
           Careers
@@ -28,26 +31,50 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'WebPages',
+  created() {
+    this.getPages();
+  },
   data() {
     return {
       selectedTab: 'about-us',
-      tabs: [{
-        label: 'About Us',
-        value: 'about-us',
-      }, {
-        label: 'Careers',
-        value: 'careers',
-      }, {
-        label: 'Contact',
-        value: 'contact',
-      }],
+      tabs: [
+        {
+          label: 'About Us',
+          value: 'about-us',
+        },
+        {
+          label: 'Careers',
+          value: 'careers',
+        },
+        {
+          label: 'Contact',
+          value: 'contact',
+        },
+      ],
+      page: {
+        aboutUs: null,
+      },
+      pagesServices: this.$serviceFactory.pages,
     };
   },
   methods: {
+    ...mapActions([
+      'displayError',
+    ]),
     setSelectedTab(value) {
       this.selectedTab = value;
+    },
+    async getPages() {
+      try {
+        const response = await this.pagesServices.getPages();
+        this.page = response.data.page;
+      } catch (error) {
+        this.displayError(error);
+      }
     },
   },
 };
@@ -69,8 +96,15 @@ export default {
 
   .tab-header {
     margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: bold;
     font-family: 'Circular Std';
     font-size: 20px;
+  }
+
+  .core-content {
+    line-height: 30px;
+    font-size: 16px;
+    text-align: justify;
   }
 </style>
