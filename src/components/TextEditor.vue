@@ -113,6 +113,11 @@ export default {
   beforeDestroy() {
     this.editor.destroy();
   },
+  watch: {
+    editable(val) {
+      this.editor.setOptions({ editable: val });
+    },
+  },
 };
 </script>
 

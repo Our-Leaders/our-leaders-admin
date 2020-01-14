@@ -11,7 +11,8 @@
         </div>
       </header>
       <div class="w-full mt-10">
-        <our-tabs :tabs="tabs" @change="setLeaderFilter"></our-tabs>
+        <our-tabs :tabs="tabs" @change="setLeaderFilter"/>
+
         <p class="font-circular text-gray-c4 text-sm pt-5 pb-5">
           {{filteredLeadersCount}} {{ leaderFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
         </p>

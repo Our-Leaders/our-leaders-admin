@@ -11,7 +11,8 @@
       </header>
       <div class="w-full  mt-10">
         <div class="party-grid flex flex-wrap">
-          <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties" :key="index" :party="party"></our-party>
+          <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties"
+                     :key="index" :party="party"/>
         </div>
       </div>
     </div>

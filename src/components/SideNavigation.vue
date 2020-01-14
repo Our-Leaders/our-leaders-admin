@@ -9,13 +9,13 @@
           </button>
         </template>
         <template v-slot:items class="font-circular">
-          <our-dropdown-item>New accomplishment</our-dropdown-item>
-          <our-dropdown-item>New update</our-dropdown-item>
+          <our-dropdown-item>New Accomplishment</our-dropdown-item>
+          <our-dropdown-item>New Update</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>New job post</our-dropdown-item>
+          <our-dropdown-item>New Job Post</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>New admin</our-dropdown-item>
-          <our-dropdown-item @click.native="openModal('NewPoliticalPartyModal')">New party</our-dropdown-item>
+          <our-dropdown-item>New Admin</our-dropdown-item>
+          <our-dropdown-item @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
           <our-dropdown-item @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
           <our-dropdown-item>New User</our-dropdown-item>
         </template>
@@ -24,7 +24,7 @@
     <div class="nav-links mt-10">
       <router-link :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Home</router-link>
       <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Leaders</router-link>
-      <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Web pages</a>
+      <router-link :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Web Pages</router-link>
       <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</router-link>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</a>
       <router-link :to="{ name: 'admins' }"  active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Admins</router-link>
@@ -34,7 +34,7 @@
     <div class="nav-links pt-6">
       <!-- <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">About us</a>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Contact</a> -->
-      <p class="text-gray-96 font-circular text-sm leading-snug">Olubrain Leadership Foundation, 2019</p>
+      <p class="text-gray-96 font-circular text-sm leading-snug">Olubrain Leadership Foundation, 2020</p>
     </div>
   </div>
 </template>

@@ -32,6 +32,11 @@ const routes = [
         component: Pages.LeaderDetails,
       },
       {
+        name: 'web-pages',
+        path: 'web-pages',
+        component: Pages.WebPages,
+      },
+      {
         name: 'parties',
         path: 'parties',
         component: Pages.Parties,
