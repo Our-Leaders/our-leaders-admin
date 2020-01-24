@@ -26,7 +26,9 @@
           </div>
         </div>
         <div v-if="selectedTab === 'careers'">
-          Careers
+          <div class="btn-container edit-btn-row">
+            <button class="btn">New Job Post</button>
+          </div>
         </div>
         <div v-if="selectedTab === 'contact'">
           Contact Us
