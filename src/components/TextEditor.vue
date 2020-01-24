@@ -81,14 +81,17 @@ export default {
   },
   methods: {
     onUpdate({ getHTML }) {
+      this.editorChange = true;
       this.$emit('input', getHTML());
     },
   },
   data() {
     return {
-      editor: new Editor({
+      editorChange: false,
+      editorOptions: {
         autoFocus: this.editable,
         editable: this.editable,
+        content: this.value,
         extensions: [
           new BulletList(),
           new HardBreak(),
@@ -100,22 +103,29 @@ export default {
           new Underline(),
         ],
         onUpdate: this.onUpdate,
-      }),
+      },
+      editor: null,
     };
   },
   mounted() {
+    this.editor = new Editor(this.editorOptions);
     this.editor.setContent(this.value);
-    const unwatch = this.$watch('value', (content) => {
-      this.editor.setContent(content);
-      unwatch();
-    });
   },
   beforeDestroy() {
     this.editor.destroy();
   },
   watch: {
     editable(val) {
-      this.editor.setOptions({ editable: val });
+      const options = { ...this.editorOptions, editable: val };
+      this.editor.setOptions(options);
+    },
+    value(val) {
+      // so cursor doesn't jump to start on typing
+      if (this.editor && !this.editorChange) {
+        this.editor.setContent(val, true);
+      }
+
+      this.editorChange = false;
     },
   },
 };
