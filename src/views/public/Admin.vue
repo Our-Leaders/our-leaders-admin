@@ -1,7 +1,7 @@
 <template>
   <div class="lg:flex">
     <div class="xl:w-2/3">
-     <header>
+      <header>
         <h5 class="text-4xl">
           Admins
         </h5>
@@ -20,29 +20,39 @@
           <p class="stat-data">{{inactiveAdminCount}}</p>
         </div>
       </div>
-      <our-tabs :tabs="tabs" @change="setAdminFilter"></our-tabs>
+
+      <our-tabs :tabs="tabs" @change="setAdminFilter"/>
+
       <div>
         <table class="w-full table-auto">
           <thead>
-            <tr>
-              <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Name</th>
-              <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Email</th>
-              <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Created</th>
-            </tr>
+          <tr>
+            <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Name
+            </th>
+            <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Email
+            </th>
+            <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">
+              Created
+            </th>
+          </tr>
           </thead>
           <tbody>
-            <tr v-for="admin of filteredAdmins(adminFilter)" :key="admin.id" class="cursor-pointer" @click="selectAdmin(admin.id)" :class="{active: admin.id === selectedAdminId}">
-              <td class="border-b border-gray-db py-3 capitalize">--</td>
-              <!-- <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName}} {{admin.lastName}}</td> -->
-              <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.email}}</td>
-              <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.joinedAt | dateTimeFormat}}</td>
-            </tr>
+          <tr v-for="admin of filteredAdmins(adminFilter)" :key="admin.id" class="cursor-pointer"
+              @click="selectAdmin(admin.id)" :class="{active: admin.id === selectedAdminId}">
+            <td class="border-b border-gray-db py-3 capitalize">--</td>
+            <!-- <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName}} {{admin.lastName}}</td> -->
+            <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.email}}</td>
+            <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.joinedAt |
+              dateTimeFormat}}
+            </td>
+          </tr>
           </tbody>
         </table>
       </div>
     </div>
+
     <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
-      <our-admin-details :admin="selectedAdmin"></our-admin-details>
+      <our-admin-details :admin="selectedAdmin"/>
     </div>
   </div>
 </template>
