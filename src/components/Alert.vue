@@ -1,7 +1,8 @@
 <template>
   <transition name="slidein">
     <div :class="customClass"
-        v-if="show"
+        class="z-50"
+        v-if="display"
         role="alert">
         <div :class="topClass"></div>
         <div class="flex">
@@ -32,11 +33,6 @@ export default {
       validator: val => ['error', 'info', 'success'].includes(val),
     },
     display: Boolean,
-  },
-  data() {
-    return {
-      show: false,
-    };
   },
   computed: {
     customClass() {
@@ -77,37 +73,18 @@ export default {
       return style;
     },
   },
-  methods: {
-    displayAlert() {
-      this.show = true;
-      setTimeout(() => {
-        this.show = false;
-        this.$emit('close');
-      }, 4000);
-    },
-  },
-  watch: {
-    display() {
-      if (this.display) {
-        this.displayAlert();
-      } else {
-        this.show = false;
-      }
-    },
-  },
 };
 </script>
 
 <style lang="scss">
 .our-alert {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 10px;
 }
 
 .alert-border {
   animation: 4s slideout ease-out 1 forwards;
-  animation-delay: 0.5s;
 }
 
 .slidein-enter-active {
