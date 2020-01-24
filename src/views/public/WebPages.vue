@@ -11,7 +11,7 @@
 
         <div v-if="selectedTab === 'about-us'">
           <div class="btn-container edit-btn-row" v-if="!isAboutUsInEdit">
-            <button class="btn" @click="enableEdit">Edit About Us</button>
+            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="enableEdit">Edit About Us</button>
           </div>
 
           <div class="tab-header">About Us</div>
@@ -42,8 +42,10 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'WebPages',
-  created() {
-    this.getPages();
+  async mounted() {
+    const page = await this.getPages();
+    this.page = Object.assign({}, page);
+    this.$store.commit('setPage', page);
   },
   data() {
     return {
@@ -63,8 +65,21 @@ export default {
           value: 'contact',
         },
       ],
+      pagesServices: this.$serviceFactory.pages,
+      isUpdatingPages: false,
       page: {
         aboutUs: '',
+        socials: {
+          facebook: '',
+          twitter: '',
+          instagram: '',
+          linkedin: '',
+        },
+        contact: {
+          address: '',
+          phoneNumber: '',
+          email: '',
+        },
       },
       pagesServices: this.$serviceFactory.pages,
       isUpdatingPages: false,
@@ -94,12 +109,21 @@ export default {
       try {
         await this.pagesServices.updatePages(this.page);
         this.isAboutUsInEdit = false;
-        this.displaySuccess('About us page updated successfully.');
+        this.displaySuccess({ message: 'About us page updated successfully.' });
+        this.$store.commit('setPage', this.page);
       } catch (error) {
         this.displayError(error);
       }
 
       this.isUpdatingPages = false;
+    },
+    cancelUpdate() {
+      this.page = Object.assign({}, this.$store.state.page);
+      this.page.aboutUs = this.$store.state.page.aboutUs;
+      this.isAboutUsInEdit = false;
+    },
+    onAboutUsInput(value) {
+      this.page.aboutUs = value;
     },
   },
 };
