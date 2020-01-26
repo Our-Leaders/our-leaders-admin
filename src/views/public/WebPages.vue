@@ -30,7 +30,7 @@
         </div>
         <div v-if="selectedTab === 'contact'">
           <div class="button-container my-4 flex justify-end">
-            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular">Edit Contact</button>
+            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="editContactDetails">Edit Contact</button>
           </div>
           <div>
             <p class="font-circular text-xl font-semibold w-full mb-5">Contact details</p>
@@ -62,7 +62,7 @@
               <span class="social-icon">
                 <img src="@/assets/img/social/linkedin.svg" alt="linkedin link">
               </span>
-              <span>{{page.socials.linkedin}}</span>
+              <span>{{page.socials.linkedIn}}</span>
             </div>
             <div class="flex items-center">
               <span class="social-icon">
@@ -79,16 +79,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-// import stickbits from 'stickybits';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'WebPages',
   async mounted() {
-    // stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
     const page = await this.getPages();
     this.page = Object.assign({}, page);
-    this.$store.commit('setPage', page);
+    this.$store.commit('setPage', Object.assign({}, page));
   },
   data() {
     return {
@@ -116,7 +114,7 @@ export default {
           facebook: '',
           twitter: '',
           instagram: '',
-          linkedin: '',
+          linkedIn: '',
         },
         contact: {
           address: '',
@@ -161,12 +159,21 @@ export default {
       this.isUpdatingPages = false;
     },
     cancelUpdate() {
-      this.page = Object.assign({}, this.$store.state.page);
-      this.page.aboutUs = this.$store.state.page.aboutUs;
+      this.page = Object.assign({}, this.$store.getters.getPage());
       this.isAboutUsInEdit = false;
     },
-    onAboutUsInput(value) {
-      this.page.aboutUs = value;
+    editContactDetails() {
+      this.$store.commit('openModal', { modalName: 'EditContactModal' });
+    },
+  },
+  computed: {
+    ...mapState({
+      storePage: 'page',
+    }),
+  },
+  watch: {
+    storePage() {
+      this.page = this.$store.getters.getPage();
     },
   },
 };
