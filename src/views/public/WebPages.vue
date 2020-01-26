@@ -1,14 +1,13 @@
 <template>
   <div class="lg:pr-2 xl:pr-0 xl:flex">
-    <div class="w-full xl:w-2/3">
-      <header class="flex justify-between">
+    <div class="w-full xl:w-2/3 relative">
+      <header ref="stickyHeader" class="bg-white z-50 pb-3 sticky" style="top: 100px">
         <h5 class="text-4xl">
           Web Pages
         </h5>
+        <our-tabs class="mt-10" :tabs="tabs" @change="setSelectedTab"/>
       </header>
-      <div class="w-full mt-10">
-        <our-tabs :tabs="tabs" @change="setSelectedTab"/>
-
+      <div class="w-full pb-24">
         <div v-if="selectedTab === 'about-us'">
           <div class="btn-container edit-btn-row" v-if="!isAboutUsInEdit">
             <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="enableEdit">Edit About Us</button>
@@ -19,17 +18,59 @@
           <our-text-editor :editable="isAboutUsInEdit" v-model="page.aboutUs"/>
 
           <div class="btn-container" v-if="isAboutUsInEdit">
-            <button class="btn update-btn" @click="updatePages" :disabled="isUpdatingPages">
+            <button class="bg-primary text-white font-circular py-3 px-12" @click="updatePages" :disabled="isUpdatingPages">
               <span v-if="!isUpdatingPages">Update</span>
               <span v-else>Updating...</span>
             </button>
+            <button class="font-circular border border-gray-db py-3 px-12 ml-4" @click="cancelUpdate" :disabled="isUpdatingPages">Cancel</button>
           </div>
         </div>
         <div v-if="selectedTab === 'careers'">
           Careers
         </div>
         <div v-if="selectedTab === 'contact'">
-          Contact Us
+          <div class="button-container my-4 flex justify-end">
+            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="editContactDetails">Edit Contact</button>
+          </div>
+          <div>
+            <p class="font-circular text-xl font-semibold w-full mb-5">Contact details</p>
+          </div>
+          <div class="mt-1 w-1/2">
+            <p class="font-circular font-semibold w-full">Address</p>
+            <p>
+              {{page.contact.address}}
+            </p>
+            <p class="font-circular font-semibold w-full mt-5">Phone</p>
+            <p>{{page.contact.phoneNumber}}</p>
+            <p class="font-circular font-semibold w-full mt-5">Email</p>
+            <p>{{page.contact.email}}</p>
+          </div>
+          <div class="mt-12">
+            <div class="flex items-center mb-3">
+              <span class="social-icon">
+                <img src="@/assets/img/social/facebook.svg" alt="facebook link">
+              </span>
+              <span>{{page.socials.facebook}}</span>
+            </div>
+            <div class="flex items-center mb-3">
+              <span class="social-icon">
+                <img src="@/assets/img/social/twitter.svg" alt="twitter link">
+              </span>
+              <span>{{page.socials.twitter}}</span>
+            </div>
+            <div class="flex items-center mb-3">
+              <span class="social-icon">
+                <img src="@/assets/img/social/linkedin.svg" alt="linkedin link">
+              </span>
+              <span>{{page.socials.linkedIn}}</span>
+            </div>
+            <div class="flex items-center">
+              <span class="social-icon">
+                <img src="@/assets/img/social/instagram.svg" alt="instagram link">
+              </span>
+              <span>{{page.socials.instagram}}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -38,14 +79,14 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'WebPages',
   async mounted() {
     const page = await this.getPages();
     this.page = Object.assign({}, page);
-    this.$store.commit('setPage', page);
+    this.$store.commit('setPage', Object.assign({}, page));
   },
   data() {
     return {
@@ -73,7 +114,7 @@ export default {
           facebook: '',
           twitter: '',
           instagram: '',
-          linkedin: '',
+          linkedIn: '',
         },
         contact: {
           address: '',
@@ -81,8 +122,6 @@ export default {
           email: '',
         },
       },
-      pagesServices: this.$serviceFactory.pages,
-      isUpdatingPages: false,
     };
   },
   methods: {
@@ -96,10 +135,12 @@ export default {
     async getPages() {
       try {
         const response = await this.pagesServices.getPages();
-        this.page = response.data.page;
+        return response.data.page;
       } catch (error) {
         this.displayError(error);
       }
+
+      return {};
     },
     enableEdit() {
       this.isAboutUsInEdit = true;
@@ -118,12 +159,21 @@ export default {
       this.isUpdatingPages = false;
     },
     cancelUpdate() {
-      this.page = Object.assign({}, this.$store.state.page);
-      this.page.aboutUs = this.$store.state.page.aboutUs;
+      this.page = Object.assign({}, this.$store.getters.getPage());
       this.isAboutUsInEdit = false;
     },
-    onAboutUsInput(value) {
-      this.page.aboutUs = value;
+    editContactDetails() {
+      this.$store.commit('openModal', { modalName: 'EditContactModal' });
+    },
+  },
+  computed: {
+    ...mapState({
+      storePage: 'page',
+    }),
+  },
+  watch: {
+    storePage() {
+      this.page = this.$store.getters.getPage();
     },
   },
 };
@@ -154,8 +204,8 @@ export default {
     border: 2px #CE9833 solid;
     color: white;
     background-color: #CE9833;
-    margin-left: auto;
-    margin-right: auto;
+    // margin-left: auto;
+    // margin-right: auto;
 
     &:hover {
       background-color: white;
@@ -175,5 +225,10 @@ export default {
     line-height: 30px;
     font-size: 16px;
     text-align: justify;
+  }
+
+  .social-icon {
+    width: 22px;
+    @apply mr-8 flex justify-center;
   }
 </style>

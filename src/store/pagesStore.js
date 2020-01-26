@@ -8,5 +8,5 @@ export const pagesMutations = {
 };
 
 export const pagesGetters = {
-
+  getPage: state => () => Object.assign({}, state.page),
 };

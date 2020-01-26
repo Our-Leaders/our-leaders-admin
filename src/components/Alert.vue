@@ -1,7 +1,7 @@
 <template>
   <transition name="slidein">
     <div :class="customClass"
-        class="z-50"
+        style="z-index: 55"
         v-if="display"
         role="alert">
         <div :class="topClass"></div>
