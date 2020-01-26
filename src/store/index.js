@@ -10,6 +10,7 @@ import { modalGetters, modalMutations } from './modalStore';
 import { politicalPartyGetters, politicalPartyMutations } from './politicalPartyStore';
 import { adminGetters, adminMutations } from './adminStore';
 import { notificationActions, notificationMutations } from './notificationStore';
+import { pagesGetters, pagesMutations } from './pagesStore';
 
 Vue.use(Vuex);
 
@@ -34,6 +35,20 @@ export default new Vuex.Store({
       display: false,
       type: 'info',
     },
+    page: {
+      aboutUs: '',
+      socials: {
+        facebook: '',
+        twitter: '',
+        instagram: '',
+        linkedin: '',
+      },
+      contact: {
+        address: '',
+        phoneNumber: '',
+        email: '',
+      },
+    },
   },
   getters: Object.assign(
     {},
@@ -44,6 +59,7 @@ export default new Vuex.Store({
     modalGetters,
     politicalPartyGetters,
     statisticGetters,
+    pagesGetters,
   ),
   mutations: Object.assign(
     {},
@@ -55,6 +71,7 @@ export default new Vuex.Store({
     politicalPartyMutations,
     statisticMutations,
     notificationMutations,
+    pagesMutations,
   ),
   actions: Object.assign({}, notificationActions),
   modules: {},
