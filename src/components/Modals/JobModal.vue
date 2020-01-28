@@ -141,10 +141,16 @@
 </template>
 
 <script>
+import find from 'lodash.find';
+
 export default {
   name: 'JobModal',
   props: {
     jobId: {
+      type: String,
+      default: '',
+    },
+    jobCategory: {
       type: String,
       default: '',
     },
@@ -246,32 +252,15 @@ export default {
     jobCategories() {
       return this.$store.getters.getCategories;
     },
+    jobs() {
+      return this.$store.getters.getCategoriesAndJobs;
+    },
   },
   async mounted() {
     if (this.jobId) {
-      /* const {
-        socials = { ...this.partyData.socials },
-        name = '',
-        partyDescription = {},
-        acronym = '',
-        partyBackground = '',
-        logo = '',
-      } = this.$store.getters.getPoliticalParty(this.jobId);
-
-      this.partyData = {
-        socials,
-        name,
-        yearEstablished: partyDescription.founded,
-        partyLeader: partyDescription.partyChairman,
-        acronym,
-        partyBackground,
-      };
-
-      this.partyData.facebook = socials.facebook;
-      this.partyData.twitter = socials.twitter;
-      this.partyData.instagram = socials.instagram;
-
-      this.jobImageSrc = logo; */
+      const jobs = this.jobs[this.jobCategory];
+      this.job = find(jobs, { _id: this.jobId });
+      this.jobImageSrc = this.job.image.url;
     }
   },
 };
