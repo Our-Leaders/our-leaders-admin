@@ -4,6 +4,7 @@ import pagesServices from './pagesServices';
 import politicianServices from './politicianServices';
 import politicalPartyServices from './politicalPartyServices';
 import statisticsServices from './statisticsServices';
+import jobServices from './jobServices';
 
 const services = {
   auth: authServices,
@@ -12,6 +13,7 @@ const services = {
   politicians: politicianServices,
   politicalParty: politicalPartyServices,
   statistics: statisticsServices,
+  jobs: jobServices,
 };
 
 export default services;

@@ -151,7 +151,7 @@ export default {
   },
   data() {
     return {
-      // politicalPartyServices: this.$serviceFactory.politicalParty,
+      jobServices: this.$serviceFactory.jobs,
       creatingEditJobLoading: false,
       jobImageSrc: '',
       jobImageFile: '',
@@ -190,40 +190,40 @@ export default {
     },
     async submit() {
       console.log(this.job);
-      /* this.creatingEditJobLoading = true;
+      this.creatingEditJobLoading = true;
 
       let payload;
 
       if (this.jobImageSrc && this.jobImageFile) {
         payload = new FormData();
 
-        Object.keys(this.partyData).forEach((key) => {
-          payload.set(key, this.partyData[key]);
+        Object.keys(this.job).forEach((key) => {
+          payload.set(key, this.job[key]);
         });
 
         payload.set('file', this.jobImageFile);
       } else {
-        payload = { ...this.partyData };
+        payload = { ...this.job };
       }
 
       try {
         if (this.isNew) {
         // create the political party
-          await this.politicalPartyServices.createNewPoliticalParty(payload);
+          await this.jobServices.createNewJob(payload);
         } else {
-          await this.politicalPartyServices.editPoliticalParty(this.jobId, payload);
+          await this.jobServices.editJob(this.jobId, payload);
         }
 
         // update the list of political parties
-        const { data } = await this.politicalPartyServices.getPoliticalParties();
-        const { politicalParties } = data;
-        this.$store.commit('storePoliticalParties', politicalParties);
+        const { data } = await this.jobServices.getJobs();
+        const { jobs } = data;
+        this.$store.dispatch('storeJobs', jobs);
         this.closeModal();
       } catch (err) {
         // do something with the error here
       } finally {
         this.creatingEditJobLoading = false;
-      } */
+      }
     },
     onFileUpload($event) {
       if ($event.target.files.length > 0) {

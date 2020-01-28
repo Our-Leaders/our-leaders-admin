@@ -21,13 +21,14 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import jobs from '../assets/jobList';
 import jobDefaultImage from '../assets/img/job-default-image.svg';
 
 export default {
   name: 'CareerComponent',
   data() {
-    return {};
+    return {
+      jobServices: this.$serviceFactory.jobs,
+    };
   },
   methods: {
     getJobImageUrl(job) {
@@ -41,7 +42,9 @@ export default {
       this.$store.commit('openModal', { modalName: 'JobModal', modalProps: { jobId } });
     },
   },
-  mounted() {
+  async mounted() {
+    const { data } = await this.jobServices.getJobs();
+    const { jobs } = data;
     this.$store.dispatch('storeJobs', jobs);
   },
   computed: {

@@ -18,23 +18,23 @@ export const jobGetters = {
 
 export const jobActions = {
   storeJobs({ commit }, data) {
-    const jobsByCategory = {};
+    // const jobsByCategory = {};
 
-    data.forEach((job) => {
-      let { category = '' } = job;
+    // data.forEach((job) => {
+    //   let { category = '' } = job;
 
-      if (!category) {
-        category = 'Others';
-      }
+    //   if (!category) {
+    //     category = 'Others';
+    //   }
 
-      if (!jobsByCategory[category]) {
-        jobsByCategory[category] = [];
-      }
+    //   if (!jobsByCategory[category]) {
+    //     jobsByCategory[category] = [];
+    //   }
 
-      jobsByCategory[category].push(job);
-    });
+    //   jobsByCategory[category].push(job);
+    // });
 
-    commit('setJobs', jobsByCategory);
+    commit('setJobs', data);
   },
   newJobCategory({ commit }, categoryName) {
     commit('newJobCategory', categoryName);
