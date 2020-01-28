@@ -9,7 +9,7 @@
       </header>
       <div class="w-full pb-24">
         <div v-if="selectedTab === 'about-us'">
-          <div class="btn-container edit-btn-row" v-if="!isAboutUsInEdit">
+          <div class="btn-container edit-btn-row mt-4" v-if="!isAboutUsInEdit">
             <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="enableEdit">Edit About Us</button>
           </div>
 
@@ -26,7 +26,7 @@
           </div>
         </div>
         <div v-if="selectedTab === 'careers'">
-          Careers
+          <our-career />
         </div>
         <div v-if="selectedTab === 'contact'">
           <div class="button-container my-4 flex justify-end">
@@ -183,7 +183,7 @@ export default {
   .btn-container {
     width: 100%;
     display: flex;
-    margin-top: 20px;
+    // margin-top: 20px;
   }
 
   .edit-btn-row {
