@@ -11,6 +11,7 @@ import { politicalPartyGetters, politicalPartyMutations } from './politicalParty
 import { adminGetters, adminMutations } from './adminStore';
 import { notificationActions, notificationMutations } from './notificationStore';
 import { pagesGetters, pagesMutations } from './pagesStore';
+import { jobGetters, jobMutations, jobActions } from './jobStore';
 
 Vue.use(Vuex);
 
@@ -49,6 +50,8 @@ export default new Vuex.Store({
         email: '',
       },
     },
+    // stored as { category: Array<job> }
+    jobsByCategory: {},
   },
   getters: Object.assign(
     {},
@@ -60,6 +63,7 @@ export default new Vuex.Store({
     politicalPartyGetters,
     statisticGetters,
     pagesGetters,
+    jobGetters,
   ),
   mutations: Object.assign(
     {},
@@ -72,8 +76,9 @@ export default new Vuex.Store({
     statisticMutations,
     notificationMutations,
     pagesMutations,
+    jobMutations,
   ),
-  actions: Object.assign({}, notificationActions),
+  actions: Object.assign({}, notificationActions, jobActions),
   modules: {},
   plugins: [vuexPersist.plugin],
 });
