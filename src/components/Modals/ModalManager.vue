@@ -5,6 +5,7 @@
 <script>
 import { mapState } from 'vuex';
 
+import JobModal from './JobModal.vue';
 import EditContactModal from './EditContactModal.vue';
 import NewPoliticianModal from './NewPoliticianModal.vue';
 import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
@@ -21,6 +22,7 @@ export default {
         NewPoliticalPartyModal,
         EditPoliticalPartyIdeologyModal,
         EditContactModal,
+        JobModal,
       },
     };
   },

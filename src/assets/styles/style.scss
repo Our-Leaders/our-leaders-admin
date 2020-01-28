@@ -24,6 +24,10 @@
   @apply w-full pl-1 py-2 border-b border-gray-400;
 }
 
+.our-select.no-border .vs__dropdown-toggle {
+  border: 0 !important;
+}
+
 .our-select.has-error .vs__dropdown-toggle {
   @apply border-red-600 #{!important};
 }

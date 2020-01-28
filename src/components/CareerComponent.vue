@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="button-container my-4 flex justify-end">
-      <button class="border-black border py-2 px-3 flex justify-between items-center font-circular">New Job Post</button>
+      <button @click="openJobModal('')" class="border-black border py-2 px-3 flex justify-between items-center font-circular">New Job Post</button>
     </div>
     <div>
       <div v-for="(jobArray, category) of jobs" :key="category" class="job-category">
@@ -36,6 +36,9 @@ export default {
       }
 
       return jobDefaultImage;
+    },
+    openJobModal(jobId = '') {
+      this.$store.commit('openModal', { modalName: 'JobModal', modalProps: { jobId } });
     },
   },
   mounted() {
