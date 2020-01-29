@@ -49,7 +49,7 @@ export default {
   }
 
   .modal-container {
-    min-width: 31.25rem;
+    width: 31.25rem;
     min-height: 10rem;
     max-height: calc(100vh - 20%);
     overflow-y: auto;

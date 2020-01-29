@@ -56,7 +56,7 @@
                     <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
                       Job Type
                     </div>
-                    <div class="w-5/6">
+                    <div class="w-5/6  font-circular">
                         <v-select
                           id="job-type"
                           name="job-type"
@@ -64,7 +64,7 @@
                           :options="jobType"
                           v-model="job.type"
                           :reduce="type => type.value"
-                          class="our-select no-border w-full"></v-select>
+                          class="our-select no-border w-full font-circular"></v-select>
                     </div>
                   </div>
                 </ValidationProvider>
