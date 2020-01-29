@@ -12,4 +12,8 @@ export default {
   editJob(jobId, payload) {
     return instance.put(`${resource}/${jobId}`, payload);
   },
+  toggleArchive(jobId, archive = false) {
+    const url = `${resource}/${jobId}/${archive ? 'archive' : 'unarchive'}`;
+    return instance.put(url, {});
+  },
 };

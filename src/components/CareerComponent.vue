@@ -12,9 +12,13 @@
             <p class="font-circular font-semibold">{{job.title}}</p>
             <p class="font-circular text-sm">{{job.location}}</p>
           </div>
-          <div class="absolute flex top-0 right-0 bottom-0 items-center pb-4 pr-3 job-actions">
+          <div class="absolute flex top-0 right-0 bottom-0 items-center pb-3 pr-3 job-actions">
             <button class="text-sm font-circular mr-4" @click="openJobModal({ jobId: job._id, jobCategory: job.category})">Edit</button>
-            <button class=""><fa-icon :icon="['fas', 'trash']"></fa-icon></button>
+            <button class="text-sm font-circular mr-4" @click="openActionModal(job._id, job.isArchived)">
+              <!-- <fa-icon :icon="['fas', 'archive']"></fa-icon> -->
+              <span v-if="job.isArchived">Unarchive</span>
+              <span v-else>Archive</span>
+            </button>
           </div>
         </div>
       </div>
@@ -45,6 +49,22 @@ export default {
     openJobModal({ jobId = '', jobCategory = '' }) {
       this.$store.commit('openModal', { modalName: 'JobModal', modalProps: { jobId, jobCategory } });
     },
+    openActionModal(jobId, isArchived) {
+      const message = `Are you sure you want to ${isArchived ? 'unarchive' : 'archive'} this job listing?`;
+      this.$store.commit('openModal', { modalName: 'ActionModal', modalProps: { message, action: () => this.toggleArchive(jobId, isArchived) } });
+    },
+    async toggleArchive(jobId, isArchived) {
+      try {
+        await this.jobServices.toggleArchive(jobId, !isArchived);
+
+        const { data } = await this.jobServices.getJobs();
+        const { jobs } = data;
+        this.$store.dispatch('storeJobs', jobs);
+      } catch (err) {
+        // do something with the error here
+        console.log(err);
+      }
+    },
   },
   async mounted() {
     const { data } = await this.jobServices.getJobs();
@@ -73,7 +93,7 @@ export default {
       }
 
       &:hover .job-actions {
-        display: block;
+        display: flex;
       }
     }
   }
