@@ -10,10 +10,12 @@ import {
   faListOl,
   faListUl,
   faTrash,
+  faArchive,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 library.add(faBold,
+  faArchive,
   faTrash,
   faItalic,
   faUnderline,
