@@ -7,6 +7,7 @@ import AdminHome from './public/AdminHome.vue';
 import PartyDetails from './public/PartyDetails.vue';
 import LeaderDetails from './public/LeaderDetails.vue';
 import WebPages from './public/WebPages.vue';
+import Profile from './public/Profile.vue';
 
 export default {
   Home,
@@ -18,4 +19,5 @@ export default {
   PartyDetails,
   LeaderDetails,
   WebPages,
+  Profile,
 };

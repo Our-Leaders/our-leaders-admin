@@ -55,6 +55,11 @@ const routes = [
         path: 'admins',
         component: Pages.Admin,
       },
+      {
+        name: 'profile',
+        path: 'profile',
+        component: Pages.Profile,
+      },
     ],
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {
