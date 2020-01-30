@@ -23,11 +23,29 @@
         :class="openNav ? 'visible' : 'invisible'">
         <div class="new-notification-indication rounded-full absolute"></div>12
       </div>
-      <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
-      <div class="admin-info leading-tight hidden lg:block">
-        <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
-        <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
-      </div>
+      <our-dropdown>
+        <template v-slot:trigger>
+          <div class="flex cursor-pointer">
+            <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
+            <div class="admin-info leading-tight hidden lg:block">
+              <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
+              <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
+            </div>
+          </div>
+        </template>
+        <div slot="items" class="font-circular">
+          <our-dropdown-item>
+            <p>Signed in as</p>
+            <p>{{user.email}}</p>
+          </our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item>
+            <router-link :to="{ name: 'profile' }">Account Preferences</router-link>
+          </our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item>Sign out</our-dropdown-item>
+        </div>
+      </our-dropdown>
       <div class="block lg:hidden">
         <button @click="toggleNav" :class="{'open': openNav}" class="nav-menu flex items-center focus:outline-none">
           <span></span>
@@ -36,7 +54,7 @@
         </button>
       </div>
     </div>
-    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
+    <!-- <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
       <div class="w-5/6 md:w-1/2 relative">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -70,7 +88,7 @@
           Log out
         </button>
       </div>
-    </div>
+    </div> -->
   </nav>
 </template>
 
