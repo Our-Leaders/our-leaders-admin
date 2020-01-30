@@ -1,10 +1,9 @@
 <template>
   <div class="dropdown relative">
     <div class="trigger" @click="trigger">
-    <!-- <div class="trigger" @click="trigger" @focusout="closeDropdown"> -->
       <slot name="trigger"></slot>
     </div>
-    <ul class="dropdown-list absolute bg-white w-full shadow mt-1 pt-1" v-if="showDropdown">
+    <ul class="dropdown-list absolute bg-white min-w-full w-48 shadow mt-1 pt-1" v-if="showDropdown">
       <slot name="items"></slot>
     </ul>
   </div>
@@ -13,18 +12,14 @@
 <script>
 export default {
   name: 'Dropdown',
-  props: {
-    // triggerEvent: {
-    //   type: String,
-    //   default: 'click',
-    // },
-  },
   methods: {
     trigger() {
       this.showDropdown = !this.showDropdown;
     },
-    closeDropdown() {
-      this.showDropdown = false;
+    closeDropdown(e) {
+      if (!this.$el.contains(e.target)) {
+        this.showDropdown = false;
+      }
     },
   },
   data() {
@@ -33,10 +28,14 @@ export default {
     };
   },
   mounted() {
-    this.$on('close-dropdown', this.closeDropdown);
+    this.$on('close-dropdown', () => {
+      this.showDropdown = false;
+    });
+    window.addEventListener('click', this.closeDropdown);
   },
-  destroyed() {
+  beforeDestroy() {
     this.$off('close-dropdown');
+    window.removeEventListener('click', this.closeDropdown);
   },
 };
 </script>
