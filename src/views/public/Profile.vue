@@ -6,7 +6,7 @@
           Account
         </h5>
         <div class="flex justify-between items-center">
-          <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4">Edit Profile</button>
+          <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4" @click="editProfile">Edit Profile</button>
         </div>
       </header>
       <div class="mt-10 flex border-b border-gray-db">
@@ -51,6 +51,11 @@ export default {
     ...mapGetters({
       user: 'user',
     }),
+  },
+  methods: {
+    editProfile() {
+      this.$store.commit('openModal', { modalName: 'EditProfileModal' });
+    },
   },
 };
 </script>
