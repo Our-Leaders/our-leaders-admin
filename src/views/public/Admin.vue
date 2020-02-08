@@ -32,7 +32,7 @@
           </thead>
           <tbody>
             <tr v-for="admin of filteredAdmins(adminFilter)" :key="admin.id" class="cursor-pointer" @click="selectAdmin(admin.id)" :class="{active: admin.id === selectedAdminId}">
-              <td class="border-b border-gray-db py-3 capitalize">--</td>
+              <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName || '--'}} {{admin.lastName || '--'}}</td>
               <!-- <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName}} {{admin.lastName}}</td> -->
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.email}}</td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.joinedAt | dateTimeFormat}}</td>
@@ -88,7 +88,7 @@ export default {
       this.$store.commit('storeAdmins', admins);
     },
     selectAdmin(adminId) {
-      if (!this.selectedAdminId) {
+      if (!this.selectedAdminId || this.selectedAdminId !== adminId) {
         this.selectedAdminId = adminId;
         this.selectedAdmin = find(this.filteredAdmins('all'), { id: this.selectedAdminId });
       } else {
