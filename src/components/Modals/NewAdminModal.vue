@@ -101,6 +101,8 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash.clonedeep';
+
 import defaultPermissions from '@/assets/json/permissions.json';
 
 export default {
@@ -114,7 +116,7 @@ export default {
         lastName: '',
         email: '',
         phoneNumber: '',
-        permissions: { ...defaultPermissions },
+        permissions: cloneDeep(defaultPermissions),
       },
     };
   },
