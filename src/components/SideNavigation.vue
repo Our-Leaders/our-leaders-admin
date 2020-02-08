@@ -14,7 +14,7 @@
           <our-dropdown-divider />
           <our-dropdown-item>New Job Post</our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>New Admin</our-dropdown-item>
+          <our-dropdown-item @click.native="openModal('NewAdminModal')">New Admin</our-dropdown-item>
           <our-dropdown-item @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
           <our-dropdown-item @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
           <our-dropdown-item>New User</our-dropdown-item>

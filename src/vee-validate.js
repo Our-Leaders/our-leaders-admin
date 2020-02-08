@@ -5,6 +5,7 @@ import {
   min_value as minValue,
   max_value as maxValue,
   length,
+  email,
 } from 'vee-validate/dist/rules';
 
 extend('required', {
@@ -14,6 +15,7 @@ extend('required', {
 extend('min_value', minValue);
 extend('max_value', maxValue);
 extend('length', length);
+extend('email', email);
 
 Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
