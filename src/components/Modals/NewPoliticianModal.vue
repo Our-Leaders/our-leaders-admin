@@ -329,7 +329,7 @@ export default {
       this.politicianData.twitter = socials.twitter;
       this.politicianData.instagram = socials.instagram;
 
-      this.uploadedImageSrc = profileImage.url;
+      this.uploadedImageSrc = profileImage;
     }
   },
   computed: {
