@@ -1,0 +1,43 @@
+{
+  "politician": {
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "educationalBackground": {
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "politicalBackground": {
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "professionalBackground": {
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "accomplishments": {
+    "create": false,
+    "update": false,
+    "delete": false
+  },
+  "users": {
+    "update": false,
+    "delete": false
+  },
+  "jobs": {
+    "create": false,
+    "update": false
+  },
+  "pages": {
+    "update": false
+  },
+  "trends": {
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}
