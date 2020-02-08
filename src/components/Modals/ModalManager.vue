@@ -7,6 +7,7 @@ import { mapState } from 'vuex';
 
 import JobModal from './JobModal.vue';
 import ActionModal from './ActionModal.vue';
+import NewAdminModal from './NewAdminModal.vue';
 import EditContactModal from './EditContactModal.vue';
 import NewPoliticianModal from './NewPoliticianModal.vue';
 import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
@@ -25,6 +26,7 @@ export default {
         EditContactModal,
         JobModal,
         ActionModal,
+        NewAdminModal,
       },
     };
   },

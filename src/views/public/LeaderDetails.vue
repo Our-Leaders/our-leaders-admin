@@ -142,8 +142,8 @@ export default {
       return {};
     },
     politicianImage() {
-      if (this.politician.profileImage && this.politician.profileImage.url) {
-        return this.politician.profileImage.url;
+      if (this.politician.profileImage) {
+        return this.politician.profileImage;
       }
 
       return defaultAvatar;

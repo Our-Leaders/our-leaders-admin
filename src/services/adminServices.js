@@ -6,4 +6,7 @@ export default {
   getAdmins() {
     return instance.get(resource);
   },
+  addNewAdmin(payload) {
+    return instance.post(resource, payload);
+  },
 };

@@ -260,7 +260,7 @@ export default {
     if (this.jobId) {
       const jobs = this.jobs[this.jobCategory];
       this.job = find(jobs, { _id: this.jobId });
-      this.jobImageSrc = this.job.image.url;
+      this.jobImageSrc = this.job.image ? this.job.image.url : '';
     }
   },
 };
