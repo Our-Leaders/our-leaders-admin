@@ -75,6 +75,7 @@ import defaultAvatar from '@/assets/img/default-avatar.svg';
 import PoliticianBackground from '@/components/politicianDetails/PoliticianBackground.vue';
 import PoliticianManifesto from '@/components/politicianDetails/PoliticianManifesto.vue';
 import PoliticianAccomplishments from '@/components/politicianDetails/PoliticianAccomplishments.vue';
+import PoliticianFeeds from '@/components/politicianDetails/PoliticianFeeds.vue';
 
 export default {
   name: 'leaders-details',
@@ -86,6 +87,7 @@ export default {
         background: PoliticianBackground,
         manifesto: PoliticianManifesto,
         accomplishments: PoliticianAccomplishments,
+        recentUpdates: PoliticianFeeds,
       },
       tabs: [{
         label: 'Background',

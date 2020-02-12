@@ -17,6 +17,10 @@ const routes = [
     },
     children: [
       {
+        path: '',
+        redirect: 'home',
+      },
+      {
         name: 'home',
         path: 'home',
         component: Pages.AdminHome,
