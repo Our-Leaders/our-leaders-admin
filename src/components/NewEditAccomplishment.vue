@@ -16,7 +16,7 @@
               placeholder="Title"/>
           </div>
         </ValidationProvider>
-        <ValidationProvider rules="required" name="Accomplishment Tags" v-slot="{ errors }">
+        <ValidationProvider rules="required" name="Accomplishment Tags" v-slot="{ errors, validate }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
               Tags
@@ -26,6 +26,7 @@
               name="accomplishment-tags"
               :clearable="false"
               :options="tags"
+              @search:blur="() => {validate()}"
               v-model="accomplishment.tags"
               class="our-select no-border w-5/6 " multiple></v-select>
           </div>
@@ -41,6 +42,7 @@
               class="w-full"
               input-class="w-full pl-1 py-2"
               minimum-view="month"
+              v-model="accomplishmentDate"
               @selected="dateSelected"
               :required="true">
             </v-datepicker>
@@ -102,6 +104,7 @@ export default {
   data() {
     return {
       tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
+      accomplishmentDate: '',
       accomplishment: {
         title: '',
         description: '',
