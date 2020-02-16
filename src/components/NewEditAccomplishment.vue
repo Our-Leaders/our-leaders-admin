@@ -91,8 +91,12 @@ export default {
     },
   },
   methods: {
-    publish() {
-
+    async publish() {
+      try {
+        await this.politicianServices.newAccomplishment(this.politicianId, this.accomplishment);
+      } catch (err) {
+        // do somehting with the error here
+      }
     },
     dateSelected(date) {
       if (date) {
@@ -103,6 +107,7 @@ export default {
   },
   data() {
     return {
+      politicianServices: this.$serviceFactory.politicians,
       tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
       accomplishmentDate: '',
       accomplishment: {
