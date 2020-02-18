@@ -60,8 +60,13 @@
         aside
       </div>
     </div> -->
-    <div class="w-full xl:w-1/3 xl:ml-10">
-      aside
+    <div class="w-full xl:w-1/3 xl:px-10 self-start" ref="accomplishment">
+      <p class="text-2xl mb-8">Write New</p>
+      <our-tabs :tabs="[{ label: 'Accomplishment', value: 'accomplishment' }]" @change="setNewAdminSection"></our-tabs>
+      <div>
+        <!-- <our-accomplishment :politicianId="politician.id"></our-accomplishment> -->
+        <component :is="sideComponents[visibleSideComponent]" v-bind="{ politicianId: politician.id }"></component>
+      </div>
     </div>
   </div>
 </template>
@@ -77,6 +82,9 @@ import PoliticianManifesto from '@/components/politicianDetails/PoliticianManife
 import PoliticianAccomplishments from '@/components/politicianDetails/PoliticianAccomplishments.vue';
 import PoliticianFeeds from '@/components/politicianDetails/PoliticianFeeds.vue';
 
+// sidebar component
+import NewEditAccomplishment from '@/components/NewEditAccomplishment.vue';
+
 export default {
   name: 'leaders-details',
   data() {
@@ -89,6 +97,10 @@ export default {
         accomplishments: PoliticianAccomplishments,
         recentUpdates: PoliticianFeeds,
       },
+      sideComponents: {
+        accomplishment: NewEditAccomplishment,
+      },
+      visibleSideComponent: 'accomplishment',
       tabs: [{
         label: 'Background',
         value: 'background',
@@ -111,12 +123,16 @@ export default {
     setDetailComponent(value) {
       this.visibleTab = value;
     },
+    setNewAdminSection(value) {
+      this.visibleSideComponent = value;
+    },
     editProfile() {
       this.$store.commit('openModal', { modalName: 'NewPoliticianModal', modalProps: { politicianId: this.politician.id } });
     },
   },
   mounted() {
     stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
+    stickbits(this.$refs.accomplishment, { stickyBitStickyOffset: 100, useStickyClasses: true });
     const observer = new window.IntersectionObserver((entries) => {
       const entry = entries[0];
 
