@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4">
-    <ValidationObserver v-slot="{ invalid, handleSubmit }">
-      <form @submit.prevent="handleSubmit(publish)">
+    <ValidationObserver v-slot="{ invalid, handleSubmit }" ref="accomplishmentFormValidator">
+      <form @submit.prevent="handleSubmit(publish)" ref="accomplishmentForm">
         <ValidationProvider rules="required" name="Accomplishment Title" v-slot="{ errors }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
@@ -81,7 +81,7 @@
             <!-- <span v-else>Submitting...</span> -->
             <span>Publish</span>
           </button>
-          <button class="font-circular py-3 px-12">Clear</button>
+          <button class="font-circular py-3 px-12" @click="clearAccomplishment">Clear</button>
         </div>
       </form>
     </ValidationObserver>
@@ -151,6 +151,24 @@ export default {
     removeImage() {
       this.$refs.imageref.value = '';
       this.accomplishmentImageFile = '';
+    },
+    clearAccomplishment() {
+      this.accomplishmentImageFile = '';
+      this.accomplishmentImageSrc = '';
+      this.$refs.imageref.value = '';
+      this.accomplishmentDate = '';
+      this.accomplishment = {
+        title: '',
+        description: '',
+        tags: [],
+        quarter: '',
+        year: '',
+      };
+
+      window.setTimeout(() => {
+        this.$refs.accomplishmentForm.reset();
+        this.$refs.accomplishmentFormValidator.reset();
+      });
     },
   },
   data() {
