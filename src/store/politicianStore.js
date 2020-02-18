@@ -2,6 +2,17 @@ export const politicianMutations = {
   storePoliticians(state, politicians) {
     state.politicians = politicians;
   },
+  storePolitician(state, { politicianId, payload }) {
+    const modifiedPoliticians = state.politicians.map((politician) => {
+      if (politician.id === politicianId) {
+        return payload;
+      }
+
+      return politician;
+    });
+
+    state.politicians = modifiedPoliticians;
+  },
 };
 
 export const politicianGetters = {

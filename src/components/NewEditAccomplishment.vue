@@ -116,9 +116,16 @@ export default {
       }
 
       try {
-        await this.politicianServices.newAccomplishment(this.politicianId, this.accomplishment);
+        const { data } = await this.politicianServices.newAccomplishment(this.politicianId, payload);
+        const { politician } = data;
+        this.clearAccomplishment();
+        this.$store.dispatch('displaySuccess', { message: 'Accomplsiment created successfully' });
+
+        // update the politician here
+        this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: politician });
       } catch (err) {
         // do somehting with the error here
+        this.$store.dispatch('displaySuccess', err);
       }
     },
     dateSelected(date) {
@@ -183,6 +190,8 @@ export default {
         quarter: '',
         year: '',
       },
+      accomplishmentImageFile: '',
+      accomplishmentImageSrc: '',
     };
   },
   mounted() {
