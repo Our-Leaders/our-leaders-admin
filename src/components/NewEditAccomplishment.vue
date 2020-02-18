@@ -50,12 +50,21 @@
         </ValidationProvider>
         <div class="mt-5 mb-4">
           <label for="accomplishment-image" class="flex cursor-pointer">
-            <input type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*">
+            <input ref="imageref" type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*"  @change="onFileUpload($event);">
             <img src="@/assets/img/image-icon.svg" alt="">
             <span class="text-xs font-circular ml-3">Image</span>
           </label>
+          <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishmentImageFile">
+            <span class="flex items-center">
+              <span
+                class="h-6 w-8 bg-gray-600 rounded mr-3 bg-center bg-cover bg-no-repeat"
+                :style="{ 'background-image': `url(${accomplishmentImageSrc})` }"></span>
+              <!-- <span class="w-1/5 truncate">{{accomplishmentImageFile.name}}</span> -->
+            </span>
+            <button @click="removeImage"><img src="@/assets/img/close.svg" alt="remove-image" class="h-3"></button>
+          </div>
         </div>
-        <ValidationProvider  rules="required" name="Accomplishment Tags" v-slot="{ errors }">
+        <ValidationProvider  rules="required" name="Accomplishment Description" v-slot="{ errors }">
           <div class="mt-2">
             <textarea
               name="accomplishment-description"
@@ -92,6 +101,20 @@ export default {
   },
   methods: {
     async publish() {
+      let payload;
+
+      if (this.accomplishmentImageFile && this.accomplishmentImageSrc) {
+        payload = new FormData();
+
+        Object.keys(this.accomplishment).forEach((key) => {
+          payload.set(key, this.accomplishment[key]);
+        });
+
+        payload.set('file', this.accomplishmentImageFile);
+      } else {
+        payload = { ...this.accomplishment };
+      }
+
       try {
         await this.politicianServices.newAccomplishment(this.politicianId, this.accomplishment);
       } catch (err) {
@@ -103,6 +126,31 @@ export default {
         this.accomplishment.quarter = `q${moment(date).quarter()}`;
         this.accomplishment.year = moment(date).year();
       }
+    },
+    onFileUpload($event) {
+      if ($event.target.files.length > 0) {
+        const file = $event.target.files[0];
+        const { type } = file;
+        const typeSplit = type.split('/');
+
+        if (typeSplit[0] !== 'image') {
+          // alert the user to the error
+          this.$refs.imageref.value = '';
+        } else {
+          const self = this;
+          const fileReader = new FileReader();
+          fileReader.onload = function onload() {
+            self.accomplishmentImageSrc = this.result;
+          };
+          fileReader.readAsDataURL(file);
+
+          this.accomplishmentImageFile = file;
+        }
+      }
+    },
+    removeImage() {
+      this.$refs.imageref.value = '';
+      this.accomplishmentImageFile = '';
     },
   },
   data() {
