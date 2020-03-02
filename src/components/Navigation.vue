@@ -52,7 +52,7 @@
       <div>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-between items-center my-4">
           <span>New</span>
-          <span><img src="@/assets/img/add.svg" alt=""></span>
+          <span><img src="@/assets/img/add-primary.svg" alt=""></span>
         </button>
       </div>
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
