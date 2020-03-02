@@ -62,7 +62,7 @@
               <div class="w-2/3">
                 <ValidationProvider rules="required|email" name="Email" v-slot="{ errors }">
                   <input
-                    class="w-full pl-1 py-2 field border-b border-gray-400"
+                    class="w-full pl-1 py-2 field border-b border-gray-400 text-gray-400"
                     :class="errors.length > 0 ? 'border-red-600' : ''"
                     type="email"
                     id="admin-email"
