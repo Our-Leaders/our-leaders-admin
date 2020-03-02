@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="button-container mb-4 flex justify-end">
-      <!-- <button class="border-black border py-1 px-3 flex justify-between items-center font-circular">Edit Background</button> -->
+      <button class="border-black border py-1 px-3 flex justify-between items-center font-circular" @click="editBackground">Edit Background</button>
     </div>
     <div>
       <p class="font-circular text-xl font-semibold w-full mb-5">Personal background</p>
@@ -71,6 +71,9 @@ export default {
   methods: {
     getYear(value) {
       return new Date(value).getFullYear();
+    },
+    editBackground() {
+      this.$store.commit('openModal', { modalName: 'EditPoliticianBackgroundModal', modalProps: { politicianId: this.politician.id } });
     },
   },
 };
