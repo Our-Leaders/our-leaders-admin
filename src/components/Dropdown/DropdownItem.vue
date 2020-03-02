@@ -1,5 +1,5 @@
 <template>
-  <li class="px-3 py-2 flex justify-between items-center relative cursor-pointer font-circular text-sm" @click="closeDropdown">
+  <li class="px-3 py-2 relative cursor-pointer font-circular text-sm" @click="closeDropdown">
     <slot></slot>
     <!-- <ul class="absolute bg-white w-full shadow">
       <slot name="item-child">

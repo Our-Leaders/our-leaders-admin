@@ -4,7 +4,7 @@
       <img class src="@/assets/img/logo.svg" />
     </div>
     <div class="w-2/3 h-10">
-      <div class="w-1/2 xl:w-5/12 mx-auto relative hidden lg:block">
+      <!-- <div class="w-1/2 xl:w-5/12 mx-auto relative hidden lg:block">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
@@ -15,19 +15,37 @@
           required
         />
         <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto">
-      </div>
+      </div> -->
     </div>
     <div class="w-auto lg:border-l pl-8 pr-4 h-14 flex items-center font-circular">
-      <div
+      <!-- <div
         class="notifications h-8 w-8 bg-gray-f0 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative"
         :class="openNav ? 'visible' : 'invisible'">
         <div class="new-notification-indication rounded-full absolute"></div>12
-      </div>
-      <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
-      <div class="admin-info leading-tight hidden lg:block">
-        <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
-        <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
-      </div>
+      </div> -->
+      <our-dropdown>
+        <template v-slot:trigger>
+          <div class="flex cursor-pointer">
+            <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
+            <div class="admin-info leading-tight hidden lg:block">
+              <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
+              <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
+            </div>
+          </div>
+        </template>
+        <div slot="items" class="font-circular">
+          <our-dropdown-item>
+            <p>Signed in as</p>
+            <p>{{user.email}}</p>
+          </our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item>
+            <router-link :to="{ name: 'profile' }">Account Preferences</router-link>
+          </our-dropdown-item>
+          <our-dropdown-divider />
+          <our-dropdown-item @click.native="signout">Sign out</our-dropdown-item>
+        </div>
+      </our-dropdown>
       <div class="block lg:hidden">
         <button @click="toggleNav" :class="{'open': openNav}" class="nav-menu flex items-center focus:outline-none">
           <span></span>
@@ -36,7 +54,7 @@
         </button>
       </div>
     </div>
-    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
+    <!-- <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
       <div class="w-5/6 md:w-1/2 relative">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -70,7 +88,7 @@
           Log out
         </button>
       </div>
-    </div>
+    </div> -->
   </nav>
 </template>
 
@@ -89,11 +107,18 @@ export default {
     toggleNav() {
       this.openNav = !this.openNav;
     },
+    signout() {
+      this.$store.dispatch('signout');
+      this.$router.push({ name: 'sign-in' });
+    },
   },
   computed: {
     ...mapState({
       user: state => state.currentUser || {},
     }),
+    // ...mapActions({
+    //   signout: 'signout',
+    // }),
   },
 };
 </script>

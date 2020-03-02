@@ -2,6 +2,9 @@ export const politicalPartyMutations = {
   storePoliticalParties(state, politicalParties) {
     state.politicalParties = politicalParties;
   },
+  clearPoliticalParties(state) {
+    state.politicalParties = [];
+  },
 };
 
 export const politicalPartyGetters = {
