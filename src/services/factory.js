@@ -1,5 +1,6 @@
 import authServices from './authServices';
 import adminServices from './adminServices';
+import userServices from './userServices';
 import pagesServices from './pagesServices';
 import politicianServices from './politicianServices';
 import politicalPartyServices from './politicalPartyServices';
@@ -16,6 +17,7 @@ const services = {
   statistics: statisticsServices,
   jobs: jobServices,
   feeds: feedServices,
+  users: userServices,
 };
 
 export default services;

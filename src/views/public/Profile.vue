@@ -9,7 +9,7 @@
           <button class="border-black border py-1 px-3 flex justify-between items-center font-circular ml-4" @click="editProfile">Edit Profile</button>
         </div>
       </header>
-      <div class="mt-10 flex border-b border-gray-db">
+      <div class="mt-10 pb-6 flex border-b border-gray-db">
         <div class="w-3/4">
           <div class="flex mb-6">
             <div class="w-1/5 font-circular font-semibold">Name</div>
@@ -24,12 +24,12 @@
               {{user.email}}
             </div>
           </div>
-          <div class="flex mb-6">
+          <!-- <div class="flex mb-6">
             <div class="w-1/5 font-circular font-semibold">Phone</div>
             <div class="w-4/5">
               {{user.phoneNumber}}
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="w-1/4 flex justify-end">
           <div class="w-32 h-32 bg-gray-db rounded-full bg-center bg-no-repeat bg-cover"></div>

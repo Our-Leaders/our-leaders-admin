@@ -33,6 +33,7 @@
                     type="text"
                     id="admin-first-name"
                     name="admin-first-name"
+                    v-model="user.firstName"
                     placeholder="First Name" />
                 </ValidationProvider>
               </div>
@@ -49,6 +50,7 @@
                     type="text"
                     id="admin-last-name"
                     name="admin-last-name"
+                    v-model="user.lastName"
                     placeholder="Last Name" />
                 </ValidationProvider>
               </div>
@@ -65,11 +67,13 @@
                     type="email"
                     id="admin-email"
                     name="admin-email"
+                    v-model="user.email"
+                    disabled
                     placeholder="email@host.tld" />
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
+            <!-- <div class="flex mb-3">
               <div class="w-1/3 self-end">
                 Password
               </div>
@@ -83,8 +87,8 @@
                     name="admin-password" />
                 </ValidationProvider>
               </div>
-            </div>
-            <div class="flex mb-3">
+            </div> -->
+            <!-- <div class="flex mb-3">
               <div class="w-1/3 self-end">
                 Phone
               </div>
@@ -95,14 +99,16 @@
                     :class="errors.length > 0 ? 'border-red-600' : ''"
                     type="text"
                     id="admin-phone-number"
+                    v-model="user.phone"
                     name="admin-phone-number" />
                 </ValidationProvider>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="flex mt-12">
-            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid">
-              <span>Save</span>
+            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid || editProfileLoading">
+              <span v-if="!editProfileLoading">Save</span>
+              <span v-else>Submitting...</span>
             </button>
             <button class="font-circular py-3 px-12" @click="closeModal()">Cancel</button>
           </div>
@@ -117,15 +123,60 @@ export default {
   name: 'EditProfileModal',
   data() {
     return {
+      userServices: this.$serviceFactory.users,
+      editProfileLoading: false,
       uploadedImageSrc: '',
       profileImageFile: '',
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        // phone: '',
+        id: '',
+      },
     };
   },
   methods: {
     closeModal() {
       this.$emit('close-modal');
     },
-    submit() {},
+    async submit() {
+      this.editProfileLoading = true;
+
+      let payload;
+
+      if (this.uploadedImageSrc && this.profileImageFile) {
+        payload = new FormData();
+
+        Object.keys(this.user).forEach((key) => {
+          payload.set(key, this.user[key]);
+        });
+
+        payload.set('file', this.profileImageFile);
+      } else {
+        payload = { ...this.user };
+      }
+
+      try {
+        const { data } = await this.userServices.editSelf(this.user.id, payload);
+        const { user } = data;
+
+        this.$store.commit('setCurrentUser', user);
+        this.closeModal();
+      } catch (err) {
+        // do something with error here
+      } finally {
+        this.editProfileLoading = false;
+      }
+    },
+  },
+  mounted() {
+    const {
+      firstName, lastName, id, email, phone,
+    } = this.$store.state.currentUser;
+    this.user = {
+      firstName, lastName, id, email, phone,
+    };
   },
 };
 </script>
