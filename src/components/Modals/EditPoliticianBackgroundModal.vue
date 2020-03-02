@@ -96,6 +96,12 @@
                 </div>
               </div>
             </div>
+            <div class="mt-6">
+              <a class="inline-flex items-center cursor-pointer" @click="addRow('newPoliticalBackgrounds', politicalBackgroundData)">
+                <span class="mr-2">New row</span>
+                <span><img src="@/assets/img/add.svg" alt=""></span>
+              </a>
+            </div>
           </div>
           <div class="mt-10">
             <p class="font-circular text-xl font-semibold w-full mb-4">Educational background</p>
@@ -124,6 +130,12 @@
                   :input-class="datePickerClasses()">
                 </v-datepicker>
               </div>
+            </div>
+            <div class="mt-6">
+              <a class="inline-flex items-center cursor-pointer" @click="addRow('newEducationalBackgrounds', educationalBackgroundData)">
+                <span class="mr-2">New row</span>
+                <span><img src="@/assets/img/add.svg" alt=""></span>
+              </a>
             </div>
           </div>
           <div class="mt-10">
@@ -165,6 +177,12 @@
                   </v-datepicker>
                 </div>
               </div>
+            </div>
+            <div class="mt-6">
+              <a class="inline-flex items-center cursor-pointer" @click="addRow('newProfessionalBackgrounds', professionalBackgroundData)">
+                <span class="mr-2">New row</span>
+                <span><img src="@/assets/img/add.svg" alt=""></span>
+              </a>
             </div>
           </div>
           <div class="flex mt-12">
@@ -249,6 +267,9 @@ export default {
       }
 
       return classNames;
+    },
+    addRow(list, data) {
+      this[list] = this[list].concat(data);
     },
   },
   async mounted() {
