@@ -4,7 +4,7 @@
       <img class src="@/assets/img/logo.svg" />
     </div>
     <div class="w-2/3 h-10">
-      <div class="w-1/2 xl:w-5/12 mx-auto relative hidden lg:block">
+      <!-- <div class="w-1/2 xl:w-5/12 mx-auto relative hidden lg:block">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
           v-model="searchQuery"
@@ -15,14 +15,14 @@
           required
         />
         <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto">
-      </div>
+      </div> -->
     </div>
     <div class="w-auto lg:border-l pl-8 pr-4 h-14 flex items-center font-circular">
-      <div
+      <!-- <div
         class="notifications h-8 w-8 bg-gray-f0 rounded-full text-xs flex lg:visible items-center justify-center mr-5 relative"
         :class="openNav ? 'visible' : 'invisible'">
         <div class="new-notification-indication rounded-full absolute"></div>12
-      </div>
+      </div> -->
       <our-dropdown>
         <template v-slot:trigger>
           <div class="flex cursor-pointer">
