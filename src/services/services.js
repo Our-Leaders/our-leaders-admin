@@ -26,9 +26,9 @@ instance.interceptors.response.use(response => response, (error) => {
   const reroute = error.response.status === 401;
 
   if (reroute) {
-    store.commit('clearJWT');
-    store.commit('clearUser');
-    router.push('/auth/sign-in');
+    store.dispatch('signout');
+    store.dispatch('displayError', 'Your session has expired. Please login again');
+    router.push({ name: 'sign-in' });
   }
   return Promise.reject(error);
 });

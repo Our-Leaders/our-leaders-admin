@@ -18,7 +18,7 @@ export const authActions = {
     commit('clearUser');
     commit('clearJobCategory');
     commit('closeModal');
-    commit('hideMessage');
+    // commit('hideMessage');
     commit('clearPoliticalParties');
     commit('clearStatistics');
     commit('clearPoliticians');
