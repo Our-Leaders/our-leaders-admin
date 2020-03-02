@@ -2,7 +2,7 @@ export const userMutations = {
   setCurrentUser(state, user) {
     state.currentUser = user;
   },
-  clearJWT(state) {
+  clearUser(state) {
     state.currentUser = null;
   },
 };

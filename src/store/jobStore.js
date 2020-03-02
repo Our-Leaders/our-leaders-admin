@@ -9,6 +9,9 @@ export const jobMutations = {
       [categoryName]: [],
     };
   },
+  clearJobCategory(state) {
+    state.jobCategory = {};
+  },
 };
 
 export const jobGetters = {

@@ -43,7 +43,7 @@
             <router-link :to="{ name: 'profile' }">Account Preferences</router-link>
           </our-dropdown-item>
           <our-dropdown-divider />
-          <our-dropdown-item>Sign out</our-dropdown-item>
+          <our-dropdown-item @click.native="signout">Sign out</our-dropdown-item>
         </div>
       </our-dropdown>
       <div class="block lg:hidden">
@@ -107,11 +107,18 @@ export default {
     toggleNav() {
       this.openNav = !this.openNav;
     },
+    signout() {
+      this.$store.dispatch('signout');
+      this.$router.push({ name: 'sign-in' });
+    },
   },
   computed: {
     ...mapState({
       user: state => state.currentUser || {},
     }),
+    // ...mapActions({
+    //   signout: 'signout',
+    // }),
   },
 };
 </script>

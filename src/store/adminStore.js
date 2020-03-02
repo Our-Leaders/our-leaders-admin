@@ -2,6 +2,9 @@ export const adminMutations = {
   storeAdmins(state, admins) {
     state.admins = admins;
   },
+  clearAdmins(state) {
+    state.admins = [];
+  },
 };
 
 export const adminGetters = {

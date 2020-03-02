@@ -4,7 +4,7 @@ import VuexPersist from 'vuex-persist';
 
 import state from './defaultState';
 
-import { authGetters, authMutations } from './authStore';
+import { authGetters, authMutations, authActions } from './authStore';
 import { userGetters, userMutations } from './userStore';
 import { politicianGetters, politicianMutations } from './politicianStore';
 import { statisticGetters, statisticMutations } from './statisticsStore';
@@ -49,7 +49,7 @@ export default new Vuex.Store({
     pagesMutations,
     jobMutations,
   ),
-  actions: Object.assign({}, notificationActions, jobActions),
+  actions: Object.assign({}, notificationActions, jobActions, authActions),
   modules: {},
   plugins: [vuexPersist.plugin],
 });

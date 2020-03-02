@@ -5,6 +5,22 @@ export const pagesMutations = {
   updateAboutUs(state, aboutUs) {
     state.page = { ...state.page, aboutUs };
   },
+  clearPage(state) {
+    state.page = {
+      aboutUs: '',
+      socials: {
+        facebook: '',
+        twitter: '',
+        instagram: '',
+        linkedin: '',
+      },
+      contact: {
+        address: '',
+        phoneNumber: '',
+        email: '',
+      },
+    };
+  },
 };
 
 export const pagesGetters = {

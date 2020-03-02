@@ -35,7 +35,7 @@
           <div class="w-32 h-32 bg-gray-db rounded-full bg-center bg-no-repeat bg-cover"></div>
         </div>
       </div>
-      <button class="border-black border py-1 text-center w-64 text-sm font-circular mt-8">Sign out</button>
+      <button class="border-black border py-1 text-center w-64 text-sm font-circular mt-8" @click="signout">Sign out</button>
     </div>
     <div class="w-full xl:w-1/3 xl:ml-10">
     </div>
@@ -55,6 +55,10 @@ export default {
   methods: {
     editProfile() {
       this.$store.commit('openModal', { modalName: 'EditProfileModal' });
+    },
+    signout() {
+      this.$store.dispatch('signout');
+      this.$router.push({ name: 'sign-in' });
     },
   },
 };
