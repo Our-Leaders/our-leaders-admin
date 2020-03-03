@@ -28,14 +28,17 @@
               <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Name</th>
               <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Email</th>
               <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96">Created</th>
+              <th class="w-1/3 py-3 text-left font-circular font-bold border-b border-gray-96"></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="admin of filteredAdmins(adminFilter)" :key="admin.id" class="cursor-pointer" @click="selectAdmin(admin.id)" :class="{active: admin.id === selectedAdminId}">
               <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName || '--'}} {{admin.lastName || '--'}}</td>
-              <!-- <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName}} {{admin.lastName}}</td> -->
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.email}}</td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.joinedAt | dateTimeFormat}}</td>
+              <td class="border-b border-gray-db py-3 text-sm font-circular">
+                <button class="text-sm font-circular mr-4" @click.stop="openEditadminModal(admin.id)">Edit</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -95,6 +98,9 @@ export default {
         this.selectedAdminId = '';
         this.selectedAdmin = null;
       }
+    },
+    openEditadminModal(adminId) {
+      this.$store.commit('openModal', { modalName: 'NewAdminModal', modalProps: { adminId } });
     },
   },
   async mounted() {
