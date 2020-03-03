@@ -5,6 +5,9 @@ export const adminMutations = {
   clearAdmins(state) {
     state.admins = [];
   },
+  updateAdminStatus(state, payload) {
+    state.admin.isBlocked = payload;
+  },
 };
 
 export const adminGetters = {
