@@ -3,7 +3,7 @@
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
-    <div v-if="admin">
+    <div v-if="adminId">
       <div class="flex items-center mt-6 h-20">
         <div class="w-1/4">
           <div class="avatar"></div>
@@ -70,11 +70,15 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash.clonedeep';
+
+import defaultPermissions from '@/assets/json/permissions.json';
+
 export default {
   name: 'AdminDetails',
   props: {
-    admin: {
-      type: Object,
+    adminId: {
+      type: String,
     },
   },
   data() {
@@ -87,6 +91,16 @@ export default {
   },
   methods: {
     togglePermission() {},
+  },
+  computed: {
+    admin() {
+      const admin = this.$store.getters.getAdmin(this.adminId);
+
+      return {
+        ...admin,
+        permissions: cloneDeep({ ...defaultPermissions, ...admin.permissions }),
+      };
+    },
   },
 };
 </script>

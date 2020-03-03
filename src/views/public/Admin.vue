@@ -45,13 +45,13 @@
       </div>
     </div>
     <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
-      <our-admin-details :admin="selectedAdmin"></our-admin-details>
+      <our-admin-details :adminId="selectedAdminId"></our-admin-details>
     </div>
   </div>
 </template>
 
 <script>
-import find from 'lodash.find';
+// import find from 'lodash.find';
 import { mapGetters } from 'vuex';
 
 export default {
@@ -93,10 +93,8 @@ export default {
     selectAdmin(adminId) {
       if (!this.selectedAdminId || this.selectedAdminId !== adminId) {
         this.selectedAdminId = adminId;
-        this.selectedAdmin = find(this.filteredAdmins('all'), { id: this.selectedAdminId });
       } else {
         this.selectedAdminId = '';
-        this.selectedAdmin = null;
       }
     },
     openEditadminModal(adminId) {

@@ -1,7 +1,7 @@
 <template>
   <our-modal @close-modal="closeModal()" :open="true">
     <template v-slot:header>
-      <p class="text-4xl" v-if="!isNew">New Admin</p>
+      <p class="text-4xl" v-if="isNew">New Admin</p>
       <p class="text-4xl" v-else>Edit Admin</p>
     </template>
     <template v-slot:content>
