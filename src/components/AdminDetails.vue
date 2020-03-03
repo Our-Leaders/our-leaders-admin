@@ -86,9 +86,7 @@ export default {
     };
   },
   methods: {
-    togglePermission(value) {
-      console.log(value);
-    },
+    togglePermission() {},
   },
 };
 </script>

@@ -28,4 +28,7 @@ export const adminGetters = {
   inactiveAdminCount(state) {
     return state.admins.filter(admin => admin.isDeleted).length;
   },
+  getAdmin(state) {
+    return id => state.admins.find(admin => admin.id === id);
+  },
 };
