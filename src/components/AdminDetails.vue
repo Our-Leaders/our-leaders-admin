@@ -59,8 +59,10 @@
         </div>
       </div>
       <div class="flex pt-16 actions">
-        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(false)" v-if="isBlocked">Unblock</button>
-        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(true)" v-if="!isBlocked">Block</button>
+    <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!isBlocked)">
+       <span v-if="isBlocked">Unblock</span>
+       <span v-else>Unblock</span>
+    </button>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted || processing">Delete</button>
       </div>
     </div>
