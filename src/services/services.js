@@ -27,7 +27,8 @@ instance.interceptors.response.use(response => response, (error) => {
 
   if (reroute) {
     store.commit('clearJWT');
-    store.commit('clearUser');
+    store.commit('clearCurrentUser');
+    store.commit('closeModal');
     router.push('/auth/sign-in');
   }
   return Promise.reject(error);
