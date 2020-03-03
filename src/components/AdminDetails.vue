@@ -59,9 +59,9 @@
         </div>
       </div>
       <div class="flex pt-16 actions">
-    <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!isBlocked)">
-       <span v-if="isBlocked">Unblock</span>
-       <span v-else>Unblock</span>
+    <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!admin.isBlocked)">
+       <span v-if="admin.isBlocked">Unblock</span>
+       <span v-else>Block</span>
     </button>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted || processing">Delete</button>
       </div>
@@ -88,7 +88,6 @@ export default {
   data() {
     return {
       adminServices: this.$serviceFactory.admins,
-      isBlocked: this.admin ? this.admin.isBlocked : false,
       processing: false,
       roles: {
         superadmin: 'super admin',
@@ -107,8 +106,12 @@ export default {
         this.processing = true;
         await this.adminServices.updateAdminStatus(this.admin.id, { block });
         this.processing = false;
-        this.isBlocked = block;
         this.displaySuccess({ message: `${this.admin.firstName} has been ${block ? 'blocked' : 'unblocked'} Successful` });
+
+        // update the list of admins
+        const { data } = await this.adminServices.getAdmins();
+        const { admins } = data;
+        this.$store.commit('storeAdmins', admins);
       } catch (error) {
         this.processing = false;
         this.displayError(error);
@@ -147,6 +150,10 @@ export default {
 
     &.active:after {
       background-color: #00C543;
+    }
+
+    &.blocked:after {
+      background-color: #F14336;
     }
   }
 
