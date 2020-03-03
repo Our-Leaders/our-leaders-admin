@@ -7,6 +7,10 @@
 }
 @import "vue-select/src/scss/vue-select.scss";
 
+button, button:active, button:focus {
+  outline: none;
+}
+
 .nav-links {
   a {
     &.active {
