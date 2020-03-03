@@ -1,7 +1,8 @@
 <template>
   <our-modal @close-modal="closeModal()" :open="true">
     <template v-slot:header>
-      <p class="text-4xl">New Admin</p>
+      <p class="text-4xl" v-if="isNew">New Admin</p>
+      <p class="text-4xl" v-else>Edit Admin</p>
     </template>
     <template v-slot:content>
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
@@ -90,7 +91,10 @@
           </div>
           <div class="mt-10">
             <button class="bg-primary text-white font-circular py-3 px-12 w-full" type="submit" :disabled="invalid || creatingAdminLoading">
-              <span v-if="!creatingAdminLoading">Create</span>
+              <span v-if="!creatingAdminLoading">
+                <span v-if="isNew">Create</span>
+                <span v-else>Edit</span>
+              </span>
               <span v-else>Submitting...</span>
             </button>
           </div>
@@ -107,6 +111,12 @@ import defaultPermissions from '@/assets/json/permissions.json';
 
 export default {
   name: 'NewAdminModal',
+  props: {
+    adminId: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       adminServices: this.$serviceFactory.admins,
@@ -129,7 +139,11 @@ export default {
       const payload = { ...this.newAdmin };
 
       try {
-        await this.adminServices.addNewAdmin(payload);
+        if (this.isNew) {
+          await this.adminServices.addNewAdmin(payload);
+        } else {
+          await this.adminServices.editAdmin(this.adminId, payload);
+        }
 
         // update the list of admins
         const { data } = await this.adminServices.getAdmins();
@@ -142,6 +156,30 @@ export default {
         this.creatingAdminLoading = false;
       }
     },
+  },
+  computed: {
+    isNew() {
+      return !this.adminId;
+    },
+  },
+  async mounted() {
+    if (this.adminId) {
+      const {
+        firstName = '',
+        lastName = '',
+        email = '',
+        phoneNumber = '',
+        permissions = {},
+      } = this.$store.getters.getAdmin(this.adminId);
+
+      this.newAdmin = {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        permissions: cloneDeep({ ...defaultPermissions, ...permissions }),
+      };
+    }
   },
 };
 </script>
