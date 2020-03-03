@@ -12,4 +12,7 @@ export default {
   editAdmin(adminId, payload) {
     return instance.put(`${resource}/${adminId}`, payload);
   },
+  updateAdminStatus(id, payload) {
+    return instance.put(`${resource}/${id}/status`, payload);
+  },
 };
