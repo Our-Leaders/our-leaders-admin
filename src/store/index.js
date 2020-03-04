@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
 
-import { authGetters, authMutations } from './authStore';
+import state from './defaultState';
+
+import { authGetters, authMutations, authActions } from './authStore';
 import { userGetters, userMutations } from './userStore';
 import { politicianGetters, politicianMutations } from './politicianStore';
 import { statisticGetters, statisticMutations } from './statisticsStore';
@@ -21,38 +23,7 @@ const vuexPersist = new VuexPersist({
 });
 
 export default new Vuex.Store({
-  state: {
-    currentUser: null,
-    jwtToken: '',
-    politicians: [],
-    activeModal: null,
-    activeModalProps: {},
-    politicalParties: [],
-    statistics: {},
-    admins: [],
-    info: {
-      header: null,
-      details: null,
-      display: false,
-      type: 'info',
-    },
-    page: {
-      aboutUs: '',
-      socials: {
-        facebook: '',
-        twitter: '',
-        instagram: '',
-        linkedin: '',
-      },
-      contact: {
-        address: '',
-        phoneNumber: '',
-        email: '',
-      },
-    },
-    // stored as { category: Array<job> }
-    jobsByCategory: {},
-  },
+  state,
   getters: Object.assign(
     {},
     authGetters,
@@ -78,7 +49,7 @@ export default new Vuex.Store({
     pagesMutations,
     jobMutations,
   ),
-  actions: Object.assign({}, notificationActions, jobActions),
+  actions: Object.assign({}, notificationActions, jobActions, authActions),
   modules: {},
   plugins: [vuexPersist.plugin],
 });

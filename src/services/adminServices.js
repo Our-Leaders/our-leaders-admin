@@ -9,4 +9,10 @@ export default {
   addNewAdmin(payload) {
     return instance.post(resource, payload);
   },
+  editAdmin(adminId, payload) {
+    return instance.put(`${resource}/${adminId}`, payload);
+  },
+  updateAdminStatus(id, payload) {
+    return instance.put(`${resource}/${id}/status`, payload);
+  },
 };

@@ -5,6 +5,7 @@ export const modalMutations = {
   },
   closeModal(state) {
     state.activeModal = null;
+    state.activeModalProps = {};
   },
 };
 

@@ -3,7 +3,7 @@
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
-    <div v-if="admin">
+    <div v-if="adminId">
       <div class="flex items-center mt-6 h-20">
         <div class="w-1/4">
           <div class="avatar"></div>
@@ -59,8 +59,11 @@
         </div>
       </div>
       <div class="flex pt-16 actions">
-        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isBlocked">Block</button>
-        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted">Delete</button>
+    <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!admin.isBlocked)">
+       <span v-if="admin.isBlocked">Unblock</span>
+       <span v-else>Block</span>
+    </button>
+        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted || processing">Delete</button>
       </div>
     </div>
     <div v-else class="flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
@@ -70,15 +73,22 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import cloneDeep from 'lodash.clonedeep';
+
+import defaultPermissions from '@/assets/json/permissions.json';
+
 export default {
   name: 'AdminDetails',
   props: {
-    admin: {
-      type: Object,
+    adminId: {
+      type: String,
     },
   },
   data() {
     return {
+      adminServices: this.$serviceFactory.admins,
+      processing: false,
       roles: {
         superadmin: 'super admin',
         admin: 'admin',
@@ -86,8 +96,37 @@ export default {
     };
   },
   methods: {
-    togglePermission(value) {
-      console.log(value);
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+      updateAdminStatus: 'updateAdminStatus',
+    }),
+    async updateBlockedStatus(block) {
+      try {
+        this.processing = true;
+        await this.adminServices.updateAdminStatus(this.admin.id, { block });
+        this.processing = false;
+        this.displaySuccess({ message: `${this.admin.firstName} has been ${block ? 'blocked' : 'unblocked'} Successful` });
+
+        // update the list of admins
+        const { data } = await this.adminServices.getAdmins();
+        const { admins } = data;
+        this.$store.commit('storeAdmins', admins);
+      } catch (error) {
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    togglePermission() {},
+  },
+  computed: {
+    admin() {
+      const admin = this.$store.getters.getAdmin(this.adminId);
+
+      return {
+        ...admin,
+        permissions: cloneDeep({ ...defaultPermissions, ...admin.permissions }),
+      };
     },
   },
 };
@@ -111,6 +150,10 @@ export default {
 
     &.active:after {
       background-color: #00C543;
+    }
+
+    &.blocked:after {
+      background-color: #F14336;
     }
   }
 

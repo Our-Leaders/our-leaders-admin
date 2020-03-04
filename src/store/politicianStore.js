@@ -13,6 +13,9 @@ export const politicianMutations = {
 
     state.politicians = modifiedPoliticians;
   },
+  clearPoliticians(state) {
+    state.politicians = [];
+  },
 };
 
 export const politicianGetters = {
