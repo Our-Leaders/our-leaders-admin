@@ -4,17 +4,7 @@
     "update": false,
     "delete": false
   },
-  "educationalBackground": {
-    "create": false,
-    "update": false,
-    "delete": false
-  },
-  "politicalBackground": {
-    "create": false,
-    "update": false,
-    "delete": false
-  },
-  "professionalBackground": {
+  "politicianBackground": {
     "create": false,
     "update": false,
     "delete": false
