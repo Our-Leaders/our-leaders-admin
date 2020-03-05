@@ -125,7 +125,7 @@ export default {
         this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: politician });
       } catch (err) {
         // do somehting with the error here
-        this.$store.dispatch('displaySuccess', err);
+        this.$store.dispatch('displayError', err);
       }
     },
     dateSelected(date) {

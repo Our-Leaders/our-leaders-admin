@@ -220,13 +220,13 @@ export default {
         const { data } = await this.politicianServices.getPoliticians();
         const { politicians } = data;
         this.$store.commit('storePoliticians', politicians);
+        this.$store.dispatch('displaySuccess', { message: 'Politician\'s background updated successfully' });
         this.closeModal();
       } catch (err) {
-        // do something with the error here
         if (err.response) {
           this.error = err.response.data.message;
         } else {
-          this.error = err.message;
+          this.$store.dispatch('displayError', err.message);
         }
       } finally {
         this.updateLoading = false;
