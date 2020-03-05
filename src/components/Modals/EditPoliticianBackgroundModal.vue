@@ -15,6 +15,15 @@
                   name="position"
                   v-model="politicalBackground.position"
                   placeholder="Office *"
+                  :required="required(politicalBackground, politicalBackgroundData)"
+                />
+              </div>
+              <div>
+                <input class="field w-full py-2 border-gray-c4"
+                  type="text"
+                  name="state"
+                  v-model="politicalBackground.state"
+                  placeholder="State"
                 />
               </div>
               <div class="w-full py-2 inline-block cursor-pointer">
@@ -35,7 +44,7 @@
                   type="text"
                   name="position-description"
                   v-model="politicalBackground.description"
-                  placeholder="Description of office *"
+                  placeholder="Description of office"
                 />
               </div>
               <div class="flex">
@@ -45,7 +54,8 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.startDate"
                   class="w-full xl:mr-2"
-                  input-class="field w-full py-2 border-gray-c4">
+                  input-class="field w-full py-2 border-gray-c4"
+                  :required="required(politicalBackground, politicalBackgroundData)">
                 </v-datepicker>
                 <v-datepicker
                   name="end-date"
@@ -53,7 +63,8 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
-                  input-class="field w-full py-2 border-gray-c4">
+                  input-class="field w-full py-2 border-gray-c4"
+                  :required="required(politicalBackground, politicalBackgroundData)">
                 </v-datepicker>
               </div>
             </div>
@@ -74,6 +85,7 @@
                 name="degree"
                 v-model="educationalBackground.degree"
                 placeholder="Degree *"
+                :required="required(educationalBackground, educationalBackgroundData)"
               />
             </div>
             <div class="w-2/3">
@@ -82,6 +94,7 @@
                 name="background-description"
                 v-model="educationalBackground.institution"
                 placeholder="Institution *"
+                :required="required(educationalBackground, educationalBackgroundData)"
               />
               <v-datepicker
                 name="start-date"
@@ -89,7 +102,8 @@
                 format="dd/MM/yyyy"
                 v-model="educationalBackground.startDate"
                 class="w-full"
-                input-class="field w-full py-2 border-gray-c4">
+                input-class="field w-full py-2 border-gray-c4"
+                :required="required(educationalBackground, educationalBackgroundData)">
               </v-datepicker>
             </div>
           </div>
@@ -109,6 +123,7 @@
                 name="title"
                 v-model="professionalBackground.title"
                 placeholder="Title *"
+                :required="required(professionalBackground, professionalBackgroundData)"
               />
             </div>
             <div class="w-2/3">
@@ -117,7 +132,7 @@
                   type="text"
                   name="title-description"
                   v-model="professionalBackground.description"
-                  placeholder="Description *"
+                  placeholder="Description"
                 />
               </div>
               <div class="flex">
@@ -127,7 +142,8 @@
                   format="dd/MM/yyyy"
                   v-model="professionalBackground.startDate"
                   class="w-full xl:mr-2"
-                  input-class="field w-full py-2 border-gray-c4">
+                  input-class="field w-full py-2 border-gray-c4"
+                  :required="required(professionalBackground, professionalBackgroundData)">
                 </v-datepicker>
                 <v-datepicker
                   name="end-date"
@@ -135,7 +151,8 @@
                   format="dd/MM/yyyy"
                   v-model="professionalBackground.endDate"
                   class="w-full xl:ml-2"
-                  input-class="field w-full py-2 border-gray-c4">
+                  input-class="field w-full py-2 border-gray-c4"
+                  :required="required(professionalBackground, professionalBackgroundData)">
                 </v-datepicker>
               </div>
             </div>
@@ -269,6 +286,10 @@ export default {
     previousRowIsEmpty(list, data) {
       const backgrounds = this.politicianData[list];
       return isEqual(data, backgrounds[backgrounds.length - 1]);
+    },
+    required(list, data) {
+      // Field is required only if section is not empty
+      return !isEqual(list, data);
     },
   },
   async mounted() {
