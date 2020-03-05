@@ -12,6 +12,7 @@ import EditContactModal from './EditContactModal.vue';
 import EditProfileModal from './EditProfileModal.vue';
 import NewPoliticianModal from './NewPoliticianModal.vue';
 import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
+import EditPoliticianBackgroundModal from './EditPoliticianBackgroundModal.vue';
 import NewPoliticalPartyModal from './NewPoliticalPartyModal.vue';
 import EditPoliticalPartyIdeologyModal from './EditPoliticalPartyIdeologyModal.vue';
 
@@ -22,6 +23,7 @@ export default {
       modals: {
         NewPoliticianModal,
         EditPoliticianManifestoModal,
+        EditPoliticianBackgroundModal,
         NewPoliticalPartyModal,
         EditPoliticalPartyIdeologyModal,
         EditContactModal,

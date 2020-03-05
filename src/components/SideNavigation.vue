@@ -5,7 +5,7 @@
         <template v-slot:trigger>
           <button class="relative focus:outline-none border-black border-2 w-full py-2 px-3 flex justify-between items-center">
             <span>New</span>
-            <span><img src="@/assets/img/add.svg" alt=""></span>
+            <span><img src="@/assets/img/add-primary.svg" alt=""></span>
           </button>
         </template>
         <template v-slot:items class="font-circular">
