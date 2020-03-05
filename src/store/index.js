@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import VuexPersist from 'vuex-persist';
 
-import state from './defaultState';
+import defaultState from './defaultState';
 
 import { authGetters, authMutations, authActions } from './authStore';
 import { userGetters, userMutations } from './userStore';
@@ -20,10 +20,37 @@ Vue.use(Vuex);
 const vuexPersist = new VuexPersist({
   key: 'our-leaders-admin',
   storage: window.localStorage,
+  // added this to the the persist module what to persist and what not to persist, in the case
+  // not to persist the notification state because it should be temprary
+  reducer: state => ({
+    currentUser: state.currentUser,
+    jwtToken: state.jwtToken,
+    politicians: state.politicians,
+    activeModal: state.activeModal,
+    activeModalProps: state.activeModalProps,
+    politicalParties: state.politicalParties,
+    statistics: state.statistics,
+    admins: state.admins,
+    page: {
+      aboutUs: state.page.aboutUs,
+      socials: {
+        facebook: state.page.socials.facebook,
+        twitter: state.page.socials.twitter,
+        instagram: state.page.socials.instagram,
+        linkedin: state.page.socials.linkedin,
+      },
+      contact: {
+        address: state.page.contact.address,
+        phoneNumber: state.page.contact.phoneNumber,
+        email: state.page.contact.email,
+      },
+      jobsByCategory: state.jobsByCategory,
+    },
+  }),
 });
 
 export default new Vuex.Store({
-  state,
+  state: defaultState,
   getters: Object.assign(
     {},
     authGetters,

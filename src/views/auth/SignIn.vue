@@ -1,9 +1,5 @@
 <template>
   <div class="flex flex-wrap h-full">
-    <our-alert :alert-type="info.type" :display="displayInfo" @close="displayInfo = false">
-      <p class="font-bold">{{info.header}}</p>
-      <p class="text-sm">{{info.details}}</p>
-    </our-alert>
     <div class="hidden lg:inline-block lg:w-1/3 bg-primary bg-overlay relative">
       <img class="h-16 my-6 mx-12 absolute" src="../../assets/img/logo-w.svg"/>
       <div class="flex flex-col justify-center h-full px-12">
@@ -69,6 +65,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'SignIn',
   data() {
@@ -78,13 +76,7 @@ export default {
         email: null,
         password: null,
       },
-      displayInfo: false,
       displayPassword: false,
-      info: {
-        header: null,
-        details: null,
-        type: 'info',
-      },
       loading: false,
     };
   },
@@ -97,29 +89,27 @@ export default {
         const { user, token } = response.data;
 
         if (!['superadmin', 'admin'].includes(user.role)) {
-          this.showInfo('Unauthorised', 'You\'re not allowed to  access this resource', 'error');
+          this.displayError('You\'re not allowed to  access this resource');
         } else {
           this.$store.commit('setCurrentUser', user);
           this.$store.commit('setJWT', token);
-          this.showInfo('Success', 'Welcome back! Find everything just as you left it.', 'success');
+          this.displaySuccess({ message: 'Welcome back! Find everything just as you left it.' });
           // redirect the user to the appropriate page
           this.$router.push({ name: 'home' });
         }
       } catch (err) {
-        this.showInfo('Uh Oh', 'Email or password is incorrect.', 'error');
+        this.displayError(err);
       } finally {
         this.loading = false;
       }
     },
-    showInfo(header, msg, type) {
-      this.info.header = header;
-      this.info.details = msg;
-      this.info.type = type;
-      this.displayInfo = true;
-    },
     togglePassword() {
       this.displayPassword = !this.displayPassword;
     },
+    ...mapActions({
+      displayError: 'displayError',
+      displaySuccess: 'displaySuccess',
+    }),
   },
 };
 </script>

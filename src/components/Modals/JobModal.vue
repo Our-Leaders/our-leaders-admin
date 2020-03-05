@@ -195,7 +195,6 @@ export default {
       this.$emit('close-modal');
     },
     async submit() {
-      console.log(this.job);
       this.creatingEditJobLoading = true;
 
       let payload;
