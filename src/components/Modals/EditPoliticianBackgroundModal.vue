@@ -4,204 +4,166 @@
       <p class="text-4xl">Edit Background</p>
     </template>
     <template v-slot:content>
-      <ValidationObserver v-slot="{ invalid, handleSubmit }">
-        <form @submit.prevent="handleSubmit(submit)">
-          <div class="mt-10">
-            <p class="font-circular text-xl font-semibold w-full mb-4">Personal background</p>
-            <div class="flex mb-3">
-              <div class="w-1/3 xl:mr-5 self-center">
-                Political Party
-              </div>
-              <div class="w-2/3">
-                <v-select
-                  name="politician-party"
-                  label="name"
-                  :reduce="party => party.id"
-                  :clearable="false"
-                  :options="politicalParties"
-                  v-model="politicianData.politicalParty"
-                  class="our-select"></v-select>
-              </div>
-            </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 xl:mr-5 self-center">
-                DOB/Age
-              </div>
-              <div class="w-2/3">
-                <ValidationProvider rules="required" name="Politician DOB" v-slot="{ errors }">
-                  <v-datepicker
-                    placeholder="DD/MM/YYYY"
-                    format="dd/MM/yyyy"
-                    v-model="politicianData.dob"
-                    required
-                    :input-class="datePickerClasses(errors.length > 0)">
-                  </v-datepicker>
-                </ValidationProvider>
-              </div>
-            </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 xl:mr-5 self-center">
-                State of origin
-              </div>
-              <div class="w-2/3">
-                <ValidationProvider rules="required" name="Politician State of origin" v-slot="{ errors }">
-                  <v-select
-                    name="state-of-origin"
-                    :clearable="false"
-                    :options="nigerianStates"
-                    v-model="politicianData.stateOfOrigin"
-                    :class="{'has-error': errors.length > 0}"
-                    class="our-select"></v-select>
-                </ValidationProvider>
-              </div>
-            </div>
-          </div>
-          <div class="mt-10">
-            <p class="font-circular text-xl font-semibold w-full mb-4">Political background</p>
-            <div class="flex mb-3" v-for="(politicalBackground, index) of politicianData.politicalBackground.concat(newPoliticalBackgrounds)" :key="index">
-              <div class="w-1/3 xl:mr-5">
+      <form @submit="submit">
+        <div class="mt-10">
+          <p class="font-circular text-xl font-semibold w-full mb-4">Political background</p>
+          <div class="flex mb-3" v-for="(politicalBackground, index) of politicianData.politicalBackground" :key="index">
+            <div class="w-1/3 xl:mr-5">
+              <div>
                 <input class="field w-full py-2 border-gray-c4"
                   type="text"
                   name="position"
                   v-model="politicalBackground.position"
-                  placeholder="Office"
+                  placeholder="Office *"
                 />
               </div>
-              <div class="w-2/3">
-                <div>
-                  <input class="field w-full py-2 border-gray-c4"
-                    type="text"
-                    name="position-description"
-                    v-model="politicalBackground.description"
-                    placeholder="Description of office"
-                  />
-                </div>
-                <div class="flex">
-                  <v-datepicker
-                    name="start-date"
-                    placeholder="Start date"
-                    format="dd/MM/yyyy"
-                    v-model="politicalBackground.startDate"
-                    class="w-full xl:mr-2"
-                    :input-class="datePickerClasses()">
-                  </v-datepicker>
-                  <v-datepicker
-                    name="end-date"
-                    placeholder="End date"
-                    format="dd/MM/yyyy"
-                    v-model="politicalBackground.endDate"
-                    class="w-full xl:ml-2"
-                    :input-class="datePickerClasses()">
-                  </v-datepicker>
-                </div>
+              <div class="w-full py-2 inline-block cursor-pointer">
+                <input class="mr-2"
+                  :id="`in-office-${index}`"
+                  type="radio"
+                  name="in-office"
+                  :value="index"
+                  :checked="politicalBackground.inOffice"
+                  @change="onChangeInOffice($event)"
+                />
+                <label :for="`in-office-${index}`">Is current office</label>
               </div>
             </div>
-            <div class="mt-6">
-              <a class="inline-flex items-center cursor-pointer" @click="addRow('newPoliticalBackgrounds', politicalBackgroundData)">
-                <span class="mr-2">New row</span>
-                <span><img src="@/assets/img/add.svg" alt=""></span>
-              </a>
-            </div>
-          </div>
-          <div class="mt-10">
-            <p class="font-circular text-xl font-semibold w-full mb-4">Educational background</p>
-            <div class="flex mb-3" v-for="(educationalBackground, index) of politicianData.educationalBackground.concat(newEducationalBackgrounds)" :key="index">
-              <div class="w-1/3 xl:mr-5">
+            <div class="w-2/3">
+              <div>
                 <input class="field w-full py-2 border-gray-c4"
                   type="text"
-                  name="degree"
-                  v-model="educationalBackground.degree"
-                  placeholder="Degree"
+                  name="position-description"
+                  v-model="politicalBackground.description"
+                  placeholder="Description of office *"
                 />
               </div>
-              <div class="w-2/3">
-                <input class="field w-full py-2 border-gray-c4"
-                  type="text"
-                  name="background-description"
-                  v-model="educationalBackground.institution"
-                  placeholder="Institution"
-                />
+              <div class="flex">
                 <v-datepicker
                   name="start-date"
-                  placeholder="Degree start date"
+                  placeholder="Start date *"
                   format="dd/MM/yyyy"
-                  v-model="educationalBackground.startDate"
-                  class="w-full"
-                  :input-class="datePickerClasses()">
+                  v-model="politicalBackground.startDate"
+                  class="w-full xl:mr-2"
+                  input-class="field w-full py-2 border-gray-c4">
+                </v-datepicker>
+                <v-datepicker
+                  name="end-date"
+                  placeholder="End date *"
+                  format="dd/MM/yyyy"
+                  v-model="politicalBackground.endDate"
+                  class="w-full xl:ml-2"
+                  input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
               </div>
             </div>
-            <div class="mt-6">
-              <a class="inline-flex items-center cursor-pointer" @click="addRow('newEducationalBackgrounds', educationalBackgroundData)">
-                <span class="mr-2">New row</span>
-                <span><img src="@/assets/img/add.svg" alt=""></span>
-              </a>
+          </div>
+          <div class="mt-6">
+            <a :class="addRowClass('politicalBackground', politicalBackgroundData)" @click="addRow('politicalBackground', politicalBackgroundData)">
+              <span class="mr-2">New row</span>
+              <span><img src="@/assets/img/add.svg" alt=""></span>
+            </a>
+          </div>
+        </div>
+        <div class="mt-10">
+          <p class="font-circular text-xl font-semibold w-full mb-4">Educational background</p>
+          <div class="flex mb-3" v-for="(educationalBackground, index) of politicianData.educationalBackground" :key="index">
+            <div class="w-1/3 xl:mr-5">
+              <input class="field w-full py-2 border-gray-c4"
+                type="text"
+                name="degree"
+                v-model="educationalBackground.degree"
+                placeholder="Degree *"
+              />
+            </div>
+            <div class="w-2/3">
+              <input class="field w-full py-2 border-gray-c4"
+                type="text"
+                name="background-description"
+                v-model="educationalBackground.institution"
+                placeholder="Institution *"
+              />
+              <v-datepicker
+                name="start-date"
+                placeholder="Degree start date *"
+                format="dd/MM/yyyy"
+                v-model="educationalBackground.startDate"
+                class="w-full"
+                input-class="field w-full py-2 border-gray-c4">
+              </v-datepicker>
             </div>
           </div>
-          <div class="mt-10">
-            <p class="font-circular text-xl font-semibold w-full mb-4">Professional background</p>
-            <div class="flex mb-3" v-for="(professionalBackground, index) of politicianData.professionalBackground.concat(newProfessionalBackgrounds)" :key="index">
-              <div class="w-1/3 xl:mr-5">
+          <div class="mt-6">
+            <a :class="addRowClass('educationalBackground', educationalBackgroundData)" @click="addRow('educationalBackground', educationalBackgroundData)">
+              <span class="mr-2">New row</span>
+              <span><img src="@/assets/img/add.svg" alt=""></span>
+            </a>
+          </div>
+        </div>
+        <div class="mt-10">
+          <p class="font-circular text-xl font-semibold w-full mb-4">Professional background</p>
+          <div class="flex mb-3" v-for="(professionalBackground, index) of politicianData.professionalBackground" :key="index">
+            <div class="w-1/3 xl:mr-5">
+              <input class="field w-full py-2 border-gray-c4"
+                type="text"
+                name="title"
+                v-model="professionalBackground.title"
+                placeholder="Title *"
+              />
+            </div>
+            <div class="w-2/3">
+              <div>
                 <input class="field w-full py-2 border-gray-c4"
                   type="text"
-                  name="title"
-                  v-model="professionalBackground.title"
-                  placeholder="Title"
+                  name="title-description"
+                  v-model="professionalBackground.description"
+                  placeholder="Description *"
                 />
               </div>
-              <div class="w-2/3">
-                <div>
-                  <input class="field w-full py-2 border-gray-c4"
-                    type="text"
-                    name="title-description"
-                    v-model="professionalBackground.description"
-                    placeholder="Description"
-                  />
-                </div>
-                <div class="flex">
-                  <v-datepicker
-                    name="start-date"
-                    placeholder="Start date"
-                    format="dd/MM/yyyy"
-                    v-model="professionalBackground.startDate"
-                    class="w-full xl:mr-2"
-                    :input-class="datePickerClasses()">
-                  </v-datepicker>
-                  <v-datepicker
-                    name="end-date"
-                    placeholder="End date"
-                    format="dd/MM/yyyy"
-                    v-model="professionalBackground.endDate"
-                    class="w-full xl:ml-2"
-                    :input-class="datePickerClasses()">
-                  </v-datepicker>
-                </div>
+              <div class="flex">
+                <v-datepicker
+                  name="start-date"
+                  placeholder="Start date *"
+                  format="dd/MM/yyyy"
+                  v-model="professionalBackground.startDate"
+                  class="w-full xl:mr-2"
+                  input-class="field w-full py-2 border-gray-c4">
+                </v-datepicker>
+                <v-datepicker
+                  name="end-date"
+                  placeholder="End date *"
+                  format="dd/MM/yyyy"
+                  v-model="professionalBackground.endDate"
+                  class="w-full xl:ml-2"
+                  input-class="field w-full py-2 border-gray-c4">
+                </v-datepicker>
               </div>
             </div>
-            <div class="mt-6">
-              <a class="inline-flex items-center cursor-pointer" @click="addRow('newProfessionalBackgrounds', professionalBackgroundData)">
-                <span class="mr-2">New row</span>
-                <span><img src="@/assets/img/add.svg" alt=""></span>
-              </a>
-            </div>
           </div>
-          <div class="flex mt-12">
-            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid || updateLoading">
-              <span v-if="!updateLoading">Save</span>
-              <span v-else>Submitting...</span>
-            </button>
+          <div class="mt-6">
+            <a :class="addRowClass('professionalBackground', professionalBackgroundData)" @click="addRow('professionalBackground', professionalBackgroundData)">
+              <span class="mr-2">New row</span>
+              <span><img src="@/assets/img/add.svg" alt=""></span>
+            </a>
           </div>
-        </form>
-      </ValidationObserver>
+        </div>
+        <div class="mt-8">
+          <p class="flex text-red-500 absolute">{{ error }}</p>
+          <button class="bg-primary text-white font-circular py-3 px-12 mt-10" type="submit" :disabled="updateLoading">
+            <span v-if="!updateLoading">Save</span>
+            <span v-else>Submitting...</span>
+          </button>
+        </div>
+      </form>
     </template>
   </our-modal>
 </template>
 
 <script>
-import nigerianStates from '@/assets/json/nigerianStates.json';
+import isEqual from 'lodash.isequal';
 
 export default {
-  name: 'NewLeaderModal',
+  name: 'EditPoliticianBackgroundModal',
   props: {
     politicianId: {
       type: String,
@@ -210,22 +172,14 @@ export default {
   },
   data() {
     return {
-      politicalPartyServices: this.$serviceFactory.politicalParty,
       politicianServices: this.$serviceFactory.politicians,
-      nigerianStates,
       politicianData: {
-        name: '',
-        dob: '',
-        religion: '',
-        stateOfOrigin: '',
-        politicalParty: '',
-        status: '',
         politicalBackground: [],
         educationalBackground: [],
         professionalBackground: [],
       },
-      politicalParties: [],
       updateLoading: false,
+      error: '',
       politicalBackgroundData: {
         position: '',
         description: '',
@@ -245,77 +199,87 @@ export default {
         startDate: '',
         endDate: '',
       },
-      newPoliticalBackgrounds: [],
-      newEducationalBackgrounds: [],
-      newProfessionalBackgrounds: [],
     };
   },
   methods: {
     closeModal() {
       this.$emit('close-modal');
     },
-    async submit() {
-      console.log('submit');
-    },
-    datePickerClasses(invalid) {
-      let classNames = 'field w-full py-2';
+    async submit(e) {
+      e.preventDefault();
+      this.updateLoading = true;
+      this.error = '';
 
-      if (invalid) {
-        classNames += ' border-red-600';
-      } else {
-        classNames += ' border-gray-c4';
+      const payload = this.removeEmptySections();
+
+      try {
+        // update the politician
+        await this.politicianServices.editPoliticianBackground(this.politicianId, payload);
+
+        // update the list of politicians
+        const { data } = await this.politicianServices.getPoliticians();
+        const { politicians } = data;
+        this.$store.commit('storePoliticians', politicians);
+        this.closeModal();
+      } catch (err) {
+        // do something with the error here
+        if (err.response) {
+          this.error = err.response.data.message;
+        } else {
+          this.error = err.message;
+        }
+      } finally {
+        this.updateLoading = false;
       }
+    },
+    removeEmptySections() {
+      const politicianData = { ...this.politicianData };
+      const { politicalBackground, educationalBackground, professionalBackground } = politicianData;
 
-      return classNames;
+      politicianData.politicalBackground = politicalBackground.filter(background => !isEqual(this.politicalBackgroundData, background));
+      politicianData.educationalBackground = educationalBackground.filter(background => !isEqual(this.educationalBackgroundData, background));
+      politicianData.professionalBackground = professionalBackground.filter(background => !isEqual(this.professionalBackgroundData, background));
+
+      return politicianData;
+    },
+    onChangeInOffice(event) {
+      const { value } = event.target;
+
+      this.politicianData.politicalBackground = this.politicianData.politicalBackground.map((bg, index) => {
+        const background = { ...bg };
+        background.inOffice = index === parseInt(value, 0);
+        return background;
+      });
     },
     addRow(list, data) {
-      this[list] = this[list].concat(data);
+      if (!this.previousRowIsEmpty(list, data)) {
+        this.politicianData[list] = this.politicianData[list].concat({ ...data });
+      }
+    },
+    addRowClass(list, data) {
+      let cx = 'inline-flex items-center';
+
+      if (this.previousRowIsEmpty(list, data)) {
+        cx += ' cursor-not-allowed opacity-50';
+      } else {
+        cx += ' cursor-pointer';
+      }
+      return cx;
+    },
+    previousRowIsEmpty(list, data) {
+      const backgrounds = this.politicianData[list];
+      return isEqual(data, backgrounds[backgrounds.length - 1]);
     },
   },
   async mounted() {
-    if (this.$store.state.politicalParties.length === 0) {
-      const { data } = await this.politicalPartyServices.getPoliticalParties();
-      this.$store.commit('storePoliticalParties', data.politicalParties);
-    }
-
-    const { politicalParties } = this.$store.state;
-    this.politicalParties = politicalParties;
-
     if (this.politicianId) {
-      const {
-        name = '',
-        dob = '',
-        religion = '',
-        stateOfOrigin = '',
-        politicalParty = {},
-        status = '',
-        politicalBackground = [],
-        educationalBackground = [],
-        professionalBackground = [],
-      } = this.$store.getters.getPolitician(this.politicianId);
+      let { politicalBackground, educationalBackground, professionalBackground } = this.$store.getters.getPolitician(this.politicianId);
 
-      this.politicianData = {
-        name,
-        dob,
-        religion,
-        stateOfOrigin,
-        // eslint-disable-next-line no-underscore-dangle
-        politicalParty: politicalParty._id || '',
-        politicalBackground,
-        educationalBackground,
-        professionalBackground,
-        status,
-      };
+      if (!politicalBackground.length) politicalBackground = [{ ...this.politicalBackgroundData }];
+      if (!educationalBackground.length) educationalBackground = [{ ...this.educationalBackgroundData }];
+      if (!professionalBackground.length) professionalBackground = [{ ...this.professionalBackgroundData }];
 
-      if (!politicalBackground.length) {
-        this.newPoliticalBackgrounds = this.newPoliticalBackgrounds.concat(this.politicalBackgroundData);
-      }
-      if (!educationalBackground.length) {
-        this.newEducationalBackgrounds = this.newEducationalBackgrounds.concat(this.educationalBackgroundData);
-      }
-      if (!professionalBackground.length) {
-        this.newProfessionalBackgrounds = this.newProfessionalBackgrounds.concat(this.professionalBackgroundData);
-      }
+      this.politicianData = { politicalBackground, educationalBackground, professionalBackground };
     }
   },
 };
