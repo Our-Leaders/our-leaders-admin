@@ -49,11 +49,32 @@
           </div>
         </ValidationProvider>
         <div class="mt-5 mb-4">
-          <label for="accomplishment-image" class="flex cursor-pointer">
-            <input ref="imageref" type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*"  @change="onFileUpload($event);">
-            <img src="@/assets/img/image-icon.svg" alt="">
-            <span class="text-xs font-circular ml-3">Image</span>
-          </label>
+          <div class="flex items-center">
+            <label for="accomplishment-image" class="flex cursor-pointer">
+              <input ref="imageref" type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*"  @change="onFileUpload($event);">
+              <img src="@/assets/img/image-icon.svg" alt="">
+              <span class="text-xs font-circular ml-3">Image</span>
+            </label>
+            <label for="accomplishment-url" class="flex cursor-pointer ml-4 flex-1">
+              <span class="w-full relative">
+                <span class="form-icon absolute pl-1 h-full">
+                  <img src="@/assets/img/hyperlink.svg" alt="">
+                </span>
+                <input
+                  class="w-full py-2 text-xs font-circular"
+                  :class="urlPlaceHolderClass"
+                  type="url"
+                  id="accomplishment-url"
+                  name="accomplishment-url"
+                  placeholder="Link"
+                  pattern="https?://.+"
+                  v-model="accomplishment.url"
+                  @focus="urlFocused = true"
+                  @blur="urlFocused = false"
+                />
+              </span>
+            </label>
+          </div>
           <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishmentImageFile">
             <span class="flex items-center">
               <span
@@ -68,8 +89,9 @@
           <div class="mt-2">
             <textarea
               name="accomplishment-description"
+              placeholder="Description"
               id="accomplishment-description"
-              class="w-full pl-1 py-2 field border-b border-gray-400"
+              class="w-full pl-1 py-2"
               :class="errors.length > 0 ? 'border-red-600' : ''"
               v-model="accomplishment.description"
               rows="7"></textarea>
@@ -167,6 +189,7 @@ export default {
       this.accomplishment = {
         title: '',
         description: '',
+        url: '',
         tags: [],
         quarter: '',
         year: '',
@@ -186,16 +209,26 @@ export default {
       accomplishment: {
         title: '',
         description: '',
+        url: '',
         tags: [],
         quarter: '',
         year: '',
       },
       accomplishmentImageFile: '',
       accomplishmentImageSrc: '',
+      urlFocused: false,
     };
   },
   mounted() {
     // incase this is used for editing an accomplishment, reinitialize the date object here
+  },
+  computed: {
+    urlPlaceHolderClass() {
+      if (this.urlFocused) {
+        return 'field border-b border-gray-400';
+      }
+      return 'placeholder-black';
+    },
   },
 };
 </script>
