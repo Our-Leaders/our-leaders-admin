@@ -7,8 +7,16 @@ export const politicalPartyMutations = {
     state.politicalParties = [];
     state.politicalPartyCount = 0;
   },
+  changePageNumber(state, page) {
+    state.politicalPartyPagination.page = page;
+  },
 };
 
 export const politicalPartyGetters = {
   getPoliticalParty: state => id => state.politicalParties.find(party => party.id === id),
+  getPoliticalPartyPageCount: (state) => {
+    const { politicalPartyCount, politicalPartyPagination } = state;
+    const { numberPerPage } = politicalPartyPagination;
+    return Math.ceil(politicalPartyCount / numberPerPage);
+  },
 };
