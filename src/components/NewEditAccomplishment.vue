@@ -63,11 +63,14 @@
                 <input
                   class="w-full py-2 text-xs font-circular"
                   :class="urlPlaceHolderClass"
-                  type="url"
                   id="accomplishment-url"
                   name="accomplishment-url"
+                  type="text"
+                  :pattern="urlRegex"
+                  oninvalid="this.setCustomValidity('Enter a valid URL')"
+                  oninput="this.setCustomValidity('')"
+                  autocomplete="off"
                   placeholder="Link"
-                  pattern="https?://.+"
                   v-model="accomplishment.url"
                   @focus="urlFocused = true"
                   @blur="urlFocused = false"
@@ -112,6 +115,7 @@
 
 <script>
 import moment from 'moment';
+import StringUtil from '@/helpers/stringUtil';
 
 export default {
   name: 'NewEditAccomplishment',
@@ -141,7 +145,7 @@ export default {
         const { data } = await this.politicianServices.newAccomplishment(this.politicianId, payload);
         const { politician } = data;
         this.clearAccomplishment();
-        this.$store.dispatch('displaySuccess', { message: 'Accomplsiment created successfully' });
+        this.$store.dispatch('displaySuccess', { message: 'Accomplishment created successfully' });
 
         // update the politician here
         this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: politician });
@@ -228,6 +232,9 @@ export default {
         return 'field border-b border-gray-400';
       }
       return 'placeholder-black';
+    },
+    urlRegex() {
+      return StringUtil.urlRegex();
     },
   },
 };
