@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import vSelect from 'vue-select';
+import Paginate from 'vuejs-paginate';
 import Datepicker from 'vuejs-datepicker';
 import VuePluralize from 'vue-pluralize';
 
@@ -26,6 +27,7 @@ vSelect.props.components.default = () => ({
 });
 /** end of vselect */
 
+Vue.component('paginate', Paginate);
 Vue.component('v-datepicker', Datepicker);
 
 // configure the pluralize lib
