@@ -67,7 +67,7 @@
                   name="accomplishment-url"
                   type="text"
                   :pattern="urlRegex"
-                  oninvalid="this.setCustomValidity('Enter a valid URL')"
+                  oninvalid="this.setCustomValidity('Enter a valid URL that starts with http, https or www')"
                   oninput="this.setCustomValidity('')"
                   autocomplete="off"
                   placeholder="Link"

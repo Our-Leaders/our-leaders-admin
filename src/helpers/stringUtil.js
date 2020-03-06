@@ -17,7 +17,7 @@ class StringUtil {
 
   static urlRegex() {
     // eslint-disable-next-line no-useless-escape
-    return "^(?:http(s)?://)?[\\w.-]+(?:\\.[\\w\\.-]+)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$";
+    return "^(?:http(s)?://|www)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$";
   }
 }
 
