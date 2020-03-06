@@ -297,7 +297,8 @@ export default {
   async mounted() {
     if (this.$store.state.politicalParties.length === 0) {
       const { data } = await this.politicalPartyServices.getPoliticalParties();
-      this.$store.commit('storePoliticalParties', data.politicalParties);
+      const { politicalParties, total: politicalPartyCount } = data;
+      this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
     }
 
     const { politicalParties } = this.$store.state;

@@ -34,11 +34,10 @@ export default {
     };
   },
   methods: {
-    async getParties() {
-      // const query = { status };
-      const { data } = await this.politicalPartyServices.getPoliticalParties();
-      const { politicalParties } = data;
-      this.$store.commit('storePoliticalParties', politicalParties);
+    async getParties(filter = {}) {
+      const { data } = await this.politicalPartyServices.getPoliticalParties(filter);
+      const { politicalParties, total: politicalPartyCount } = data;
+      this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
     },
     goToPoliticalParty(id) {
       this.$router.push({ name: 'party-details', params: { id } });

@@ -5,6 +5,7 @@ export default {
   activeModal: null,
   activeModalProps: {},
   politicalParties: [],
+  politicalPartyCount: 0,
   statistics: {},
   admins: [],
   info: {
