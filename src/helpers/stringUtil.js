@@ -14,6 +14,11 @@ class StringUtil {
 
     return err.response.data.message;
   }
+
+  static urlRegex() {
+    // eslint-disable-next-line no-useless-escape
+    return "^(?:http(s)?://|www)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$";
+  }
 }
 
 export default StringUtil;
