@@ -117,6 +117,38 @@
             </div>
             <div class="flex mb-3">
               <div class="w-1/3 self-end">
+                Country
+              </div>
+              <div class="w-2/3">
+                <ValidationProvider rules="required" name="Politician Country" v-slot="{ errors }">
+                  <v-select
+                    id="politician-country"
+                    name="politician-country"
+                    :disabled="true"
+                    :clearable="false"
+                    v-model="politicianData.country"
+                    :options="countries"
+                    :reduce="type => type.acronym"
+                    :class="{'has-error': errors.length > 0}"
+                    class="our-select">
+                      <template #option="{ name, flag }">
+                        <div class="flex items-center">
+                          <img :src="countryFlag(flag)" class="mr-1"/>
+                          <span>{{name}}</span>
+                        </div>
+                      </template>
+                      <template #selected-option="{ name, flag }">
+                        <div class="flex items-center">
+                          <img :src="countryFlag(flag)" class="mr-1"/>
+                          <span>{{name}}</span>
+                        </div>
+                      </template>
+                    </v-select>
+                </ValidationProvider>
+              </div>
+            </div>
+            <div class="flex mb-3">
+              <div class="w-1/3 self-end">
                 State of origin
               </div>
               <div class="w-2/3">
@@ -180,6 +212,7 @@
 </template>
 
 <script>
+import countries from '@/assets/json/countrylist.json';
 import nigerianStates from '@/assets/json/nigerianStates.json';
 
 export default {
@@ -205,11 +238,13 @@ export default {
         stateOfOrigin: '',
         politicalParty: '',
         status: '',
+        country: 'NG',
       },
       politicalParties: [],
       creatingPoliticianLoading: false,
       uploadedImageSrc: '',
       profileImageFile: '',
+      countries: Object.keys(countries).map(countryKey => countries[countryKey]),
     };
   },
   methods: {
@@ -259,9 +294,9 @@ export default {
         }
 
         // update the list of politicians
-        const { data } = await this.politicianServices.getPoliticians();
-        const { politicians } = data;
-        this.$store.commit('storePoliticians', politicians);
+        const { data } = await this.politicianServices.getPoliticians({});
+        const { politicians, total: politicianCount } = data;
+        this.$store.commit('storePoliticians', { politicians, politicianCount });
         this.closeModal();
       } catch (err) {
         // do something with the error here
@@ -293,11 +328,16 @@ export default {
         this.profileImageFile = file;
       }
     },
+    countryFlag(flag) {
+      const images = require.context('@/assets/img/flags', false, /\.svg$/);
+      return images(`./${flag}`);
+    },
   },
   async mounted() {
     if (this.$store.state.politicalParties.length === 0) {
       const { data } = await this.politicalPartyServices.getPoliticalParties();
-      this.$store.commit('storePoliticalParties', data.politicalParties);
+      const { politicalParties, total: politicalPartyCount } = data;
+      this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
     }
 
     const { politicalParties } = this.$store.state;
@@ -312,6 +352,7 @@ export default {
         stateOfOrigin = '',
         politicalParty = {},
         status = '',
+        country = 'NG',
         profileImage = {},
       } = this.$store.getters.getPolitician(this.politicianId);
 
@@ -320,6 +361,7 @@ export default {
         dob,
         religion,
         stateOfOrigin,
+        country,
         // eslint-disable-next-line no-underscore-dangle
         politicalParty: politicalParty._id || '',
         status,

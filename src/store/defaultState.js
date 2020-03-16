@@ -2,9 +2,19 @@ export default {
   currentUser: null,
   jwtToken: '',
   politicians: [],
+  politicianCount: 0,
   activeModal: null,
   activeModalProps: {},
   politicalParties: [],
+  politicalPartyCount: 0,
+  politicalPartyPagination: {
+    page: 1,
+    numberPerPage: 18,
+  },
+  politicianPagination: {
+    page: 1,
+    numberPerPage: 18,
+  },
   statistics: {},
   admins: [],
   info: {

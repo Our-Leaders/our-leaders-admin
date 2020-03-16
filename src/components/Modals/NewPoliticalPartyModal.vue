@@ -210,8 +210,8 @@ export default {
 
         // update the list of political parties
         const { data } = await this.politicalPartyServices.getPoliticalParties();
-        const { politicalParties } = data;
-        this.$store.commit('storePoliticalParties', politicalParties);
+        const { politicalParties, total: politicalPartyCount } = data;
+        this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
         this.closeModal();
       } catch (err) {
         // do something with the error here

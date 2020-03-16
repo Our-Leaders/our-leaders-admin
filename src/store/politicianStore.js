@@ -1,6 +1,7 @@
 export const politicianMutations = {
-  storePoliticians(state, politicians) {
+  storePoliticians(state, { politicians, politicianCount }) {
     state.politicians = politicians;
+    state.politicianCount = politicianCount;
   },
   storePolitician(state, { politicianId, payload }) {
     const modifiedPoliticians = state.politicians.map((politician) => {
@@ -16,6 +17,9 @@ export const politicianMutations = {
   clearPoliticians(state) {
     state.politicians = [];
   },
+  changePoliticianPageNumber(state, page) {
+    state.politicalPartyPagination.page = page;
+  },
 };
 
 export const politicianGetters = {
@@ -25,5 +29,10 @@ export const politicianGetters = {
   politicianCount: state => state.politicians.length,
   getPolitician(state) {
     return id => state.politicians.find(politician => politician.id === id);
+  },
+  getPoliticianPageCount: (state) => {
+    const { politicianCount, politicianPagination } = state;
+    const { numberPerPage } = politicianPagination;
+    return Math.ceil(politicianCount / numberPerPage);
   },
 };
