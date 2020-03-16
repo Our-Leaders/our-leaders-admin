@@ -3,7 +3,7 @@
     <div class="w-full xl:w-2/3">
       <header class="flex justify-between">
         <h5 class="text-4xl">
-          Leaders ({{leadersCount}})
+          Leaders <!-- ({{leadersCount}}) -->
         </h5>
         <div class="flex justify-between items-center">
           <button class="relative border-black border w-full py-1 px-3 flex justify-between items-center font-circular mr-4">Leader Updates</button>
@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       politicianServices: this.$serviceFactory.politicians,
-      country: 'ngr',
+      country: 'ng',
       leaderFilter: 'current',
       tabs: [{
         label: 'Current Leaders',
@@ -50,9 +50,9 @@ export default {
     setLeaderFilter(value) {
       this.leaderFilter = value;
     },
-    async getPoliticians() {
-      // const query = { status };
-      const { data } = await this.politicianServices.getPoliticians();
+    async getPoliticians({ status = 'current', country = 'NG' }) {
+      const query = { status, country };
+      const { data } = await this.politicianServices.getPoliticians(query);
       const { politicians } = data;
       this.$store.commit('storePoliticians', politicians);
     },
@@ -61,7 +61,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getPoliticians();
+    await this.getPoliticians({});
   },
   computed: {
     // ...mapState({
