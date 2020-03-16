@@ -11,6 +11,10 @@ export default {
     page: 1,
     numberPerPage: 18,
   },
+  politicianPagination: {
+    page: 1,
+    numberPerPage: 18,
+  },
   statistics: {},
   admins: [],
   info: {

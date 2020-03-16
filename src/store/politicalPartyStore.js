@@ -7,7 +7,7 @@ export const politicalPartyMutations = {
     state.politicalParties = [];
     state.politicalPartyCount = 0;
   },
-  changePageNumber(state, page) {
+  changePartyPageNumber(state, page) {
     state.politicalPartyPagination.page = page;
   },
 };

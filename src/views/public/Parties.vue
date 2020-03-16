@@ -52,7 +52,7 @@ export default {
     return {
       chevronLeft,
       politicalPartyServices: this.$serviceFactory.politicalParty,
-      country: 'ngr',
+      country: 'NG',
     };
   },
   methods: {
@@ -65,7 +65,7 @@ export default {
       this.$router.push({ name: 'party-details', params: { id } });
     },
     async handlePageChange(p) {
-      this.$store.commit('changePageNumber', p);
+      this.$store.commit('changePartyPageNumber', p);
       await this.getParties({ skip: (p - 1) * this.politicalPartyPagination.numberPerPage });
     },
   },

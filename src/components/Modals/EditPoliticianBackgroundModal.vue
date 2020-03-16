@@ -234,9 +234,9 @@ export default {
         await this.politicianServices.editPoliticianBackground(this.politicianId, payload);
 
         // update the list of politicians
-        const { data } = await this.politicianServices.getPoliticians();
-        const { politicians } = data;
-        this.$store.commit('storePoliticians', politicians);
+        const { data } = await this.politicianServices.getPoliticians({});
+        const { politicians, total: politicianCount } = data;
+        this.$store.commit('storePoliticians', { politicians, politicianCount });
         this.$store.dispatch('displaySuccess', { message: 'Politician\'s background updated successfully' });
         this.closeModal();
       } catch (err) {

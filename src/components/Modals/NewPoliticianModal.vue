@@ -294,9 +294,9 @@ export default {
         }
 
         // update the list of politicians
-        const { data } = await this.politicianServices.getPoliticians();
-        const { politicians } = data;
-        this.$store.commit('storePoliticians', politicians);
+        const { data } = await this.politicianServices.getPoliticians({});
+        const { politicians, total: politicianCount } = data;
+        this.$store.commit('storePoliticians', { politicians, politicianCount });
         this.closeModal();
       } catch (err) {
         // do something with the error here
