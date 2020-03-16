@@ -352,6 +352,7 @@ export default {
         stateOfOrigin = '',
         politicalParty = {},
         status = '',
+        country = 'NG',
         profileImage = {},
       } = this.$store.getters.getPolitician(this.politicianId);
 
@@ -360,6 +361,7 @@ export default {
         dob,
         religion,
         stateOfOrigin,
+        country,
         // eslint-disable-next-line no-underscore-dangle
         politicalParty: politicalParty._id || '',
         status,

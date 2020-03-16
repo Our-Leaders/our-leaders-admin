@@ -14,6 +14,10 @@
         <div class="w-2/3">{{politician.dob | dateFormat('-')}} / {{politician.dob | age}} years</div>
       </div>
       <div class="flex mb-3">
+        <div class="w-1/3">Country</div>
+        <div class="w-2/3 capitalize">{{countries[politician.country].name}}</div>
+      </div>
+      <div class="flex mb-3">
         <div class="w-1/3">State of origin</div>
         <div class="w-2/3 capitalize">{{politician.stateOfOrigin}}</div>
       </div>
@@ -62,11 +66,18 @@
 </template>
 
 <script>
+import countries from '@/assets/json/countrylist.json';
+
 export default {
   props: {
     politician: {
       type: Object,
     },
+  },
+  data() {
+    return {
+      countries,
+    };
   },
   methods: {
     getYear(value) {

@@ -35,7 +35,7 @@ export default {
   data() {
     return {
       politicianServices: this.$serviceFactory.politicians,
-      country: 'ng',
+      country: 'NG',
       leaderFilter: 'current',
       tabs: [{
         label: 'Current Leaders',
