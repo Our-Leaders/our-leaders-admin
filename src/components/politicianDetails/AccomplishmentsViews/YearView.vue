@@ -15,7 +15,7 @@
               :key="accomplishmentIndex">
               <span>{{accomplishment.title}}</span>
               <div class="absolute top-0 bottom-0 right-0 h-full items-center pr-3 pl-8 accomplishment-action">
-                <button class="text-xs font-circular mr-4">Edit</button>
+                <button class="text-xs font-circular mr-4" @click="editAccomplishment(accomplishment)">Edit</button>
                 <button class="text-sm"><fa-icon :icon="['fas', 'trash']"></fa-icon></button>
               </div>
             </div>
@@ -62,6 +62,9 @@ export default {
     },
     goToQuarter(quarter, year) {
       this.$emit('onGoToQuarter', quarter, year);
+    },
+    editAccomplishment(accomplishment) {
+      this.$store.commit('openModal', { modalName: 'EditPoliticianAccomplishmentModal', modalProps: { accomplishment } });
     },
   },
 };
