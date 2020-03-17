@@ -15,9 +15,18 @@ class StringUtil {
     return err.response.data.message;
   }
 
-  static urlRegex() {
+  static getUrlRegex() {
     // eslint-disable-next-line no-useless-escape
     return "^(?:http(s)?://|www)+[\\w\\-\\._~:/?#[\\]@!\\$&'\\(\\)\\*\\+,;=.]+$";
+  }
+
+  static getUrlHost(url = '') {
+    // eslint-disable-next-line no-useless-escape
+    const friendlyUrl = url.match(/(?:w{3}\\.)?([a-z\d\\.-]+)\.(?:[a-z\\.]{2,20})/g);
+    if (friendlyUrl) {
+      return friendlyUrl[0];
+    }
+    return url;
   }
 }
 

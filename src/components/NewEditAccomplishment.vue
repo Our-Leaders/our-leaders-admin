@@ -234,7 +234,7 @@ export default {
       return 'placeholder-black';
     },
     urlRegex() {
-      return StringUtil.urlRegex();
+      return StringUtil.getUrlRegex();
     },
   },
 };
