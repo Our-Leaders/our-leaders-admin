@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import YearlyView from '@/components/politicianDetails/AccomplishmentsViews/YearView.vue';
 import QuarterView from '@/components/politicianDetails/AccomplishmentsViews/QuarterView.vue';
 
@@ -59,12 +60,13 @@ export default {
   computed: {
     accomplishmentByYear() {
       const { accomplishments = [] } = this.politician;
-      const stuff1 = {};
+      const groupedAccomplishments = {};
       accomplishments.forEach((accomplishment) => {
-        const { year, quarter } = accomplishment;
+        const { date, quarter } = accomplishment;
+        const year = moment(date).year();
 
-        if (!stuff1[year]) {
-          stuff1[year] = {
+        if (!groupedAccomplishments[year]) {
+          groupedAccomplishments[year] = {
             q1: [],
             q2: [],
             q3: [],
@@ -72,10 +74,10 @@ export default {
           };
         }
 
-        stuff1[year][quarter].push(accomplishment);
+        groupedAccomplishments[year][quarter].push(accomplishment);
       });
 
-      return stuff1;
+      return groupedAccomplishments;
     },
     sortedYears() {
       return Object.keys(this.accomplishmentByYear).sort((a, b) => {
