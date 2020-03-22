@@ -19,7 +19,7 @@
         <ValidationProvider rules="required" name="Accomplishment Tags" v-slot="{ errors, validate }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
-              Tags
+              Sector(s)
             </div>
             <v-select
               id="accomplishment-tags"
@@ -28,7 +28,7 @@
               :options="tags"
               @search:blur="() => {validate()}"
               v-model="accomplishment.tags"
-              class="our-select no-border w-5/6 " multiple></v-select>
+              class="our-select no-border w-5/6" multiple></v-select>
           </div>
         </ValidationProvider>
         <ValidationProvider  rules="required" name="Accomplishment Date" v-slot="{ errors }">
@@ -39,10 +39,10 @@
             <v-datepicker
               placeholder="MMM YYYY"
               format="MMM yyyy"
-              class="w-full"
+              class="w-5/6"
               input-class="w-full pl-1 py-2"
               minimum-view="month"
-              v-model="accomplishmentDate"
+              v-model="accomplishment.date"
               @selected="dateSelected"
               :required="true">
             </v-datepicker>
@@ -55,7 +55,7 @@
               <img src="@/assets/img/image-icon.svg" alt="">
               <span class="text-xs font-circular ml-3">Image</span>
             </label>
-            <label for="accomplishment-url" class="flex cursor-pointer ml-4 flex-1">
+            <label for="accomplishment-url" class="flex ml-4 flex-1">
               <span class="w-full relative">
                 <span class="form-icon absolute pl-1 h-full">
                   <img src="@/assets/img/hyperlink.svg" alt="">
@@ -100,13 +100,16 @@
               rows="7"></textarea>
           </div>
         </ValidationProvider>
-        <div class="flex mt-5">
+        <hr class="mt-4 border-t border-gray-c4"/>
+        <div class="flex mt-8">
           <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid">
-            <!-- <span v-if="!creatingPoliticianLoading">Save</span> -->
-            <!-- <span v-else>Submitting...</span> -->
-            <span>Publish</span>
+            <span v-if="isEdit">Save</span>
+            <span v-else>Publish</span>
           </button>
-          <button class="font-circular py-3 px-12" @click="clearAccomplishment">Clear</button>
+          <button class="font-circular py-3 px-12" @click="clearAccomplishment">
+            <span v-if="isEdit">Cancel</span>
+            <span v-else>Clear</span>
+          </button>
         </div>
       </form>
     </ValidationObserver>
@@ -117,13 +120,38 @@
 import moment from 'moment';
 import StringUtil from '@/helpers/stringUtil';
 
+const emptyAccomplishmentData = {
+  title: '',
+  description: '',
+  url: '',
+  tags: [],
+  quarter: '',
+  year: '',
+};
+
 export default {
   name: 'NewEditAccomplishment',
   props: {
     politicianId: {
       type: String,
-      required: true,
     },
+    accomplishmentData: {
+      type: Object,
+    },
+    onCancel: {
+      type: Function,
+    },
+  },
+  data() {
+    return {
+      isEdit: !!this.accomplishmentData,
+      politicianServices: this.$serviceFactory.politicians,
+      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
+      accomplishment: { ...emptyAccomplishmentData, ...this.accomplishmentData || {} },
+      accomplishmentImageFile: '',
+      accomplishmentImageSrc: '',
+      urlFocused: false,
+    };
   },
   methods: {
     async publish() {
@@ -157,7 +185,6 @@ export default {
     dateSelected(date) {
       if (date) {
         this.accomplishment.quarter = `q${moment(date).quarter()}`;
-        this.accomplishment.year = moment(date).year();
       }
     },
     onFileUpload($event) {
@@ -189,42 +216,17 @@ export default {
       this.accomplishmentImageFile = '';
       this.accomplishmentImageSrc = '';
       this.$refs.imageref.value = '';
-      this.accomplishmentDate = '';
-      this.accomplishment = {
-        title: '',
-        description: '',
-        url: '',
-        tags: [],
-        quarter: '',
-        year: '',
-      };
+      this.accomplishment = emptyAccomplishmentData;
 
       window.setTimeout(() => {
         this.$refs.accomplishmentForm.reset();
         this.$refs.accomplishmentFormValidator.reset();
       });
+
+      if (this.isEdit) {
+        this.onCancel();
+      }
     },
-  },
-  data() {
-    return {
-      politicianServices: this.$serviceFactory.politicians,
-      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
-      accomplishmentDate: '',
-      accomplishment: {
-        title: '',
-        description: '',
-        url: '',
-        tags: [],
-        quarter: '',
-        year: '',
-      },
-      accomplishmentImageFile: '',
-      accomplishmentImageSrc: '',
-      urlFocused: false,
-    };
-  },
-  mounted() {
-    // incase this is used for editing an accomplishment, reinitialize the date object here
   },
   computed: {
     urlPlaceHolderClass() {
