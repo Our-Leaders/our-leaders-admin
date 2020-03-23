@@ -21,7 +21,10 @@ export default {
   editPoliticianBackground(politicianId, payload) {
     return instance.post(`${resource}/${politicianId}/background`, payload);
   },
-  newAccomplishment(politicianId, payload) {
+  createAccomplishment(politicianId, payload) {
     return instance.post(`${resource}/${politicianId}/accomplishments`, payload);
+  },
+  editAccomplishment(politicianId, payload) {
+    return instance.put(`${resource}/${politicianId}/accomplishments`, payload);
   },
 };

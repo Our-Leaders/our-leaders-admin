@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4">
     <ValidationObserver v-slot="{ invalid, handleSubmit }" ref="accomplishmentFormValidator">
-      <form @submit.prevent="handleSubmit(publish)" ref="accomplishmentForm">
+      <form @submit.prevent="handleSubmit(submit)" ref="accomplishmentForm">
         <ValidationProvider rules="required" name="Accomplishment Title" v-slot="{ errors }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
@@ -135,7 +135,7 @@ export default {
     politicianId: {
       type: String,
     },
-    accomplishmentData: {
+    existingAccomplishment: {
       type: Object,
     },
     onCancel: {
@@ -144,17 +144,17 @@ export default {
   },
   data() {
     return {
-      isEdit: !!this.accomplishmentData,
-      imageId: `accomplishment-image-${this.accomplishmentData ? 'edit' : 'new'}`,
+      isEdit: !!this.existingAccomplishment,
+      imageId: `accomplishment-image-${this.existingAccomplishment ? 'edit' : 'new'}`,
       politicianServices: this.$serviceFactory.politicians,
       tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
-      accomplishment: { ...emptyAccomplishmentData, ...this.accomplishmentData || {} },
+      accomplishment: { ...emptyAccomplishmentData, ...this.existingAccomplishment || {} },
       accomplishmentImageFile: '',
       urlFocused: false,
     };
   },
   methods: {
-    async publish() {
+    async submit() {
       let payload;
 
       if (this.accomplishmentImageFile && this.accomplishment.image.url) {
@@ -170,15 +170,22 @@ export default {
       }
 
       try {
-        const { data } = await this.politicianServices.newAccomplishment(this.politicianId, payload);
-        const { politician } = data;
+        let onSubmit = this.politicianServices.createAccomplishment;
+        let message = 'Accomplishment created successfully';
+
+        if (this.isEdit) {
+          onSubmit = this.politicianServices.editAccomplishment;
+          message = 'Accomplishment updated successfully';
+        }
+
+        const { data } = await onSubmit(this.politicianId, payload);
         this.clearAccomplishment();
-        this.$store.dispatch('displaySuccess', { message: 'Accomplishment created successfully' });
+        this.$store.dispatch('displaySuccess', { message });
 
         // update the politician here
-        this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: politician });
+        this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: data.politician });
       } catch (err) {
-        // do somehting with the error here
+        // do something with the error here
         this.$store.dispatch('displayError', err);
       }
     },
@@ -214,18 +221,18 @@ export default {
       this.accomplishment.image.url = null;
     },
     clearAccomplishment() {
+      if (this.isEdit) {
+        return this.onCancel();
+      }
+
       this.accomplishmentImageFile = '';
       this.$refs.imageref.value = '';
       this.accomplishment = emptyAccomplishmentData;
 
-      window.setTimeout(() => {
+      return window.setTimeout(() => {
         this.$refs.accomplishmentForm.reset();
         this.$refs.accomplishmentFormValidator.reset();
       });
-
-      if (this.isEdit) {
-        this.onCancel();
-      }
     },
   },
   computed: {
