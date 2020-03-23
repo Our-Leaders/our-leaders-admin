@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4">
     <ValidationObserver v-slot="{ invalid, handleSubmit }" ref="accomplishmentFormValidator">
-      <form @submit.prevent="handleSubmit(publish)" ref="accomplishmentForm">
+      <form @submit.prevent="handleSubmit(submit)" ref="accomplishmentForm">
         <ValidationProvider rules="required" name="Accomplishment Title" v-slot="{ errors }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
@@ -19,7 +19,7 @@
         <ValidationProvider rules="required" name="Accomplishment Tags" v-slot="{ errors, validate }">
           <div class="flex relative border-b border-gray-400 mt-2" :class="errors.length > 0 ? 'border-red-600' : ''">
             <div class="w-1/6 self-center font-semibold text-sm font-circular">
-              Tags
+              Sector(s)
             </div>
             <v-select
               id="accomplishment-tags"
@@ -28,7 +28,7 @@
               :options="tags"
               @search:blur="() => {validate()}"
               v-model="accomplishment.tags"
-              class="our-select no-border w-5/6 " multiple></v-select>
+              class="our-select no-border w-5/6" multiple></v-select>
           </div>
         </ValidationProvider>
         <ValidationProvider  rules="required" name="Accomplishment Date" v-slot="{ errors }">
@@ -39,10 +39,10 @@
             <v-datepicker
               placeholder="MMM YYYY"
               format="MMM yyyy"
-              class="w-full"
+              class="w-5/6"
               input-class="w-full pl-1 py-2"
               minimum-view="month"
-              v-model="accomplishmentDate"
+              v-model="accomplishment.date"
               @selected="dateSelected"
               :required="true">
             </v-datepicker>
@@ -50,12 +50,12 @@
         </ValidationProvider>
         <div class="mt-5 mb-4">
           <div class="flex items-center">
-            <label for="accomplishment-image" class="flex cursor-pointer">
-              <input ref="imageref" type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*"  @change="onFileUpload($event);">
+            <label :for="imageId" class="flex cursor-pointer">
+              <input ref="imageref" type="file" name="accomplishment-image" :id="imageId" class="hidden" accept="image/*"  @change="onFileUpload($event);">
               <img src="@/assets/img/image-icon.svg" alt="">
               <span class="text-xs font-circular ml-3">Image</span>
             </label>
-            <label for="accomplishment-url" class="flex cursor-pointer ml-4 flex-1">
+            <label for="accomplishment-url" class="flex ml-4 flex-1">
               <span class="w-full relative">
                 <span class="form-icon absolute pl-1 h-full">
                   <img src="@/assets/img/hyperlink.svg" alt="">
@@ -78,14 +78,13 @@
               </span>
             </label>
           </div>
-          <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishmentImageFile">
+          <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishment.image.url">
             <span class="flex items-center">
               <span
                 class="h-6 w-8 bg-gray-600 rounded mr-3 bg-center bg-cover bg-no-repeat"
-                :style="{ 'background-image': `url(${accomplishmentImageSrc})` }"></span>
-              <!-- <span class="w-1/5 truncate">{{accomplishmentImageFile.name}}</span> -->
+                :style="{ 'background-image': `url(${accomplishment.image.url})` }"></span>
             </span>
-            <button @click="removeImage"><img src="@/assets/img/close.svg" alt="remove-image" class="h-3"></button>
+            <a @click="removeImage"><img src="@/assets/img/close.svg" alt="remove-image" class="h-3"></a>
           </div>
         </div>
         <ValidationProvider  rules="required" name="Accomplishment Description" v-slot="{ errors }">
@@ -100,13 +99,16 @@
               rows="7"></textarea>
           </div>
         </ValidationProvider>
-        <div class="flex mt-5">
+        <hr class="mt-4 border-t border-gray-c4"/>
+        <div class="flex mt-8">
           <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid">
-            <!-- <span v-if="!creatingPoliticianLoading">Save</span> -->
-            <!-- <span v-else>Submitting...</span> -->
-            <span>Publish</span>
+            <span v-if="isEdit">Save</span>
+            <span v-else>Publish</span>
           </button>
-          <button class="font-circular py-3 px-12" @click="clearAccomplishment">Clear</button>
+          <button class="font-circular py-3 px-12" @click="clearAccomplishment">
+            <span v-if="isEdit">Cancel</span>
+            <span v-else>Clear</span>
+          </button>
         </div>
       </form>
     </ValidationObserver>
@@ -117,19 +119,45 @@
 import moment from 'moment';
 import StringUtil from '@/helpers/stringUtil';
 
+const emptyAccomplishmentData = {
+  title: '',
+  description: '',
+  url: '',
+  tags: [],
+  quarter: '',
+  year: '',
+  image: {},
+};
+
 export default {
   name: 'NewEditAccomplishment',
   props: {
     politicianId: {
       type: String,
-      required: true,
+    },
+    existingAccomplishment: {
+      type: Object,
+    },
+    onCancel: {
+      type: Function,
     },
   },
+  data() {
+    return {
+      isEdit: !!this.existingAccomplishment,
+      imageId: `accomplishment-image-${this.existingAccomplishment ? 'edit' : 'new'}`,
+      politicianServices: this.$serviceFactory.politicians,
+      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
+      accomplishment: { ...emptyAccomplishmentData, ...this.existingAccomplishment || {} },
+      accomplishmentImageFile: '',
+      urlFocused: false,
+    };
+  },
   methods: {
-    async publish() {
+    async submit() {
       let payload;
 
-      if (this.accomplishmentImageFile && this.accomplishmentImageSrc) {
+      if (this.accomplishmentImageFile && this.accomplishment.image.url) {
         payload = new FormData();
 
         Object.keys(this.accomplishment).forEach((key) => {
@@ -142,22 +170,28 @@ export default {
       }
 
       try {
-        const { data } = await this.politicianServices.newAccomplishment(this.politicianId, payload);
-        const { politician } = data;
+        let onSubmit = this.politicianServices.createAccomplishment;
+        let message = 'Accomplishment created successfully';
+
+        if (this.isEdit) {
+          onSubmit = this.politicianServices.editAccomplishment;
+          message = 'Accomplishment updated successfully';
+        }
+
+        const { data } = await onSubmit(this.politicianId, payload);
         this.clearAccomplishment();
-        this.$store.dispatch('displaySuccess', { message: 'Accomplishment created successfully' });
+        this.$store.dispatch('displaySuccess', { message });
 
         // update the politician here
-        this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: politician });
+        this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: data.politician });
       } catch (err) {
-        // do somehting with the error here
+        // do something with the error here
         this.$store.dispatch('displayError', err);
       }
     },
     dateSelected(date) {
       if (date) {
         this.accomplishment.quarter = `q${moment(date).quarter()}`;
-        this.accomplishment.year = moment(date).year();
       }
     },
     onFileUpload($event) {
@@ -173,7 +207,7 @@ export default {
           const self = this;
           const fileReader = new FileReader();
           fileReader.onload = function onload() {
-            self.accomplishmentImageSrc = this.result;
+            self.accomplishment.image.url = this.result;
           };
           fileReader.readAsDataURL(file);
 
@@ -184,47 +218,22 @@ export default {
     removeImage() {
       this.$refs.imageref.value = '';
       this.accomplishmentImageFile = '';
+      this.accomplishment.image.url = null;
     },
     clearAccomplishment() {
-      this.accomplishmentImageFile = '';
-      this.accomplishmentImageSrc = '';
-      this.$refs.imageref.value = '';
-      this.accomplishmentDate = '';
-      this.accomplishment = {
-        title: '',
-        description: '',
-        url: '',
-        tags: [],
-        quarter: '',
-        year: '',
-      };
+      if (this.isEdit) {
+        return this.onCancel();
+      }
 
-      window.setTimeout(() => {
+      this.accomplishmentImageFile = '';
+      this.$refs.imageref.value = '';
+      this.accomplishment = emptyAccomplishmentData;
+
+      return window.setTimeout(() => {
         this.$refs.accomplishmentForm.reset();
         this.$refs.accomplishmentFormValidator.reset();
       });
     },
-  },
-  data() {
-    return {
-      politicianServices: this.$serviceFactory.politicians,
-      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
-      accomplishmentDate: '',
-      accomplishment: {
-        title: '',
-        description: '',
-        url: '',
-        tags: [],
-        quarter: '',
-        year: '',
-      },
-      accomplishmentImageFile: '',
-      accomplishmentImageSrc: '',
-      urlFocused: false,
-    };
-  },
-  mounted() {
-    // incase this is used for editing an accomplishment, reinitialize the date object here
   },
   computed: {
     urlPlaceHolderClass() {
@@ -234,7 +243,7 @@ export default {
       return 'placeholder-black';
     },
     urlRegex() {
-      return StringUtil.urlRegex();
+      return StringUtil.getUrlRegex();
     },
   },
 };

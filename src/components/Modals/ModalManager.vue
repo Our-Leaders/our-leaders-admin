@@ -15,6 +15,8 @@ import EditPoliticianManifestoModal from './EditPoliticianManifestoModal.vue';
 import EditPoliticianBackgroundModal from './EditPoliticianBackgroundModal.vue';
 import NewPoliticalPartyModal from './NewPoliticalPartyModal.vue';
 import EditPoliticalPartyIdeologyModal from './EditPoliticalPartyIdeologyModal.vue';
+import EditPoliticianAccomplishmentModal from './EditPoliticianAccomplishmentModal.vue';
+import DeletePoliticianAccomplishmentModal from './DeletePoliticianAccomplishmentModal.vue';
 
 export default {
   name: 'ModalManager',
@@ -26,6 +28,8 @@ export default {
         EditPoliticianBackgroundModal,
         NewPoliticalPartyModal,
         EditPoliticalPartyIdeologyModal,
+        EditPoliticianAccomplishmentModal,
+        DeletePoliticianAccomplishmentModal,
         EditContactModal,
         JobModal,
         ActionModal,

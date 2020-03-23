@@ -10,13 +10,13 @@
               <span class="text-xs text-gray-96 capitalize">{{quarterTags[quarter]}} {{year}}</span>
             </div>
             <div
-              class="py-2 px-2 border-gray-db leading-none relative cursor-pointer accomplishment"
+              class="py-2 px-2 border-gray-db leading-none relative accomplishment"
               v-for="(accomplishment, accomplishmentIndex) of filteredAccomplishments(accomplishments)"
               :key="accomplishmentIndex">
               <span>{{accomplishment.title}}</span>
-              <div class="absolute top-0 bottom-0 right-0 h-full items-center pr-3 pl-8 accomplishment-action">
-                <button class="text-xs font-circular mr-4">Edit</button>
-                <button class="text-sm"><fa-icon :icon="['fas', 'trash']"></fa-icon></button>
+              <div class="absolute top-0 bottom-0 right-0 h-full items-center pr-3 pl-8 accomplishment-action cursor-pointer">
+                <button class="text-xs font-circular mr-4" @click="editAccomplishment(accomplishment)">Edit</button>
+                <button class="text-sm"><fa-icon :icon="['fas', 'trash']" @click="deleteAccomplishment(accomplishment._id)"></fa-icon></button>
               </div>
             </div>
             <div class="py-2 px-2 border-gray-db leading-none accomplishment" v-if="accomplishments.length < 1">
@@ -62,6 +62,12 @@ export default {
     },
     goToQuarter(quarter, year) {
       this.$emit('onGoToQuarter', quarter, year);
+    },
+    editAccomplishment(accomplishment) {
+      this.$store.commit('openModal', { modalName: 'EditPoliticianAccomplishmentModal', modalProps: { accomplishment } });
+    },
+    deleteAccomplishment(accomplishmentId) {
+      this.$store.commit('openModal', { modalName: 'DeletePoliticianAccomplishmentModal', modalProps: { accomplishmentId } });
     },
   },
 };

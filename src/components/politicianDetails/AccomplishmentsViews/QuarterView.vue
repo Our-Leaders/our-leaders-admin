@@ -35,12 +35,15 @@
         <!-- image here -->
         <div class="w-full h-48 mb-4 bg-gray-db bg-cover bg-center" v-if="accomplishment.image && accomplishment.image.url" :style="{ 'background-image': 'url('+ accomplishment.image.url +')'  }"></div>
         <p class="">{{accomplishment.description}}</p>
+        <p v-if="accomplishment.url" class="text-gray-96 font-circular text-xs mt-3 hover:text-gray-500"><a :href="accomplishment.url" target="_blank">View full story at {{getUrlHost(accomplishment.url)}}</a></p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import StringUtil from '@/helpers/stringUtil';
+
 export default {
   name: 'AccomplishmentQuarterView',
   props: {
@@ -64,6 +67,9 @@ export default {
   methods: {
     goToYearView() {
       this.$emit('onGoToYearView');
+    },
+    getUrlHost(url) {
+      return StringUtil.getUrlHost(url);
     },
   },
 };
