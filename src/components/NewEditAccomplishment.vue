@@ -50,8 +50,8 @@
         </ValidationProvider>
         <div class="mt-5 mb-4">
           <div class="flex items-center">
-            <label for="accomplishment-image" class="flex cursor-pointer">
-              <input ref="imageref" type="file" name="accomplishment-image" id="accomplishment-image" class="hidden" accept="image/*"  @change="onFileUpload($event);">
+            <label :for="imageId" class="flex cursor-pointer">
+              <input ref="imageref" type="file" name="accomplishment-image" :id="imageId" class="hidden" accept="image/*"  @change="onFileUpload($event);">
               <img src="@/assets/img/image-icon.svg" alt="">
               <span class="text-xs font-circular ml-3">Image</span>
             </label>
@@ -78,14 +78,13 @@
               </span>
             </label>
           </div>
-          <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishmentImageFile">
+          <div class="text-xs font-circular py-4 px-2 flex items-center border border-primary rounded mt-2 justify-between" v-if="accomplishment.image.url">
             <span class="flex items-center">
               <span
                 class="h-6 w-8 bg-gray-600 rounded mr-3 bg-center bg-cover bg-no-repeat"
-                :style="{ 'background-image': `url(${accomplishmentImageSrc})` }"></span>
-              <!-- <span class="w-1/5 truncate">{{accomplishmentImageFile.name}}</span> -->
+                :style="{ 'background-image': `url(${accomplishment.image.url})` }"></span>
             </span>
-            <button @click="removeImage"><img src="@/assets/img/close.svg" alt="remove-image" class="h-3"></button>
+            <a @click="removeImage"><img src="@/assets/img/close.svg" alt="remove-image" class="h-3"></a>
           </div>
         </div>
         <ValidationProvider  rules="required" name="Accomplishment Description" v-slot="{ errors }">
@@ -127,6 +126,7 @@ const emptyAccomplishmentData = {
   tags: [],
   quarter: '',
   year: '',
+  image: {},
 };
 
 export default {
@@ -145,11 +145,11 @@ export default {
   data() {
     return {
       isEdit: !!this.accomplishmentData,
+      imageId: `accomplishment-image-${this.accomplishmentData ? 'edit' : 'new'}`,
       politicianServices: this.$serviceFactory.politicians,
       tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
       accomplishment: { ...emptyAccomplishmentData, ...this.accomplishmentData || {} },
       accomplishmentImageFile: '',
-      accomplishmentImageSrc: '',
       urlFocused: false,
     };
   },
@@ -157,7 +157,7 @@ export default {
     async publish() {
       let payload;
 
-      if (this.accomplishmentImageFile && this.accomplishmentImageSrc) {
+      if (this.accomplishmentImageFile && this.accomplishment.image.url) {
         payload = new FormData();
 
         Object.keys(this.accomplishment).forEach((key) => {
@@ -200,7 +200,7 @@ export default {
           const self = this;
           const fileReader = new FileReader();
           fileReader.onload = function onload() {
-            self.accomplishmentImageSrc = this.result;
+            self.accomplishment.image.url = this.result;
           };
           fileReader.readAsDataURL(file);
 
@@ -211,10 +211,10 @@ export default {
     removeImage() {
       this.$refs.imageref.value = '';
       this.accomplishmentImageFile = '';
+      this.accomplishment.image.url = null;
     },
     clearAccomplishment() {
       this.accomplishmentImageFile = '';
-      this.accomplishmentImageSrc = '';
       this.$refs.imageref.value = '';
       this.accomplishment = emptyAccomplishmentData;
 
