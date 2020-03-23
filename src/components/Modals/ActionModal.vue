@@ -1,6 +1,6 @@
 <template>
   <our-modal @close-modal="closeModal()" :open="true">
-    <div slot="content" class="flex items-center justify-centermt-10">
+    <div slot="content" class="flex items-center justify-center mt-10">
       <p class="font-circular text-3xl" v-if="isLoading">Processing...</p>
       <p class="font-circular text-3xl" v-else>{{message}}</p>
     </div>
