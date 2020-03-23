@@ -25,6 +25,10 @@ export default {
     return instance.post(`${resource}/${politicianId}/accomplishments`, payload);
   },
   editAccomplishment(politicianId, payload) {
-    return instance.put(`${resource}/${politicianId}/accomplishments`, payload);
+    // eslint-disable-next-line no-underscore-dangle
+    return instance.put(`${resource}/${politicianId}/accomplishments/${payload._id}`, payload);
+  },
+  deleteAccomplishment(politicianId, accomplishmentId) {
+    return instance.delete(`${resource}/${politicianId}/accomplishments/${accomplishmentId}`);
   },
 };
