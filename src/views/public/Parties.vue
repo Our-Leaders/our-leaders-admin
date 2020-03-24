@@ -34,8 +34,26 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:ml-10">
-      aside
+    <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2">
+      <ValidationObserver v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(partySearch)">
+          <div class="flex w-full">
+            <ValidationProvider  rules="required" name="Search Name" v-slot="{ errors }" mode="lazy" slim>
+              <input
+                type="text"
+                name="politician-name-search"
+                id="politician-name-search"
+                class="w-3/4 pl-1 py-3 field border-b border-gray-c4 mr-2"
+                :class="errors.length > 0 ? 'border-red-600' : ''"
+                v-model="searchParam.name"
+                placeholder="Search by name">
+            </ValidationProvider>
+            <button
+              type="submit"
+              class="relative border-gray-96 border py-1 px-3 flex flex-1 items-center justify-center font-circular mr-4">search</button>
+          </div>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
