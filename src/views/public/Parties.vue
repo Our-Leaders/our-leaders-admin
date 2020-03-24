@@ -3,18 +3,22 @@
     <div class="w-full xl:w-2/3">
       <header class="flex justify-between">
         <h5 class="text-4xl">
-          Parties ({{partyCount}})
+          Parties (<span v-if="loading">...</span><span v-else>{{partyCount}}</span>)
         </h5>
         <div class="flex justify-between items-center">
           <our-country-selector v-model="country" />
         </div>
       </header>
       <div class="w-full  mt-10">
-        <div class="party-grid flex flex-wrap">
+        <div class="w-full text-center" v-if="loading">
+          <span class="loading lg mx-auto mb-2"></span>
+          <span>Loading Parties...</span>
+        </div>
+        <div class="party-grid flex flex-wrap" v-else>
           <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties"
                      :key="index" :party="party"/>
         </div>
-        <div>
+        <div v-if="!loading">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
@@ -74,13 +78,16 @@ export default {
       searchParam: {
         name: '',
       },
+      loading: false,
     };
   },
   methods: {
     async getParties(filter = {}) {
+      this.loading = true;
       const { data } = await this.politicalPartyServices.getPoliticalParties(filter);
       const { politicalParties, total: politicalPartyCount } = data;
       this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
+      this.loading = false;
     },
     goToPoliticalParty(id) {
       this.$router.push({ name: 'party-details', params: { id } });
