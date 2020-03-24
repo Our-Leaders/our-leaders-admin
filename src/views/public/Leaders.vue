@@ -16,10 +16,16 @@
         <p class="font-circular text-gray-c4 text-sm pt-5 pb-5">
           <!-- {{filteredLeadersCount}} --> {{ leaderFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
         </p>
-        <div class="leaders-grid flex flex-wrap">
-          <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
-        </div>
         <div>
+          <div class="w-full text-center" v-if="loading">
+            <span class="loading lg mx-auto mb-2"></span>
+            <span>Loading Leaders...</span>
+          </div>
+          <div class="leaders-grid flex flex-wrap" v-else>
+            <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+          </div>
+        </div>
+        <div v-if="!loading">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
