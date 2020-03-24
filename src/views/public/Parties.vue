@@ -71,6 +71,9 @@ export default {
       chevronLeft,
       politicalPartyServices: this.$serviceFactory.politicalParty,
       country: 'NG',
+      searchParam: {
+        name: '',
+      },
     };
   },
   methods: {
@@ -82,9 +85,18 @@ export default {
     goToPoliticalParty(id) {
       this.$router.push({ name: 'party-details', params: { id } });
     },
-    async handlePageChange(p) {
-      this.$store.commit('changePartyPageNumber', p);
-      await this.getParties({ skip: (p - 1) * this.politicalPartyPagination.numberPerPage });
+    async handlePageChange(pageNumber) {
+      const filter = {};
+      this.$store.commit('changePartyPageNumber', pageNumber);
+      if (this.searchParam.name) {
+        filter.name = this.searchParam.name;
+      }
+
+      await this.getParties({ skip: (pageNumber - 1) * this.politicalPartyPagination.numberPerPage, ...filter });
+    },
+    async partySearch() {
+      this.$store.commit('resetPartyPagination');
+      await this.getParties({ name: this.searchParam.name });
     },
   },
   computed: {
