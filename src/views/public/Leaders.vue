@@ -21,11 +21,16 @@
             <span class="loading lg mx-auto mb-2"></span>
             <span>Loading Leaders...</span>
           </div>
-          <div class="leaders-grid flex flex-wrap" v-else>
-            <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+          <div v-else>
+            <div v-if="leaders.length === 0" class="w-full text-center mt-4 mb-8">
+              <span>Sorry, there are no politicians matching your search.</span>
+            </div>
+            <div class="leaders-grid flex flex-wrap" v-else>
+              <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+            </div>
           </div>
         </div>
-        <div v-if="!loading">
+        <div v-if="!loading  && leaders.length > 0">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"

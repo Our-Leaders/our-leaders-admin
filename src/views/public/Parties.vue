@@ -14,11 +14,16 @@
           <span class="loading lg mx-auto mb-2"></span>
           <span>Loading Parties...</span>
         </div>
-        <div class="party-grid flex flex-wrap" v-else>
-          <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties"
-                     :key="index" :party="party"/>
+        <div v-else>
+          <div v-if="parties.length === 0" class="w-full text-center mt-4 mb-8">
+            <span>Sorry, there are no political parties matching your search.</span>
+          </div>
+          <div class="party-grid flex flex-wrap" v-else>
+            <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties"
+                      :key="index" :party="party"/>
+          </div>
         </div>
-        <div v-if="!loading">
+        <div v-if="!loading && parties.length > 0">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
