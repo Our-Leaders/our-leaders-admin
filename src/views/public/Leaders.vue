@@ -11,15 +11,26 @@
         </div>
       </header>
       <div class="w-full mt-10">
-        <our-tabs :tabs="tabs" @change="setLeaderFilter"/>
+        <our-tabs :tabs="tabs" @change="setLeaderFilter" v-if="!hideTab"/>
 
-        <p class="font-circular text-gray-c4 text-sm pt-5 pb-5">
-          <!-- {{filteredLeadersCount}} --> {{ leaderFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
+        <p class="font-circular text-gray-c4 text-sm pt-5 pb-5" v-if="!hideTab">
+          <!-- {{filteredLeadersCount}} --> {{ leaderStatusFilter === 'current' ? 'Current' : 'Contesting'}} Leaders
         </p>
-        <div class="leaders-grid flex flex-wrap">
-          <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
-        </div>
         <div>
+          <div class="w-full text-center" v-if="loading">
+            <span class="loading lg mx-auto mb-2"></span>
+            <span>Loading Leaders...</span>
+          </div>
+          <div v-else>
+            <div v-if="leaders.length === 0" class="w-full text-center mt-4 mb-8">
+              <span>Sorry, there are no politicians matching your search.</span>
+            </div>
+            <div class="leaders-grid flex flex-wrap" v-else>
+              <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+            </div>
+          </div>
+        </div>
+        <div v-if="!loading  && leaders.length > 0">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
@@ -39,8 +50,69 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:ml-10">
-      aside
+    <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-20 mt-2">
+      <ValidationObserver v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(searchByName)">
+          <div class="flex w-full">
+            <ValidationProvider  rules="required" name="Search Name" v-slot="{ errors }" mode="lazy" slim>
+              <input
+                type="text"
+                name="politician-name-search"
+                id="politician-name-search"
+                class="w-4/5 pl-1 py-3 field border-b border-gray-c4 mr-2"
+                :class="errors.length > 0 ? 'border-red-600' : ''"
+                v-model="searchParam.name"
+                placeholder="Search by name">
+            </ValidationProvider>
+            <button
+              type="submit"
+              class="relative border-gray-96 border py-1 px-3 flex justify-between items-center font-circular mr-4">search</button>
+          </div>
+        </form>
+      </ValidationObserver>
+      <ValidationObserver v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(searchByOtherParam)">
+        <div class="mt-6 flex items-center">
+          <div class="border-b border-gray-db h-0 flex-auto mr-3"></div>
+          <p class="text-gray-96">or search by</p>
+          <div class="border-b border-gray-db h-0 flex-auto ml-3"></div>
+        </div>
+        <div class="mt-6">
+          <label for="last-name" class="font-circular">Poltical Position</label>
+          <input
+            type="text"
+            name="politician-position-search"
+            id="politician-position-search"
+            v-model="searchParam.politicalPosition"
+            class="w-full pl-1 py-2 field border-b border-gray-400 mr-2">
+        </div>
+        <div class="mt-6">
+          <label for="last-name" class="font-circular">Political Party</label>
+          <v-select
+            id="politician-party-search"
+            name="politician-party-search"
+            label="name"
+            :reduce="party => party.id"
+            :clearable="true"
+            :options="politicalParties"
+            v-model="searchParam.politicalPartyId"
+            class="our-select"></v-select>
+        </div>
+        <div class="mt-6">
+          <label for="last-name" class="font-circular">Status</label>
+          <v-select
+            id="politician-status-search"
+            name="politician-status-search"
+            :clearable="true"
+            :options="['upcoming', 'current', 'past']"
+            v-model="searchParam.status"
+            class="our-select"></v-select>
+        </div>
+        <div class="mt-6">
+          <button type="submit" class="w-full relative border-black border p-3 text-center font-circular mr-4">Search</button>
+        </div>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
@@ -57,8 +129,9 @@ export default {
     return {
       chevronLeft,
       politicianServices: this.$serviceFactory.politicians,
+      politicalPartyServices: this.$serviceFactory.politicalParty,
       country: 'NG',
-      leaderFilter: 'current',
+      leaderStatusFilter: 'current',
       tabs: [{
         label: 'Current Leaders',
         value: 'current',
@@ -66,29 +139,65 @@ export default {
         label: 'Upcoming Leaders',
         value: 'upcoming',
       }],
+      politicalParties: [],
+      loading: false,
+      searchParam: {
+        name: '',
+        politicalPosition: '',
+        status: '',
+        partyId: '',
+      },
+      hideTab: false,
     };
   },
   methods: {
     async setLeaderFilter(value) {
-      this.leaderFilter = value;
+      this.leaderStatusFilter = value;
       await this.getPoliticians({ status: value });
     },
-    async getPoliticians({ skip = 0, status = 'current', country = 'NG' }) {
-      const query = { skip, status, country };
-      const { data } = await this.politicianServices.getPoliticians(query);
+    async getPoliticians(filter) {
+      this.loading = true;
+      const { data } = await this.politicianServices.getPoliticians(filter);
       const { politicians, total: politicianCount } = data;
       this.$store.commit('storePoliticians', { politicians, politicianCount });
+      this.loading = false;
     },
     goToPolitician(id) {
       this.$router.push({ name: 'leaders-details', params: { id } });
     },
-    async handlePageChange(p) {
-      this.$store.commit('changePoliticianPageNumber', p);
-      await this.getPoliticians({ skip: (p - 1) * this.politicianPagination.numberPerPage });
+    async handlePageChange(pageNumber) {
+      this.$store.commit('changePoliticianPageNumber', pageNumber);
+      await this.getPoliticians({ skip: (pageNumber - 1) * this.politicianPagination.numberPerPage });
+    },
+    async searchByName() {
+      this.hideTab = true;
+      this.$store.commit('resetPoliticiansPageNumber');
+      await this.getPoliticians({ name: this.searchParam.name });
+    },
+    async searchByOtherParam() {
+      this.hideTab = true;
+      this.$store.commit('resetPoliticiansPageNumber');
+      const query = Object.keys(this.searchParam).filter(param => param !== 'name').reduce((prev, curr) => {
+        if (this.searchParam[curr]) {
+          return { ...prev, [curr]: this.searchParam[curr] };
+        }
+
+        return prev;
+      }, {});
+
+      await this.getPoliticians(query);
     },
   },
   async mounted() {
-    await this.getPoliticians({ skip: (this.politicianPagination.page - 1) * this.politicianPagination.numberPerPage });
+    await this.getPoliticians({
+      skip: (this.politicianPagination.page - 1) * this.politicianPagination.numberPerPage,
+      country: 'NG',
+      status: this.leaderStatusFilter,
+    });
+
+    const { data } = await this.politicalPartyServices.getPoliticalParties({ skip: 0 });
+    const { politicalParties } = data;
+    this.politicalParties = politicalParties;
   },
   computed: {
     ...mapState({

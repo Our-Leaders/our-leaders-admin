@@ -20,6 +20,9 @@ export const politicianMutations = {
   changePoliticianPageNumber(state, page) {
     state.politicalPartyPagination.page = page;
   },
+  resetPoliticiansPageNumber(state) {
+    state.politicalPartyPagination.page = 1;
+  },
 };
 
 export const politicianGetters = {

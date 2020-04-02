@@ -9,15 +9,15 @@
           </button>
         </template>
         <template v-slot:items class="font-circular">
-          <our-dropdown-item class="flex justify-between items-center">New Accomplishment</our-dropdown-item>
-          <our-dropdown-item class="flex justify-between items-center">New Update</our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item>New Job Post</our-dropdown-item>
+          <!-- <our-dropdown-item class="flex justify-between items-center">New Accomplishment</our-dropdown-item> -->
+          <!-- <our-dropdown-item class="flex justify-between items-center">New Update</our-dropdown-item> -->
+          <!-- <our-dropdown-divider /> -->
+          <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('JobModal')">New Job Post</our-dropdown-item>
           <our-dropdown-divider />
           <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewAdminModal')">New Admin</our-dropdown-item>
           <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
           <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
-          <our-dropdown-item class="flex justify-between items-center">New User</our-dropdown-item>
+          <!-- <our-dropdown-item class="flex justify-between items-center">New User</our-dropdown-item> -->
         </template>
       </our-dropdown>
     </div>
