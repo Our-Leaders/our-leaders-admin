@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:ml-10">aside</div>
+    <div class="w-full xl:w-1/3 xl:ml-10"></div>
   </div>
 </template>
 

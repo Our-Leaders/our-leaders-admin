@@ -100,23 +100,6 @@
             </div>
             <div class="flex mb-3">
               <div class="w-1/3 self-end">
-                Religion
-              </div>
-              <div class="w-2/3">
-                <ValidationProvider rules="required" name="Politician Religion" v-slot="{ errors }">
-                  <v-select
-                    id="politician-religion"
-                    name="politician-religion"
-                    :clearable="false"
-                    v-model="politicianData.religion"
-                    :options="['Islam', 'Christian', 'Hindu', 'Buddhism', 'Other']"
-                    :class="{'has-error': errors.length > 0}"
-                    class="our-select"></v-select>
-                </ValidationProvider>
-              </div>
-            </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
                 Country
               </div>
               <div class="w-2/3">
@@ -234,7 +217,6 @@ export default {
         twitter: '',
         name: '',
         dob: '',
-        religion: '',
         stateOfOrigin: '',
         politicalParty: '',
         status: '',
@@ -348,7 +330,6 @@ export default {
         socials = { ...this.politicianData.socials },
         name = '',
         dob = '',
-        religion = '',
         stateOfOrigin = '',
         politicalParty = {},
         status = '',
@@ -359,7 +340,6 @@ export default {
       this.politicianData = {
         name,
         dob,
-        religion,
         stateOfOrigin,
         country,
         // eslint-disable-next-line no-underscore-dangle
