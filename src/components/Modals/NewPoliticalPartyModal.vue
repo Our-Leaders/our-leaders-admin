@@ -185,6 +185,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import countries from '@/assets/json/countrylist.json';
 
 export default {
@@ -216,6 +217,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -252,10 +257,11 @@ export default {
           const { politicalParty } = data;
           this.$store.commit('editPoliticalParty', { partyData: politicalParty });
         }
+        this.displaySuccess({ message: `Party has been ${this.isNew ? 'created' : 'edited'} successfully` });
 
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.creatingPartyLoading = false;
       }

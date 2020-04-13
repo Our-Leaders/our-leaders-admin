@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
   name: 'EditPoliticalPartyIdeology',
@@ -33,6 +34,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -45,9 +50,10 @@ export default {
         const { data } = await this.politicalPartyServices.getPoliticalParties();
         const { politicalParties, total: politicalPartyCount } = data;
         this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
+        this.displaySuccess({ message: 'Party ideology edited successfully' });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.editIdeologyLoading = false;
       }

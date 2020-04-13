@@ -189,7 +189,6 @@ export default {
         // update the politician here
         this.$store.commit('storePolitician', { politicianId: this.politicianId, payload: data.politician });
       } catch (err) {
-        // do something with the error here
         this.$store.dispatch('displayError', err);
       }
     },

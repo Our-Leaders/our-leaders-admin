@@ -105,6 +105,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
 
 import defaultPermissions from '@/assets/json/permissions.json';
@@ -131,6 +132,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -149,9 +154,10 @@ export default {
         const { data } = await this.adminServices.getAdmins();
         const { admins } = data;
         this.$store.commit('storeAdmins', admins);
+        this.displaySuccess({ message: `Admin has been ${this.isNew ? 'created' : 'edited'} successully` });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.creatingAdminLoading = false;
       }

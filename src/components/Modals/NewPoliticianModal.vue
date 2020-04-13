@@ -204,6 +204,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import debounce from 'lodash.debounce';
 
 import countries from '@/assets/json/countrylist.json';
@@ -241,6 +242,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -294,9 +299,11 @@ export default {
           const { politician } = data;
           this.$store.commit('editPolitician', { politicianData: politician });
         }
+
+        this.displaySuccess({ message: `Politician has been ${this.isNew ? 'created' : 'edited'} successfully` });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.creatingPoliticianLoading = false;
       }

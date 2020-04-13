@@ -142,6 +142,7 @@
 
 <script>
 import find from 'lodash.find';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'JobModal',
@@ -191,6 +192,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -223,9 +228,10 @@ export default {
         const { data } = await this.jobServices.getJobs();
         const { jobs } = data;
         this.$store.dispatch('storeJobs', jobs);
+        this.displaySuccess({ message: `job has been ${this.isNew ? 'created' : 'edited'} successfully` });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.creatingEditJobLoading = false;
       }
