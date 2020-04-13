@@ -170,15 +170,19 @@ export default {
       }
 
       try {
-        let onSubmit = this.politicianServices.createAccomplishment;
-        let message = 'Accomplishment created successfully';
+        let result;
+        let message = '';
 
         if (this.isEdit) {
-          onSubmit = this.politicianServices.editAccomplishment;
+          const { _id: accomplishmentId = '' } = this.accomplishment;
+          result = await this.politicianServices.editAccomplishment(this.politicianId, accomplishmentId, payload);
           message = 'Accomplishment updated successfully';
+        } else {
+          result = await this.politicianServices.createAccomplishment(this.politicianId, payload);
+          message = 'Accomplishment created successfully';
         }
 
-        const { data } = await onSubmit(this.politicianId, payload);
+        const { data } = result;
         this.clearAccomplishment();
         this.$store.dispatch('displaySuccess', { message });
 
