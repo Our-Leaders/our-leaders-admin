@@ -110,6 +110,38 @@
                   v-model="partyData.acronym" />
               </div>
             </div>
+            <div class="flex mb-3">
+              <div class="w-1/3 self-end">
+                Country
+              </div>
+              <div class="w-2/3">
+                <ValidationProvider rules="required" name="Politician Country" v-slot="{ errors }">
+                  <v-select
+                    id="politician-country"
+                    name="politician-country"
+                    :disabled="true"
+                    :clearable="false"
+                    v-model="partyData.country"
+                    :options="countries"
+                    :reduce="type => type.acronym"
+                    :class="{'has-error': errors.length > 0}"
+                    class="our-select">
+                      <template #option="{ name, flag }">
+                        <div class="flex items-center">
+                          <img :src="countryFlag(flag)" class="mr-1"/>
+                          <span>{{name}}</span>
+                        </div>
+                      </template>
+                      <template #selected-option="{ name, flag }">
+                        <div class="flex items-center">
+                          <img :src="countryFlag(flag)" class="mr-1"/>
+                          <span>{{name}}</span>
+                        </div>
+                      </template>
+                    </v-select>
+                </ValidationProvider>
+              </div>
+            </div>
             <div class="flex mb-6">
               <div class="w-1/3 self-end">
                 Year Established
@@ -153,6 +185,8 @@
 </template>
 
 <script>
+import countries from '@/assets/json/countrylist.json';
+
 export default {
   name: 'NewPartyModal',
   props: {
@@ -173,10 +207,12 @@ export default {
         partyLeader: '',
         acronym: '',
         partyBackground: '',
+        country: 'NG',
       },
       creatingPartyLoading: false,
       uploadedLogoSrc: '',
       logoFile: '',
+      countries: Object.keys(countries).map(countryKey => countries[countryKey]),
     };
   },
   methods: {
@@ -202,16 +238,21 @@ export default {
 
       try {
         if (this.isNew) {
-        // create the political party
+          // create the political party
           await this.politicalPartyServices.createNewPoliticalParty(payload);
+
+          const { data } = await this.politicalPartyServices.getPoliticalParties();
+          const { politicalParties, total: politicalPartyCount } = data;
+          this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
         } else {
-          await this.politicalPartyServices.editPoliticalParty(this.politicalPartyId, payload);
+          // update a political party
+          const { data } = await this.politicalPartyServices.editPoliticalParty(this.politicalPartyId, payload);
+
+          // update the party in the store
+          const { politicalParty } = data;
+          this.$store.commit('editPoliticalParty', { partyData: politicalParty });
         }
 
-        // update the list of political parties
-        const { data } = await this.politicalPartyServices.getPoliticalParties();
-        const { politicalParties, total: politicalPartyCount } = data;
-        this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
         this.closeModal();
       } catch (err) {
         // do something with the error here
@@ -231,6 +272,10 @@ export default {
         fileReader.readAsDataURL(file);
         this.logoFile = file;
       }
+    },
+    countryFlag(flag) {
+      const images = require.context('@/assets/img/flags', false, /\.svg$/);
+      return images(`./${flag}`);
     },
   },
   computed: {
@@ -253,6 +298,7 @@ export default {
         acronym = '',
         partyBackground = '',
         logo = '',
+        country = 'NG',
       } = this.$store.getters.getPoliticalParty(this.politicalPartyId);
 
       this.partyData = {
@@ -262,6 +308,7 @@ export default {
         partyLeader: partyDescription.partyChairman,
         acronym,
         partyBackground,
+        country,
       };
 
       this.partyData.facebook = socials.facebook;
