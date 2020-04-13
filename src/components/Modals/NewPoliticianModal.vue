@@ -175,9 +175,18 @@
                   label="name"
                   :reduce="party => party.id"
                   :clearable="false"
+                  @search="onSearch"
+                  :filterable="false"
                   :options="politicalParties"
                   v-model="politicianData.politicalParty"
-                  class="our-select"></v-select>
+                  class="our-select">
+                    <template slot="no-options">
+                      type to search political parties
+                    </template>
+                    <!-- <template #list-footer>
+                      <li style="text-align: center">type to search political parties</li>
+                    </template> -->
+                  </v-select>
               </div>
             </div>
           </div>
@@ -195,6 +204,8 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
+
 import countries from '@/assets/json/countrylist.json';
 import nigerianStates from '@/assets/json/nigerianStates.json';
 
@@ -271,14 +282,18 @@ export default {
         // create the politician
         if (this.isNew) {
           await this.politicianServices.createNewPolitician(payload);
-        } else {
-          await this.politicianServices.editPolitician(this.politicianId, payload);
-        }
 
-        // update the list of politicians
-        const { data } = await this.politicianServices.getPoliticians({});
-        const { politicians, total: politicianCount } = data;
-        this.$store.commit('storePoliticians', { politicians, politicianCount });
+          // update the list of politicians
+          const { data } = await this.politicianServices.getPoliticians({});
+          const { politicians, total: politicianCount } = data;
+          this.$store.commit('storePoliticians', { politicians, politicianCount });
+        } else {
+          const { data } = await this.politicianServices.editPolitician(this.politicianId, payload);
+
+          // update the politician in the store
+          const { politician } = data;
+          this.$store.commit('editPolitician', { politicianData: politician });
+        }
         this.closeModal();
       } catch (err) {
         // do something with the error here
@@ -314,17 +329,35 @@ export default {
       const images = require.context('@/assets/img/flags', false, /\.svg$/);
       return images(`./${flag}`);
     },
+    onSearch(search, loading) {
+      if (search !== '') {
+        loading(true);
+        this.searchPoliticalParty(search, loading, this);
+      }
+    },
+    searchPoliticalParty: debounce(async (search, loading, vm) => {
+      try {
+        const { data } = await vm.politicalPartyServices.getPoliticalParties({
+          skip: 0,
+          limit: 7,
+          name: search,
+          acronym: search,
+        });
+
+        // eslint-disable-next-line no-param-reassign
+        vm.politicalParties = data.politicalParties;
+        console.log(data.politicalParties, 'data.politicalParties');
+        loading(false);
+      } catch (error) {
+        loading(false);
+        console.log(error, 'there was an error');
+      }
+    }, 350),
+    async getpoliticalParty(partyId) {
+      this.politicalPartyServices.getPoliticalParty(partyId);
+    },
   },
   async mounted() {
-    if (this.$store.state.politicalParties.length === 0) {
-      const { data } = await this.politicalPartyServices.getPoliticalParties();
-      const { politicalParties, total: politicalPartyCount } = data;
-      this.$store.commit('storePoliticalParties', { politicalParties, politicalPartyCount });
-    }
-
-    const { politicalParties } = this.$store.state;
-    this.politicalParties = politicalParties;
-
     if (this.politicianId) {
       const {
         socials = { ...this.politicianData.socials },
@@ -352,6 +385,12 @@ export default {
       this.politicianData.instagram = socials.instagram;
 
       this.uploadedImageSrc = profileImage;
+
+      // get political party details
+      // eslint-disable-next-line no-underscore-dangle
+      const { data } = await this.politicalPartyServices.getPoliticalParty(politicalParty._id);
+      const { politicalParty: politicianParty } = data;
+      this.politicalParties = [politicianParty];
     }
   },
   computed: {

@@ -22,7 +22,7 @@ import '@/font-awesome';
 Vue.component('v-select', vSelect);
 vSelect.props.components.default = () => ({
   OpenIndicator: {
-    render: createElement => createElement('img', { attrs: { src: dropdownIndicator } }),
+    render: createElement => createElement('img', { attrs: { src: dropdownIndicator, style: 'max-width: 21px;' } }),
   },
 });
 /** end of vselect */
