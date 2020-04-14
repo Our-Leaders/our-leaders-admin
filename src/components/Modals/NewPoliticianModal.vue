@@ -143,7 +143,13 @@
                     :options="nigerianStates"
                     v-model="politicianData.stateOfOrigin"
                     :class="{'has-error': errors.length > 0}"
-                    class="our-select"></v-select>
+                    :filterable="false"
+                    @search="stateSearch"
+                    class="our-select">
+                      <template slot="no-options">
+                        start typing to search for states
+                      </template>
+                    </v-select>
                 </ValidationProvider>
               </div>
             </div>
@@ -206,6 +212,7 @@
 <script>
 import { mapActions } from 'vuex';
 import debounce from 'lodash.debounce';
+import includes from 'lodash.includes';
 
 import countries from '@/assets/json/countrylist.json';
 import nigerianStates from '@/assets/json/nigerianStates.json';
@@ -222,7 +229,7 @@ export default {
     return {
       politicalPartyServices: this.$serviceFactory.politicalParty,
       politicianServices: this.$serviceFactory.politicians,
-      nigerianStates,
+      nigerianStates: [],
       politicianData: {
         instagram: '',
         facebook: '',
@@ -246,6 +253,14 @@ export default {
       displaySuccess: 'displaySuccess',
       displayError: 'displayError',
     }),
+    stateSearch(query) {
+      if (query === '') {
+        this.nigerianStates = [];
+        return;
+      }
+
+      this.nigerianStates = nigerianStates.filter(state => includes(state.toLowerCase(), query));
+    },
     closeModal() {
       this.$emit('close-modal');
     },
