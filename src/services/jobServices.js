@@ -16,4 +16,7 @@ export default {
     const url = `${resource}/${jobId}/${archive ? 'archive' : 'unarchive'}`;
     return instance.put(url, {});
   },
+  getJobCategories() {
+    return instance.get(`${resource}/categories`);
+  },
 };
