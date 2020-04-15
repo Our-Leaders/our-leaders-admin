@@ -34,6 +34,9 @@
           </div>
         </div>
       </div>
+      <div v-if="politician.politicalBackground.length < 1">
+        <p>No current political background</p>
+      </div>
     </div>
     <div class="mt-8">
       <p class="font-circular text-xl font-semibold w-full mb-5">Educational background</p>
@@ -43,6 +46,9 @@
           <!-- University of Lagos. MBA Marketing, 1993 -->
           <span class="capitalize">{{educationalBackground.institution}}</span> <span v-if="educationalBackground.startDate">{{getYear(educationalBackground.startDate)}}</span>
         </div>
+      </div>
+      <div v-if="politician.educationalBackground.length < 1">
+        <p>No current educational background</p>
       </div>
     </div>
     <div class="mt-8">
@@ -60,6 +66,9 @@
             <span v-if="professionalBackground.endDate">{{getYear(professionalBackground.endDate)}}</span>
           </div>
         </div>
+      </div>
+      <div v-if="politician.professionalBackground.length < 1">
+        <p>No current professional background</p>
       </div>
     </div>
   </div>
