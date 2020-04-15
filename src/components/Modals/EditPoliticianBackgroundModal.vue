@@ -21,9 +21,9 @@
               <div>
                 <input class="field w-full py-2 border-gray-c4"
                   type="text"
-                  name="state"
-                  v-model="politicalBackground.state"
-                  placeholder="State"
+                  name="region"
+                  v-model="politicalBackground.region"
+                  placeholder="region/state/country"
                 />
               </div>
               <div class="w-full py-2 inline-block cursor-pointer">
@@ -201,7 +201,7 @@ export default {
         position: '',
         description: '',
         inOffice: false,
-        state: '',
+        region: '',
         startDate: '',
         endDate: '',
       },
