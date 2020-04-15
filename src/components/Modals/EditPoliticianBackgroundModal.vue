@@ -63,8 +63,7 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
-                  input-class="field w-full py-2 border-gray-c4"
-                  :required="required(politicalBackground, politicalBackgroundData)">
+                  input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
               </div>
             </div>

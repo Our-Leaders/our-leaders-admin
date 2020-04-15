@@ -67,7 +67,6 @@ export default {
         this.$store.dispatch('storeJobs', jobs);
       } catch (error) {
         this.displayError(error);
-        console.log(error);
       }
     },
   },

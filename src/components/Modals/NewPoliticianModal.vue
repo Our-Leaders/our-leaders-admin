@@ -368,11 +368,10 @@ export default {
 
         // eslint-disable-next-line no-param-reassign
         vm.politicalParties = data.politicalParties;
-        console.log(data.politicalParties, 'data.politicalParties');
         loading(false);
       } catch (error) {
         loading(false);
-        console.log(error, 'there was an error');
+        this.displayError(error);
       }
     }, 350),
     async getpoliticalParty(partyId) {
