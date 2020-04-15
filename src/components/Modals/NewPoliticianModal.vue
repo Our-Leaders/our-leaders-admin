@@ -27,10 +27,10 @@
                   </div>
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
-                    type="url"
+                    type="text"
                     id="politician-facebook-link"
                     name="politician-facebook-link"
-                    placeholder="Facebook Link"
+                    placeholder="Facebook Handle"
                     v-model="politicianData.facebook"/>
                 </div>
                 <div class="w-1/2 ml-3 relative">
@@ -39,10 +39,10 @@
                   </div>
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
-                    type="url"
+                    type="text"
                     id="politician-twitter-link"
                     name="politician-twitter-link"
-                    placeholder="Twitter Link"
+                    placeholder="Twitter Handle"
                     v-model="politicianData.twitter"/>
                 </div>
               </div>
@@ -53,10 +53,10 @@
                   </div>
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
-                    type="url"
+                    type="text"
                     id="politician-instagram-link"
                     name="politician-instagram-link"
-                    placeholder="Instagram Link"
+                    placeholder="Instagram Handle"
                     v-model="politicianData.instagram"/>
                 </div>
                 <div class="w-1/2"></div>
