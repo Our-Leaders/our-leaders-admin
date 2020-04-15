@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import jobDefaultImage from '../assets/img/job-default-image.svg';
 
@@ -39,6 +39,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     getJobImageUrl(job) {
       if (job.image && job.image.url) {
         return job.image.url;
@@ -59,10 +63,10 @@ export default {
 
         const { data } = await this.jobServices.getJobs();
         const { jobs } = data;
+        this.displaySuccess({ message: `Job has been ${!isArchived ? 'archived' : 'unarchived'} successully` });
         this.$store.dispatch('storeJobs', jobs);
-      } catch (err) {
-        // do something with the error here
-        console.log(err);
+      } catch (error) {
+        this.displayError(error);
       }
     },
   },

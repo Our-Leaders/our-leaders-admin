@@ -12,6 +12,9 @@ export default {
     }
     return instance.get(url);
   },
+  getPoliticalParty(partyId) {
+    return instance.get(`${resource}/${partyId}`);
+  },
   createNewPoliticalParty(payload) {
     return instance.post(resource, payload);
   },

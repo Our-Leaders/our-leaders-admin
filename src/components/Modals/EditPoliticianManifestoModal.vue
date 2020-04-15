@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 
 export default {
   name: 'EditPoliticianModal',
@@ -48,6 +49,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -60,9 +65,10 @@ export default {
         const { data } = await this.politicianServices.getPoliticians({});
         const { politicians, total: politicianCount } = data;
         this.$store.commit('storePoliticians', { politicians, politicianCount });
+        this.displaySuccess({ message: 'Politician manifesto edited successfully' });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.editManifestoLoading = false;
       }

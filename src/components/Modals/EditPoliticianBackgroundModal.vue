@@ -21,9 +21,9 @@
               <div>
                 <input class="field w-full py-2 border-gray-c4"
                   type="text"
-                  name="state"
-                  v-model="politicalBackground.state"
-                  placeholder="State"
+                  name="region"
+                  v-model="politicalBackground.region"
+                  placeholder="region/state/country"
                 />
               </div>
               <div class="w-full py-2 inline-block cursor-pointer">
@@ -63,8 +63,7 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
-                  input-class="field w-full py-2 border-gray-c4"
-                  :required="required(politicalBackground, politicalBackgroundData)">
+                  input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
               </div>
             </div>
@@ -201,7 +200,7 @@ export default {
         position: '',
         description: '',
         inOffice: false,
-        state: '',
+        region: '',
         startDate: '',
         endDate: '',
       },

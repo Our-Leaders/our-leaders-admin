@@ -13,10 +13,10 @@
         <div class="w-1/3">DOB/Age</div>
         <div class="w-2/3">{{politician.dob | dateFormat('-')}} / {{politician.dob | age}} years</div>
       </div>
-      <div class="flex mb-3">
+      <!-- <div class="flex mb-3">
         <div class="w-1/3">Country</div>
         <div class="w-2/3 capitalize">{{countries[politician.country].name}}</div>
-      </div>
+      </div> -->
       <div class="flex mb-3">
         <div class="w-1/3">State of origin</div>
         <div class="w-2/3 capitalize">{{politician.stateOfOrigin}}</div>
@@ -34,6 +34,9 @@
           </div>
         </div>
       </div>
+      <div v-if="politician.politicalBackground.length < 1">
+        <p>No current political background</p>
+      </div>
     </div>
     <div class="mt-8">
       <p class="font-circular text-xl font-semibold w-full mb-5">Educational background</p>
@@ -43,6 +46,9 @@
           <!-- University of Lagos. MBA Marketing, 1993 -->
           <span class="capitalize">{{educationalBackground.institution}}</span> <span v-if="educationalBackground.startDate">{{getYear(educationalBackground.startDate)}}</span>
         </div>
+      </div>
+      <div v-if="politician.educationalBackground.length < 1">
+        <p>No current educational background</p>
       </div>
     </div>
     <div class="mt-8">
@@ -60,6 +66,9 @@
             <span v-if="professionalBackground.endDate">{{getYear(professionalBackground.endDate)}}</span>
           </div>
         </div>
+      </div>
+      <div v-if="politician.professionalBackground.length < 1">
+        <p>No current professional background</p>
       </div>
     </div>
   </div>

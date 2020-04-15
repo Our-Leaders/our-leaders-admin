@@ -46,6 +46,14 @@ const vuexPersist = new VuexPersist({
       },
       jobsByCategory: state.jobsByCategory,
     },
+    politicalPartyPagination: {
+      page: state.politicalPartyPagination.page,
+      numberPerPage: state.politicalPartyPagination.numberPerPage,
+    },
+    politicianPagination: {
+      page: state.politicianPagination.page,
+      numberPerPage: state.politicianPagination.numberPerPage,
+    },
   }),
 });
 

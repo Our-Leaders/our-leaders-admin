@@ -35,7 +35,7 @@
                 </ValidationProvider>
               </div>
               <div class="mb-3">
-                <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
+                <ValidationProvider rules="required" name="Job Location" v-slot="{ errors }">
                   <div class="flex relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
                     <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
                       Location
@@ -51,7 +51,7 @@
                 </ValidationProvider>
               </div>
               <div class="mb-3">
-                <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
+                <ValidationProvider rules="required" name="Job Type" v-slot="{ errors }">
                   <div class="flex relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
                     <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
                       Job Type
@@ -73,7 +73,7 @@
           </div>
           <div class="mt-10">
             <div class="mb-3">
-              <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
+              <ValidationProvider rules="required" name="Job Description" v-slot="{ errors }">
                 <div>
                   Description
                 </div>
@@ -93,7 +93,7 @@
                 Application Link
               </div>
               <div class="w-2/3">
-                <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
+                <ValidationProvider rules="required" name="Job Application Link" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 border-b border-gray-400"
                     type="url"
@@ -112,18 +112,22 @@
                 Job Category
               </div>
               <div class="w-2/3">
-                <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
+                <ValidationProvider rules="required" name="Job Category" v-slot="{ errors }">
                   <v-select
                     id="job-category"
                     name="job-category"
                     :clearable="false"
-                    :options="jobCategories"
+                    :options="categories"
                     :class="errors.length > 0 ? 'border-red-600' : ''"
                     taggable
                     v-model="job.category"
                     :create-option="e => e"
                     class="our-select w-full"></v-select>
+                      <!-- <template #header>
+                        Enter Category to add new category
+                      </template> -->
                 </ValidationProvider>
+                <p class="text-sm text-gray-96">Add text and enter to add new category</p>
               </div>
             </div>
           </div>
@@ -142,6 +146,7 @@
 
 <script>
 import find from 'lodash.find';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'JobModal',
@@ -188,9 +193,14 @@ export default {
         applicationLink: '',
         isArchived: false,
       },
+      categories: [],
     };
   },
   methods: {
+    ...mapActions({
+      displaySuccess: 'displaySuccess',
+      displayError: 'displayError',
+    }),
     closeModal() {
       this.$emit('close-modal');
     },
@@ -223,9 +233,10 @@ export default {
         const { data } = await this.jobServices.getJobs();
         const { jobs } = data;
         this.$store.dispatch('storeJobs', jobs);
+        this.displaySuccess({ message: `job has been ${this.isNew ? 'created' : 'edited'} successfully` });
         this.closeModal();
-      } catch (err) {
-        // do something with the error here
+      } catch (error) {
+        this.displayError(error);
       } finally {
         this.creatingEditJobLoading = false;
       }
@@ -261,6 +272,9 @@ export default {
       this.job = find(jobs, { _id: this.jobId });
       this.jobImageSrc = this.job.image ? this.job.image.url : '';
     }
+
+    const { data } = await this.jobServices.getJobCategories();
+    this.categories = data.categories;
   },
 };
 </script>

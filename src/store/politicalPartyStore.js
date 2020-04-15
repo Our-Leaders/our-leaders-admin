@@ -13,6 +13,19 @@ export const politicalPartyMutations = {
   resetPartyPagination(state) {
     state.politicalPartyPagination.page = 1;
   },
+  editPoliticalParty(state, { partyData }) {
+    const parties = state.politicalParties.map((party) => {
+      if (party.id === partyData.id) {
+        return {
+          ...partyData,
+        };
+      }
+
+      return party;
+    });
+
+    state.politicalParties = [...parties];
+  },
 };
 
 export const politicalPartyGetters = {

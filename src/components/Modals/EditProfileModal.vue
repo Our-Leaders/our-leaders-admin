@@ -73,37 +73,6 @@
                 </ValidationProvider>
               </div>
             </div>
-            <!-- <div class="flex mb-3">
-              <div class="w-1/3 self-end">
-                Password
-              </div>
-              <div class="w-2/3">
-                <ValidationProvider rules="required" name="Password" v-slot="{ errors }">
-                  <input
-                    class="w-full pl-1 py-2 field border-b border-gray-400"
-                    :class="errors.length > 0 ? 'border-red-600' : ''"
-                    type="password"
-                    id="admin-password"
-                    name="admin-password" />
-                </ValidationProvider>
-              </div>
-            </div> -->
-            <!-- <div class="flex mb-3">
-              <div class="w-1/3 self-end">
-                Phone
-              </div>
-              <div class="w-2/3">
-                <ValidationProvider rules="required" name="Phone Number" v-slot="{ errors }">
-                  <input
-                    class="w-full pl-1 py-2 field border-b border-gray-400"
-                    :class="errors.length > 0 ? 'border-red-600' : ''"
-                    type="text"
-                    id="admin-phone-number"
-                    v-model="user.phone"
-                    name="admin-phone-number" />
-                </ValidationProvider>
-              </div>
-            </div> -->
           </div>
           <div class="flex mt-12">
             <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid || editProfileLoading">
@@ -169,14 +138,29 @@ export default {
         this.editProfileLoading = false;
       }
     },
+    onFileUpload($event) {
+      if ($event.target.files.length > 0) {
+        const file = $event.target.files[0];
+
+        const self = this;
+        const fileReader = new FileReader();
+        fileReader.onload = function onload() {
+          self.uploadedImageSrc = this.result;
+        };
+        fileReader.readAsDataURL(file);
+        this.profileImageFile = file;
+      }
+    },
   },
   mounted() {
     const {
-      firstName, lastName, id, email, phone,
+      firstName, lastName, id, email, phone, profileImage,
     } = this.$store.state.currentUser;
     this.user = {
       firstName, lastName, id, email, phone,
     };
+
+    this.uploadedImageSrc = profileImage;
   },
 };
 </script>

@@ -15,4 +15,7 @@ export default {
   updateAdminStatus(id, payload) {
     return instance.put(`${resource}/${id}/status`, payload);
   },
+  deleteAdmin(id) {
+    return instance.delete(`${resource}/${id}`);
+  },
 };

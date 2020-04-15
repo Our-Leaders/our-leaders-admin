@@ -55,11 +55,6 @@
         <component :is="detailComponents[visibleTab]" v-bind="{ politician }"></component>
       </main>
     </div>
-    <!-- <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
-      <div class="w-full xl:w-1/3 fixed bottom-0 right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-16" style="top: 9rem;">
-        aside
-      </div>
-    </div> -->
     <div class="w-full xl:w-1/3 xl:px-10 self-start" ref="accomplishment">
       <p class="text-2xl mb-8">Write New</p>
       <our-tabs :tabs="[{ label: 'Accomplishment', value: 'accomplishment' }]" @change="setNewAdminSection"></our-tabs>

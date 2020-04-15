@@ -63,7 +63,7 @@
        <span v-if="admin.isBlocked">Unblock</span>
        <span v-else>Block</span>
     </button>
-        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="admin.isDeleted || processing">Delete</button>
+        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" @click="deleteAdmin" :disabled="admin.isDeleted || processing">Delete</button>
       </div>
     </div>
     <div v-else class="flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
@@ -99,14 +99,29 @@ export default {
     ...mapActions({
       displaySuccess: 'displaySuccess',
       displayError: 'displayError',
-      updateAdminStatus: 'updateAdminStatus',
     }),
     async updateBlockedStatus(block) {
       try {
         this.processing = true;
         await this.adminServices.updateAdminStatus(this.admin.id, { block });
         this.processing = false;
-        this.displaySuccess({ message: `${this.admin.firstName} has been ${block ? 'blocked' : 'unblocked'} Successful` });
+        this.displaySuccess({ message: `${this.admin.firstName} has been ${block ? 'blocked' : 'unblocked'} successfully` });
+
+        // update the list of admins
+        const { data } = await this.adminServices.getAdmins();
+        const { admins } = data;
+        this.$store.commit('storeAdmins', admins);
+      } catch (error) {
+        this.processing = false;
+        this.displayError(error);
+      }
+    },
+    async deleteAdmin() {
+      try {
+        this.processing = true;
+        await this.adminServices.deleteAdmin(this.admin.id);
+        this.processing = false;
+        this.displaySuccess({ message: `${this.admin.firstName} has been deleted successfully` });
 
         // update the list of admins
         const { data } = await this.adminServices.getAdmins();

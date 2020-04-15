@@ -18,10 +18,23 @@ export const politicianMutations = {
     state.politicians = [];
   },
   changePoliticianPageNumber(state, page) {
-    state.politicalPartyPagination.page = page;
+    state.politicianPagination.page = page;
   },
   resetPoliticiansPageNumber(state) {
-    state.politicalPartyPagination.page = 1;
+    state.politicianPagination.page = 1;
+  },
+  editPolitician(state, { politicianData }) {
+    const politicians = state.politicians.map((politician) => {
+      if (politician.id === politicianData.id) {
+        return {
+          ...politicianData,
+        };
+      }
+
+      return politician;
+    });
+
+    state.politicians = [...politicians];
   },
 };
 
