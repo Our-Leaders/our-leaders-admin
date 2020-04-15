@@ -32,7 +32,11 @@
           </div> -->
         </div>
         <div class="w-1/4 flex justify-end">
-          <div class="w-32 h-32 bg-gray-db rounded-full bg-center bg-no-repeat bg-cover"></div>
+          <div
+            class="w-32 h-32 bg-gray-f0 rounded-full bg-center bg-no-repeat bg-cover"
+            v-if="user.profileImage"
+            v-bind:style="{ 'background-image': 'url('+ user.profileImage +')'  }"></div>
+          <div class="w-32 h-32 bg-gray-f0 rounded-full bg-center bg-no-repeat bg-cover" v-else></div>
         </div>
       </div>
       <button class="border-black border py-1 text-center w-64 text-sm font-circular mt-8" @click="signout">Sign out</button>

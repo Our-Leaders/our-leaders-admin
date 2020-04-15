@@ -26,7 +26,13 @@
       <our-dropdown>
         <template v-slot:trigger>
           <div class="flex cursor-pointer">
-            <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div>
+            <!-- <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div> -->
+            <div
+              class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible bg-center bg-no-repeat bg-cover"
+              :class="openNav ? 'visible' : 'invisible'"
+              v-if="user.profileImage"
+              v-bind:style="{ 'background-image': 'url('+ user.profileImage +')'  }"></div>
+            <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'" v-else></div>
             <div class="admin-info leading-tight hidden lg:block">
               <div class="admin-name text-sm">{{user.firstName || 'John Doe'}}</div>
               <div class="admin-info text-xs text-gray-96">{{user.email}}</div>
