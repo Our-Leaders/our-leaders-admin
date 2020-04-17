@@ -14,7 +14,7 @@ button, button:active, button:focus {
 .nav-links {
   a {
     &.active {
-      @apply border-primary;
+      @apply border-primary font-semibold;
     }
   }
 }
