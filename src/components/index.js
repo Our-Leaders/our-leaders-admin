@@ -18,6 +18,9 @@ import PoliticalParty from './Politicalparty.vue';
 import NewEditAccomplishment from './NewEditAccomplishment.vue';
 import ImageUploader from './ImageCrop.vue';
 
+// charts for analytics
+import TestChart from './charts/TestChart.vue';
+
 Vue.component('our-tabs', Tab);
 Vue.component('our-alert', Alert);
 Vue.component('our-career', CareerComponent);
@@ -28,6 +31,7 @@ Vue.component('our-side-navbar', SideNavigation);
 Vue.component('our-politician', Politician);
 Vue.component('our-party', PoliticalParty);
 Vue.component('our-modal', Modal);
+Vue.component('our-test-chart', TestChart);
 Vue.component('our-modal-manager', ModalManager);
 Vue.component('our-dropdown', Dropdown);
 Vue.component('our-dropdown-item', DropdownItem);

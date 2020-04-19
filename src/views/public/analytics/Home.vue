@@ -34,6 +34,9 @@
     </div>
     <div class="w-full mt-10">
       <our-tabs :tabs="tabs"/>
+      <div class="mt-4">
+        <our-test-chart></our-test-chart>
+      </div>
     </div>
   </div>
   <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2"></div>
@@ -57,6 +60,6 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 </style>
