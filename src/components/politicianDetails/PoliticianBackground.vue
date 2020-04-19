@@ -62,8 +62,8 @@
         </div>
         <div class="flex">
           <div class="w-1/3">Duration</div><div class="w-2/3">
-            <span v-if="professionalBackground.startDate">{{getYear(professionalBackground.startDate)}} - </span>
-            <span v-if="professionalBackground.endDate">{{getYear(professionalBackground.endDate)}}</span>
+            <span v-if="professionalBackground.startYear">{{professionalBackground.startYear}} - </span>
+            <span v-if="professionalBackground.endYear">{{professionalBackground.endYear}}</span>
           </div>
         </div>
       </div>
