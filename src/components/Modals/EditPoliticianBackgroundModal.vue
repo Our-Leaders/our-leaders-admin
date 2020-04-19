@@ -142,24 +142,25 @@
                 />
               </div>
               <div class="flex">
-                <v-datepicker
+                <input
                   name="start-date"
-                  placeholder="Start date *"
-                  format="dd/MM/yyyy"
-                  v-model="professionalBackground.startDate"
-                  class="w-full xl:mr-2"
-                  input-class="field w-full py-2 border-gray-c4"
-                  :required="required(professionalBackground, professionalBackgroundData)">
-                </v-datepicker>
-                <v-datepicker
+                  type="number"
+                  maxlength="4"
+                  max="9999"
+                  placeholder="Start year"
+                  v-model="professionalBackground.startYear"
+                  class="field w-full py-2 border-gray-c4 w-full xl:mr-2"
+                />
+
+                <input
                   name="end-date"
-                  placeholder="End date *"
-                  format="dd/MM/yyyy"
-                  v-model="professionalBackground.endDate"
-                  class="w-full xl:ml-2"
-                  input-class="field w-full py-2 border-gray-c4"
-                  :required="required(professionalBackground, professionalBackgroundData)">
-                </v-datepicker>
+                  type="number"
+                  maxlength="4"
+                  max="9999"
+                  placeholder="End year"
+                  v-model="professionalBackground.endYear"
+                  class="field w-full py-2 border-gray-c4 w-full xl:ml-2"
+                />
               </div>
             </div>
           </div>
