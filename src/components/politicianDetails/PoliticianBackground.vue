@@ -44,7 +44,7 @@
         <div class="w-1/3 capitalize">{{educationalBackground.degree}}</div>
         <div class="w-2/3 capitalize">
           <!-- University of Lagos. MBA Marketing, 1993 -->
-          <span class="capitalize">{{educationalBackground.institution}}</span> <span v-if="educationalBackground.startDate">{{getYear(educationalBackground.startDate)}}</span>
+          <span class="capitalize">{{educationalBackground.institution}}</span> <span v-if="educationalBackground.graduationYear">{{educationalBackground.graduationYear}}</span>
         </div>
       </div>
       <div v-if="politician.educationalBackground.length < 1">
