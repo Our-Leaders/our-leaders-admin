@@ -259,7 +259,7 @@ export default {
         return;
       }
 
-      this.nigerianStates = nigerianStates.filter(state => includes(state.toLowerCase(), query));
+      this.nigerianStates = nigerianStates.filter(state => includes(state.toLowerCase(), query.toLowerCase()));
     },
     closeModal() {
       this.$emit('close-modal');
