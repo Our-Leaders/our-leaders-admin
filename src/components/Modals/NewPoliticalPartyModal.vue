@@ -278,6 +278,7 @@ export default {
         };
         fileReader.readAsDataURL(file);
         this.logoFile = file;
+        this.toggleCropModal();
       }
     },
     toggleCropModal() {

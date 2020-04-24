@@ -346,6 +346,7 @@ export default {
         };
         fileReader.readAsDataURL(file);
         this.profileImageFile = file;
+        this.toggleCropModal();
       }
     },
     toggleCropModal() {

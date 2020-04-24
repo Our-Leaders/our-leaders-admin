@@ -43,7 +43,6 @@ export default {
       this.croppa.generateBlob(
         async (blob) => {
           this.$emit('complete', blob);
-          this.$emit('dismiss');
         },
         'image/*',
         0.8,
