@@ -16,6 +16,7 @@ import DropdownItem from './Dropdown/DropdownItem.vue';
 import DropdownDivider from './Dropdown/DropdownDivider.vue';
 import PoliticalParty from './Politicalparty.vue';
 import NewEditAccomplishment from './NewEditAccomplishment.vue';
+import ImageUploader from './ImageCrop.vue';
 
 Vue.component('our-tabs', Tab);
 Vue.component('our-alert', Alert);
@@ -32,6 +33,7 @@ Vue.component('our-dropdown', Dropdown);
 Vue.component('our-dropdown-item', DropdownItem);
 Vue.component('our-dropdown-divider', DropdownDivider);
 Vue.component('our-accomplishment', NewEditAccomplishment);
+Vue.component('our-image-crop', ImageUploader);
 
 export default {
   Navigation,

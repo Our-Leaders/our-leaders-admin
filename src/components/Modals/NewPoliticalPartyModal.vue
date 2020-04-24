@@ -5,12 +5,12 @@
       <p class="text-4xl" v-else>Edit Party</p>
     </template>
     <template v-slot:content>
+      <our-image-crop v-if="isCropping" v-on:complete="onFileUpload" v-on:dismiss="toggleCropModal" />
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(submit)">
           <div class="flex mt-6 social-links">
             <div class="w-1/3 flex">
-              <label for="political-party-logo" class="w-40 h-32 block cursor-pointer">
-                <input type="file" name="political party logo" id="political-party-logo" class="hidden" accept="image/*" @change="onFileUpload($event);">
+              <label for="political-party-logo" class="w-40 h-32 block cursor-pointer" @click="toggleCropModal">
                 <div class="w-full h-full political-party-logo flex items-center justify-center" v-if="!uploadedLogoSrc">
                   <span class="text-white text-sm font-circular">Upload picture</span>
                 </div>
@@ -214,6 +214,7 @@ export default {
       uploadedLogoSrc: '',
       logoFile: '',
       countries: Object.keys(countries).map(countryKey => countries[countryKey]),
+      isCropping: false,
     };
   },
   methods: {
@@ -267,8 +268,8 @@ export default {
       }
     },
     onFileUpload($event) {
-      if ($event.target.files.length > 0) {
-        const file = $event.target.files[0];
+      if ($event) {
+        const file = $event;
 
         const self = this;
         const fileReader = new FileReader();
@@ -277,7 +278,11 @@ export default {
         };
         fileReader.readAsDataURL(file);
         this.logoFile = file;
+        this.toggleCropModal();
       }
+    },
+    toggleCropModal() {
+      this.isCropping = !this.isCropping;
     },
     countryFlag(flag) {
       const images = require.context('@/assets/img/flags', false, /\.svg$/);

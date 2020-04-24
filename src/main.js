@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Croppa from 'vue-croppa';
 import vSelect from 'vue-select';
 import Paginate from 'vuejs-paginate';
 import Datepicker from 'vuejs-datepicker';
@@ -17,6 +18,7 @@ import dropdownIndicator from './assets/img/dropdown-indicator.svg';
 import '@/filters';
 import '@/vee-validate';
 import '@/font-awesome';
+import 'vue-croppa/dist/vue-croppa.css';
 
 /** import and configure vselect */
 Vue.component('v-select', vSelect);
@@ -32,6 +34,7 @@ Vue.component('v-datepicker', Datepicker);
 
 // configure the pluralize lib
 Vue.use(VuePluralize);
+Vue.use(Croppa);
 
 Vue.config.productionTip = false;
 

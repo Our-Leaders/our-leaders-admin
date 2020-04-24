@@ -6,12 +6,12 @@
       <p class="text-4xl" v-else>Edit leader profile</p>
     </template>
     <template v-slot:content>
+      <our-image-crop v-if="isCropping" v-on:complete="onFileUpload" v-on:dismiss="toggleCropModal" />
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(submit)">
           <div class="flex mt-6 social-links">
             <div class="w-1/3 flex">
-              <label for="politician-image" class="w-40 h-32 block cursor-pointer">
-                <input type="file" name="politician image" id="politician-image" class="hidden" accept="image/*" @change="onFileUpload($event);">
+              <label for="politician-image" class="w-40 h-32 block cursor-pointer" @click="toggleCropModal">
                 <div class="w-full h-full politician-profile-image flex items-center justify-center" v-if="!uploadedImageSrc">
                   <span class="text-white text-sm font-circular">Upload picture</span>
                 </div>
@@ -246,6 +246,7 @@ export default {
       uploadedImageSrc: '',
       profileImageFile: '',
       countries: Object.keys(countries).map(countryKey => countries[countryKey]),
+      isCropping: false,
     };
   },
   methods: {
@@ -335,8 +336,8 @@ export default {
       return classNames;
     },
     onFileUpload($event) {
-      if ($event.target.files.length > 0) {
-        const file = $event.target.files[0];
+      if ($event) {
+        const file = $event;
 
         const self = this;
         const fileReader = new FileReader();
@@ -345,7 +346,11 @@ export default {
         };
         fileReader.readAsDataURL(file);
         this.profileImageFile = file;
+        this.toggleCropModal();
       }
+    },
+    toggleCropModal() {
+      this.isCropping = !this.isCropping;
     },
     countryFlag(flag) {
       const images = require.context('@/assets/img/flags', false, /\.svg$/);
