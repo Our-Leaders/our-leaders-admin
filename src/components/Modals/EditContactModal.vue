@@ -13,7 +13,7 @@
                 Address
               </div>
               <div class="w-2/3">
-                <ValidationProvider rules="required" name="Address" v-slot="{ errors }">
+                <ValidationProvider name="Address" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
                     :class="errors.length > 0 ? 'border-red-600' : ''"
@@ -30,7 +30,7 @@
                 Phone
               </div>
               <div class="w-2/3">
-                <ValidationProvider rules="required|length:11" name="Phone" v-slot="{ errors }">
+                <ValidationProvider rules="length:11" name="Phone" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
                     :class="errors.length > 0 ? 'border-red-600' : ''"

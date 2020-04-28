@@ -4,6 +4,6 @@ const resource = '/auth';
 
 export default {
   login(data) {
-    return instance.post(`${resource}/login`, data);
+    return instance.post(`${resource}/login/admin`, data);
   },
 };
