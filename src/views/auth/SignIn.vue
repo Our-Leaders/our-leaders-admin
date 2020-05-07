@@ -85,6 +85,7 @@ export default {
       try {
         this.loading = true;
         this.hasError = false;
+        this.data.email = this.data.email.toLowerCase();
         const response = await this.authServices.login(this.data);
         const { user, token } = response.data;
 
