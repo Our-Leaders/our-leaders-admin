@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown relative">
-    <div class="trigger" @click="trigger">
+    <div class="trigger" @click.stop="trigger">
       <slot name="trigger"></slot>
     </div>
-    <ul class="dropdown-list absolute bg-white min-w-full w-48 shadow mt-1 pt-1" v-if="showDropdown">
+    <ul class="dropdown-list bg-white z-50 absolute bg-white min-w-full w-48 shadow mt-1 pt-1" v-if="showDropdown">
       <slot name="items"></slot>
     </ul>
   </div>
