@@ -15,7 +15,7 @@
         </span>
       </div>
       <div class="relative">
-        <our-dropdown>
+        <our-dropdown position="bottom-end">
           <template v-slot:trigger>
             <button class="px-3 py-1">
               <img src="./../assets/img/kebab_menu_Icon.svg" alt="more indicator">
