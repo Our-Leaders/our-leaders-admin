@@ -2,8 +2,8 @@
   <div class="side-nav lg:fixed lg:bottom-0 lg:left-0 lg:right-0 lg:w-1/4 xl:w-1/6 pl-8 pr-12 overflow-y-scroll hidden lg:block z-40">
     <div>
       <our-dropdown>
-        <template v-slot:trigger>
-          <button class="relative focus:outline-none border-black border-2 w-full py-2 px-3 flex justify-between items-center">
+        <template v-slot:trigger="{ openDialog }">
+          <button @click="openDialog()" class="relative focus:outline-none border-black border-2 w-full py-2 px-3 flex justify-between items-center">
             <span>New</span>
             <span><img src="@/assets/img/add-primary.svg" alt=""></span>
           </button>

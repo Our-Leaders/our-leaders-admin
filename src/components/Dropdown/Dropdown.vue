@@ -1,7 +1,7 @@
 <template>
   <div class="dropdown relative">
-    <div @click.stop="trigger" ref="dropdownTrigger" role="button">
-      <slot name="trigger"></slot>
+    <div ref="dropdownTrigger">
+      <slot name="trigger" :openDialog="trigger"></slot>
     </div>
     <ul class="dropdown-list bg-white z-50 absolute bg-white min-w-full w-48 shadow pt-1" ref="dropdownList" v-show="showDropdown">
       <slot name="items"></slot>

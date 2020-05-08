@@ -24,8 +24,8 @@
         <div class="new-notification-indication rounded-full absolute"></div>12
       </div> -->
       <our-dropdown position="bottom-start">
-        <template v-slot:trigger>
-          <div class="flex cursor-pointer">
+        <template v-slot:trigger="{ openDialog }">
+          <div class="flex cursor-pointer" @click="openDialog()">
             <!-- <div class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible" :class="openNav ? 'visible' : 'invisible'"></div> -->
             <div
               class="avatar h-10 w-10 rounded-full bg-gray-f0 mr-4 lg:visible bg-center bg-no-repeat bg-cover"

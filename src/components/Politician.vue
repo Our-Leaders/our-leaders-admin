@@ -16,8 +16,8 @@
       </div>
       <div class="relative">
         <our-dropdown position="bottom-end">
-          <template v-slot:trigger>
-            <button class="px-3 py-1">
+          <template v-slot:trigger="{ openDialog }">
+            <button class="px-3 py-1" @click.stop="openDialog()">
               <img src="./../assets/img/kebab_menu_Icon.svg" alt="more indicator">
             </button>
           </template>
