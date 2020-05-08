@@ -30,4 +30,7 @@ export default {
   deleteAccomplishment(politicianId, accomplishmentId) {
     return instance.delete(`${resource}/${politicianId}/accomplishments/${accomplishmentId}`);
   },
+  deletePolitician(politicianId) {
+    return instance.delete(`${resource}/${politicianId}`);
+  },
 };
