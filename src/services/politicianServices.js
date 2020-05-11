@@ -12,6 +12,9 @@ export default {
     }
     return instance.get(url);
   },
+  getPolitician(id) {
+    return instance.get(`${resource}/${id}`);
+  },
   createNewPolitician(payload) {
     return instance.post(resource, payload);
   },
