@@ -84,6 +84,8 @@ export default {
   name: 'leaders-details',
   data() {
     return {
+      politicianServices: this.$serviceFactory.politicians,
+      politician: this.$store.getters.getPolitician(this.$route.params.id),
       show: false,
       visibleTab: 'background',
       detailComponents: {
@@ -124,6 +126,18 @@ export default {
     editProfile() {
       this.$store.commit('openModal', { modalName: 'NewPoliticianModal', modalProps: { politicianId: this.politician.id } });
     },
+    async getPolitician(id) {
+      try {
+        const response = await this.politicianServices.getPolitician(id);
+        this.politician = response.data.politician;
+        this.$store.commit('storePolitician', { politicianId: id, payload: this.politician });
+      } catch (error) {
+        // Do nothing. Just use the default data.
+      }
+    },
+  },
+  created() {
+    this.getPolitician(this.$route.params.id);
   },
   mounted() {
     stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
@@ -141,9 +155,6 @@ export default {
     observer.observe(this.$refs.imageHere);
   },
   computed: {
-    politician() {
-      return this.$store.getters.getPolitician(this.$route.params.id);
-    },
     presentPosition() {
       const { politicalBackground = [] } = this.politician;
       const presentPosition = find(politicalBackground, { inOffice: true });
