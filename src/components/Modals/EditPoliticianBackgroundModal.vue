@@ -56,6 +56,7 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.startDate"
                   class="w-full xl:mr-2"
+                  calendar-class="political-background-dates"
                   input-class="field w-full py-2 border-gray-c4"
                   :required="required(politicalBackground, politicalBackgroundData)">
                 </v-datepicker>
@@ -65,6 +66,7 @@
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
+                  calendar-class="political-background-dates"
                   input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
               </div>
@@ -314,3 +316,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .political-background-dates {
+    width: 220px;
+  }
+</style>
