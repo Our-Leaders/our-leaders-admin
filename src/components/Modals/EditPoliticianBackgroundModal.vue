@@ -319,6 +319,6 @@ export default {
 
 <style lang="scss">
   .political-background-dates {
-    width: 220px;
+    width: 238px !important;
   }
 </style>
