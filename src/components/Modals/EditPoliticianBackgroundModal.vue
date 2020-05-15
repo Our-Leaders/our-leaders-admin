@@ -25,7 +25,7 @@
                        type="text"
                        name="region"
                        v-model="politicalBackground.region"
-                       placeholder="region/state/country"
+                       placeholder="Region/State/Country"
                 />
               </div>
               <div class="w-full py-2 inline-block cursor-pointer">
