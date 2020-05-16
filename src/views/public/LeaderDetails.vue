@@ -21,9 +21,9 @@
           </div>
           <div class="inline-flex pl-6 mb-3 items-center">
             <p class="font-circular text-xs">Share profile</p>
-            <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/facebook.svg" alt="facebook link"></a>
-            <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/twitter.svg" alt="twitter link"></a>
-            <a class="ml-6" href="#"><img class="h-4" src="@/assets/img/social/instagram.svg" alt="instagram link"></a>
+            <a class="ml-6" target="_blank" v-bind:href="politician.socials.facebook"><img class="h-4" src="@/assets/img/social/facebook.svg" alt="facebook link"></a>
+            <a class="ml-6" target="_blank" v-bind:href="politician.socials.twitter"><img class="h-4" src="@/assets/img/social/twitter.svg" alt="twitter link"></a>
+            <a class="ml-6" target="_blank" v-bind:href="politician.socials.instagram"><img class="h-4" src="@/assets/img/social/instagram.svg" alt="instagram link"></a>
           </div>
           <div>
             <p>{{presentPosition.description}}</p>
