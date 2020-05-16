@@ -144,12 +144,7 @@ export default {
     stickbits(this.$refs.accomplishment, { stickyBitStickyOffset: 100, useStickyClasses: true });
     const observer = new window.IntersectionObserver((entries) => {
       const entry = entries[0];
-
-      if (entry.isIntersecting) {
-        this.show = false;
-      } else {
-        this.show = true;
-      }
+      this.show = !entry.isIntersecting;
     }, { threshold: 0.9 });
 
     observer.observe(this.$refs.imageHere);
