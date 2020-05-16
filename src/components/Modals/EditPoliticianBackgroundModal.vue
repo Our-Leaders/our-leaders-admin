@@ -176,7 +176,8 @@
         </div>
         <div class="mt-8">
           <p class="flex text-red-500 absolute">{{ error }}</p>
-          <button class="bg-primary text-white font-circular py-3 px-12 mt-10" type="submit"
+          <button class="bg-primary text-white font-circular py-3 px-12 mt-10"
+                  type="submit"
                   :disabled="updateLoading">
             <span v-if="!updateLoading">Save</span>
             <span v-else>Submitting...</span>
@@ -249,6 +250,11 @@ export default {
         const { politicians, total: politicianCount } = data;
         this.$store.commit('storePoliticians', { politicians, politicianCount });
         this.$store.dispatch('displaySuccess', { message: 'Politician\'s background updated successfully' });
+
+        // reload the page before the modal changes
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+
         this.closeModal();
       } catch (err) {
         if (err.response) {
