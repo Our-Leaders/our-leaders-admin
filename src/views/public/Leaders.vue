@@ -78,7 +78,7 @@
           <div class="border-b border-gray-db h-0 flex-auto ml-3"></div>
         </div>
         <div class="mt-6">
-          <label for="last-name" class="font-circular">Poltical Position</label>
+          <label for="last-name" class="font-circular">Political Position</label>
           <input
             type="text"
             name="politician-position-search"
