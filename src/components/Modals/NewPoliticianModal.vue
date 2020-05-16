@@ -197,7 +197,9 @@
             </div>
           </div>
           <div class="flex mt-12">
-            <button class="bg-primary text-white font-circular py-3 px-12" type="submit" :disabled="invalid || creatingPoliticianLoading">
+            <button class="bg-primary text-white font-circular py-3 px-12"
+                    type="submit"
+                    :disabled="invalid || creatingPoliticianLoading">
               <span v-if="!creatingPoliticianLoading">Save</span>
               <span v-else>Submitting...</span>
             </button>
@@ -317,6 +319,11 @@ export default {
         }
 
         this.displaySuccess({ message: `Politician has been ${this.isNew ? 'created' : 'edited'} successfully` });
+
+        // reload the page before the modal changes
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+
         this.closeModal();
       } catch (error) {
         this.displayError(error);
