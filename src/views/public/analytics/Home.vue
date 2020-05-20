@@ -33,9 +33,10 @@
       </div>
     </div>
     <div class="w-full mt-10">
-      <our-tabs :tabs="tabs"/>
+      <our-tabs :tabs="tabs" @change="tabChange"/>
       <div class="mt-4">
-        <our-test-chart></our-test-chart>
+        <our-line-chart
+          v-bind="{...selectedData}"/>
       </div>
     </div>
   </div>
@@ -44,6 +45,8 @@
 </template>
 
 <script>
+import { visitorData, signupData } from './analyticsTestData';
+
 export default {
   name: 'AnalyticsHome',
   data() {
@@ -55,7 +58,30 @@ export default {
         label: 'Signups',
         value: 'signups',
       }],
+      tabValue: 'visits',
+      chartData: {
+        visits: {
+          seriesData: visitorData,
+          xAxisValue: 'date',
+          yAxisValue: 'value',
+        },
+        signups: {
+          seriesData: signupData,
+          xAxisValue: 'date',
+          yAxisValue: 'value',
+        },
+      },
     };
+  },
+  computed: {
+    selectedData() {
+      return this.chartData[this.tabValue];
+    },
+  },
+  methods: {
+    tabChange(tab) {
+      this.tabValue = tab;
+    },
   },
 };
 </script>

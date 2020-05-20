@@ -66,7 +66,7 @@ const routes = [
         component: Pages.Profile,
       },
       {
-        name: 'analytics',
+        // name: 'analytics',
         path: 'analytics',
         component: Pages.Analytics,
         children: [
