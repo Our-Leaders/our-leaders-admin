@@ -1,8 +1,11 @@
 <template>
   <div>
-    <header class="flex w-full border-b border-primary tab-nav">
+    <header class="flex w-full border-b border-primary tab-nav relative">
       <div v-for="(tab, index) of tabs" :key="index" class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : currentTab === tab.value }" @click="setTab(tab.value)">
         <div class="active" v-if="isActive(tab.value)"></div>{{tab.label}}
+      </div>
+      <div class="absolute right-0 top-0 bottom-0 w-auto">
+        <slot></slot>
       </div>
     </header>
   </div>
