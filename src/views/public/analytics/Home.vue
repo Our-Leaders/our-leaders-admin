@@ -38,6 +38,47 @@
         <our-line-chart
           v-bind="{...selectedData}"/>
       </div>
+      <div class="mt-10">
+        <p class="font-circular text-xl font-semibold w-full mb-5">Statistics</p>
+        <div class="flex flex-wrap justify-between">
+          <div class="statistic-list-container">
+            <div class="border border-gray-db">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+                <span class="font-bold capitalize">Top viewed page</span>
+                <span class="text-xs text-gray-96 capitalize">Today</span>
+              </div>
+              <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment">
+                <span>View more</span>
+                <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
+              </div>
+            </div>
+          </div>
+          <div class="statistic-list-container">
+            <div class="border border-gray-db">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+                <span class="font-bold capitalize">Traffic stats</span>
+                <span class="text-xs text-gray-96 capitalize">Today</span>
+              </div>
+              <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment">
+                <span>View more</span>
+                <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
+              </div>
+            </div>
+          </div>
+          <div class="statistic-list-container">
+            <div class="border border-gray-db">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+                <span class="font-bold capitalize">Most clicked links</span>
+                <span class="text-xs text-gray-96 capitalize">Today</span>
+              </div>
+              <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment">
+                <span>View more</span>
+                <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2"></div>
@@ -87,5 +128,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.statistic-list-container {
+  margin-bottom: 1.25rem;
+  flex: 0 0 calc(50% - 0.625rem);
+}
 </style>
