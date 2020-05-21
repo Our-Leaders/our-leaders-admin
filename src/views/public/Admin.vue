@@ -32,12 +32,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="admin of filteredAdmins(adminFilter)" :key="admin.id" class="cursor-pointer" @click="selectAdmin(admin.id)" :class="{active: admin.id === selectedAdminId}">
-              <td class="border-b border-gray-db py-3 capitalize">{{admin.firstName || '--'}} {{admin.lastName || '--'}}</td>
+            <tr
+              v-for="admin of filteredAdmins(adminFilter)"
+              :key="admin.id" class="cursor-pointer"
+              @click="selectAdmin(admin.id)"
+              :class="{active: admin.id === selectedAdminId, deleted: admin.isDeleted}">
+              <td class="border-b border-gray-db py-3 capitalize">
+                {{admin.firstName || '--'}} {{admin.lastName || '--'}}
+                <span
+                  v-if="admin.isDeleted"
+                  class="border border-gray-db py-1 px-3 text-xs font-circular capitalize ml-3 admin-deleted-indicator inline-flex items-center justify-between" >
+                  deleted
+                </span>
+              </td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.email}}</td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{admin.joinedAt | dateTimeFormat}}</td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">
-                <button class="text-sm font-circular mr-4" @click.stop="openEditadminModal(admin.id)">Edit</button>
+                <button class="text-sm font-circular mr-4" @click.stop="openEditadminModal(admin.id)" :disabled="admin.isDeleted">Edit</button>
               </td>
             </tr>
           </tbody>
@@ -116,7 +127,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  tr.active td {
-    @apply border-primary border-b-2;
+  tr {
+    &.active td {
+      @apply border-primary border-b-2;
+    }
+
+    &.deleted td {
+      @apply text-gray-96;
+    }
+  }
+
+  .admin-deleted-indicator:after {
+    content: '';
+    height: 0.68rem;
+    width: 0.68rem;
+    border-radius: 50%;
+    background-color: #dbdbdb;
+    position: relative;
+    margin-left: 0.625rem;
   }
 </style>
