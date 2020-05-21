@@ -26,6 +26,11 @@ export const politicalPartyMutations = {
 
     state.politicalParties = [...parties];
   },
+  deletePoliticalParty(state, { partyData }) {
+    const politicalParties = state.politicalParties.filter(party => party.id !== partyData.id);
+    state.politicalParties = [...politicalParties];
+    state.politicalPartyCount -= 1;
+  },
 };
 
 export const politicalPartyGetters = {

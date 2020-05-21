@@ -21,4 +21,7 @@ export default {
   editPoliticalParty(politicalPartyId, payload) {
     return instance.put(`${resource}/${politicalPartyId}`, payload);
   },
+  deletePoliticalParty(politicalPartyId) {
+    return instance.delete(`${resource}/${politicalPartyId}`);
+  },
 };
