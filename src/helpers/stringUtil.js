@@ -3,6 +3,30 @@
  */
 
 class StringUtil {
+  static generateUrl(url, filter) {
+    if (!filter || typeof filter !== 'object') {
+      return url;
+    }
+
+    let formattedUrl = url;
+
+    const keys = Object.keys(filter);
+
+    if (keys.length === 0) {
+      return formattedUrl;
+    }
+
+    keys.forEach((key, index) => {
+      if (index === 0) {
+        formattedUrl += `?${key}=${filter[key]}`;
+      } else {
+        formattedUrl += `&${key}=${filter[key]}`;
+      }
+    });
+
+    return formattedUrl;
+  }
+
   static getErrorText(err) {
     if (typeof err === 'string') {
       return err;
