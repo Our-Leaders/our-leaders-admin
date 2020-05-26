@@ -1,5 +1,6 @@
 import Home from './public/Home.vue';
 import Admin from './public/Admin.vue';
+import Archive from './public/Archive.vue';
 import SignIn from './auth/SignIn.vue';
 import Leaders from './public/Leaders.vue';
 import Parties from './public/Parties.vue';
@@ -12,6 +13,7 @@ import Profile from './public/Profile.vue';
 export default {
   Home,
   Admin,
+  Archive,
   SignIn,
   Leaders,
   Parties,
