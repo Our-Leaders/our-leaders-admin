@@ -56,6 +56,11 @@ const routes = [
         component: Pages.Admin,
       },
       {
+        name: 'archive',
+        path: 'archive',
+        component: Pages.Archive,
+      },
+      {
         name: 'profile',
         path: 'profile',
         component: Pages.Profile,
