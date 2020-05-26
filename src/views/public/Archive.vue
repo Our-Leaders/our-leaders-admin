@@ -3,7 +3,7 @@
     <div class="w-full">
       <header>
         <h5 class="text-4xl">
-          Archived
+          Archive
         </h5>
       </header>
       <div class="stats flex mt-6 mb-16">
