@@ -28,7 +28,7 @@
       <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</router-link>
       <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</a>
       <router-link :to="{ name: 'admins' }"  active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Admins</router-link>
-      <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Archive</a>
+      <router-link :to="{ name: 'archive' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Archive</router-link>
     </div>
     <div class="w-3/5 border-t border-gray-c4 mt-40"></div>
     <div class="nav-links pt-6">
