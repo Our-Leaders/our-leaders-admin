@@ -32,6 +32,12 @@ export default {
       this.chart.data = newData;
       this.chart.invalidateRawData();
     },
+    xAxisValue(newData) {
+      this.chartSeries.dataFields.dateX = newData;
+    },
+    yAxisValue(newData) {
+      this.chartSeries.dataFields.valueY = newData;
+    },
   },
   mounted() {
     const chart = am4core.create(this.$refs.chartDiv, am4charts.XYChart);
@@ -52,6 +58,10 @@ export default {
     dateAxis.cursorTooltipEnabled = false;
     dateAxis.dateFormatter = new am4core.DateFormatter();
     dateAxis.dateFormatter.dateFormat = 'yyyy-MM-dd';
+    dateAxis.baseInterval = {
+      timeUnit: 'day',
+      count: 1,
+    };
 
     const valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
     valueAxis.tooltip.disabled = true;
@@ -63,12 +73,11 @@ export default {
     valueAxis.renderer.labels.template.fill = am4core.color('#969696');
     valueAxis.cursorTooltipEnabled = false;
     valueAxis.numberFormatter.numberFormat = '#a';
+    // valueAxis.renderer.minGridDistance = 1000;
 
     const series = chart.series.push(new am4charts.LineSeries());
     series.dataFields.dateX = this.xAxisValue || 'date';
     series.dataFields.valueY = this.yAxisValue || 'value';
-    // series.dataFields.dateX = 'date';
-    // series.dataFields.valueY = 'value';
 
     series.tooltipText = '{dateX}\n{valueY}';
 
@@ -98,7 +107,7 @@ export default {
 
     chart.cursor = new am4charts.XYCursor();
 
-    // this.chartSeries = series;
+    this.chartSeries = series;
     this.chart = chart;
   },
   beforeDestroy() {
