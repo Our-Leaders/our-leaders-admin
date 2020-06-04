@@ -1,6 +1,9 @@
 export const statisticMutations = {
   storeStatistics(state, statistics) {
-    state.statistics = statistics;
+    state.statistics = {
+      ...state.statistics,
+      ...statistics,
+    };
   },
   clearStatistics(state) {
     state.statistics = {};

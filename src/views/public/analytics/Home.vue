@@ -86,12 +86,15 @@
 </template>
 
 <script>
-import { visitorData, signupData } from './analyticsTestData';
+import moment from 'moment';
+import { mapState } from 'vuex';
+// import { visitorData } from './analyticsTestData';
 
 export default {
   name: 'AnalyticsHome',
   data() {
     return {
+      statisticsService: this.$serviceFactory.statistics,
       tabs: [{
         label: 'Visits',
         value: 'visits',
@@ -100,29 +103,55 @@ export default {
         value: 'signups',
       }],
       tabValue: 'visits',
-      chartData: {
-        visits: {
-          seriesData: visitorData,
-          xAxisValue: 'date',
-          yAxisValue: 'value',
-        },
-        signups: {
-          seriesData: signupData,
-          xAxisValue: 'date',
-          yAxisValue: 'value',
-        },
-      },
+      startDate: moment(new Date(2020, 3, 5)).startOf('day'),
+      endDate: moment(new Date(2020, 4, 30)).startOf('day'),
     };
   },
   computed: {
+    ...mapState({
+      statistics: state => state.statistics,
+    }),
     selectedData() {
       return this.chartData[this.tabValue];
+    },
+    chartData() {
+      return {
+        visits: {
+          seriesData: this.statistics.visitStats,
+          xAxisValue: 'date',
+          yAxisValue: 'visits',
+        },
+        signups: {
+          seriesData: this.statistics.signUpStats,
+          xAxisValue: 'date',
+          yAxisValue: 'signUps',
+        },
+      };
     },
   },
   methods: {
     tabChange(tab) {
       this.tabValue = tab;
     },
+    async getStats() {
+      const { startDate, endDate } = this;
+      const response = await Promise.all([
+        this.statisticsService.getVisits({ startDate, endDate }),
+        this.statisticsService.getSignups({ startDate, endDate }),
+        this.statisticsService.getStats(),
+      ]);
+
+      const [visits, signUps, stats] = response;
+      const payload = {
+        ...stats,
+        signUpStats: signUps.data?.signUps ?? [],
+        visitStats: visits.data?.visits ?? [],
+      };
+      this.$store.commit('storeStatistics', payload);
+    },
+  },
+  async mounted() {
+    await this.getStats();
   },
 };
 </script>

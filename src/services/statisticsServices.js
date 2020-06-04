@@ -11,7 +11,7 @@ export default {
 
   getVisits(query = {}) {
     const queryString = parseQueryString(query);
-    let url = `${resource}/visits`;
+    let url = `${resource}/visit`;
 
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -22,7 +22,7 @@ export default {
 
   getSignups(query = {}) {
     const queryString = parseQueryString(query);
-    let url = `${resource}/signups`;
+    let url = `${resource}/signup`;
 
     if (queryString) {
       url = `${url}?${queryString}`;
