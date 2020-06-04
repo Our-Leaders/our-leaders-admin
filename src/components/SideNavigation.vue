@@ -26,14 +26,20 @@
       <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Leaders</router-link>
       <router-link :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Web Pages</router-link>
       <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</router-link>
+      <router-link :to="{ name: 'analytics-home' }" active-class="active"  v-slot="{ href, navigate, isActive }">
       <div>
-         <router-link :to="{ name: 'analytics-home' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</router-link>
-         <div>
-            <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Traffic</a>
-            <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Signups</a>
-            <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Donations</a>
-         </div>
+        <a :href="href" @click="navigate" class="block py-2 pl-1 border-b-2 border-transparent w-5/6" :class="[isActive && 'active']">
+          Analytics
+        </a>
+        <!-- <transition-group tag="div" name="list"> -->
+          <div v-if="isActive">
+            <a key="traffic" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Traffic</a>
+            <a key="signups" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Signups</a>
+            <a key="donations" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Donations</a>
+          </div>
+        <!-- </transition-group> -->
       </div>
+      </router-link>
       <!-- <router-link :to="{ name: 'analytics' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">
         Analytics
           <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-db">Traffic</a>
@@ -77,5 +83,13 @@ export default {
       width: 1px;
       @apply border-gray-c4 border-r absolute top-0 right-0 z-30;
     }
+
+    // .list-enter-active, .list-leave-active {
+    //   transition: all 1s;
+    // }
+    // .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    //   opacity: 0;
+    //   transform: translateY(-30px);
+    // }
   }
 </style>

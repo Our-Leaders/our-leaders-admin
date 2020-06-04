@@ -81,19 +81,47 @@
       </div>
     </div>
   </div>
-  <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2"></div>
+  <div class="w-full xl:w-1/3 xl:ml-10 pr-16 mt-2">
+    <header class="flex justify-between items-center border-b border-primary pb-5">
+      <p class="text-2xl">Recent Signups</p>
+      <p class="text-sm font-circular">{{statistics.signUps.length}} new today</p>
+    </header>
+    <div v-if="statistics.signUps.length > 0">
+      <div class="overflow-y-scroll signup-panel">
+        <div v-for="(signUp, index) of statistics.signUps" :key="signUp.email">
+          <div
+            v-if="showMoreSignups || index < signupCountLimit"
+            class="flex justify-between items-center pt-6">
+            <p class="text-sm font-circular">{{signUp.email}}</p>
+            <p class="text-sm font-circular text-gray-96">{{formatSignupDate(signUp.createdAt)}}</p>
+          </div>
+        </div>
+      </div>
+      <button
+        v-if="statistics.signUps.length > signupCountLimit"
+        @click="toggleViewMore"
+        class="border-black border py-3 w-32 text-center w-full font-circular mt-5">
+        <span v-if="!showMoreSignups">View more</span>
+        <span v-else>Hide details</span>
+      </button>
+    </div>
+    <div v-else class="flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
+      No Signups today
+    </div>
+  </div>
 </div>
 </template>
 
 <script>
 import moment from 'moment';
 import { mapState } from 'vuex';
-// import { visitorData } from './analyticsTestData';
 
 export default {
   name: 'AnalyticsHome',
   data() {
     return {
+      showMoreSignups: false,
+      signupCountLimit: 10,
       statisticsService: this.$serviceFactory.statistics,
       tabs: [{
         label: 'Visits',
@@ -130,6 +158,12 @@ export default {
     },
   },
   methods: {
+    formatSignupDate(date) {
+      return date ? moment(date).format('hh:mm a') : '-';
+    },
+    toggleViewMore() {
+      this.showMoreSignups = !this.showMoreSignups;
+    },
     tabChange(tab) {
       this.tabValue = tab;
     },
@@ -143,7 +177,7 @@ export default {
 
       const [visits, signUps, stats] = response;
       const payload = {
-        ...stats,
+        ...stats.data.statistics,
         signUpStats: signUps.data?.signUps ?? [],
         visitStats: visits.data?.visits ?? [],
       };
@@ -160,5 +194,9 @@ export default {
 .statistic-list-container {
   margin-bottom: 1.25rem;
   flex: 0 0 calc(50% - 0.625rem);
+}
+
+.signup-panel {
+  max-height: 70vh;
 }
 </style>
