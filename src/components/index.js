@@ -17,9 +17,11 @@ import DropdownDivider from './Dropdown/DropdownDivider.vue';
 import PoliticalParty from './Politicalparty.vue';
 import NewEditAccomplishment from './NewEditAccomplishment.vue';
 import ImageUploader from './ImageCrop.vue';
+import DateRangePicker from './DateRangePicker.vue';
 
 // charts for analytics
 import Line from './charts/LineChart.vue';
+import Map from './charts/MapChart.vue';
 
 Vue.component('our-tabs', Tab);
 Vue.component('our-alert', Alert);
@@ -32,12 +34,14 @@ Vue.component('our-politician', Politician);
 Vue.component('our-party', PoliticalParty);
 Vue.component('our-modal', Modal);
 Vue.component('our-line-chart', Line);
+Vue.component('our-map', Map);
 Vue.component('our-modal-manager', ModalManager);
 Vue.component('our-dropdown', Dropdown);
 Vue.component('our-dropdown-item', DropdownItem);
 Vue.component('our-dropdown-divider', DropdownDivider);
 Vue.component('our-accomplishment', NewEditAccomplishment);
 Vue.component('our-image-crop', ImageUploader);
+Vue.component('our-daterange-picker', DateRangePicker);
 
 export default {
   Navigation,
