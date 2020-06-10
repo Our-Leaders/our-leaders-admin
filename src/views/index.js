@@ -13,6 +13,7 @@ import Analytics from './public/Analytics.vue';
 
 // Analytics view
 import AnalyticsHome from './public/analytics/Home.vue';
+import AnalyticsTraffic from './public/analytics/Traffic.vue';
 
 export default {
   Home,
@@ -28,4 +29,5 @@ export default {
   Profile,
   Analytics,
   AnalyticsHome,
+  AnalyticsTraffic,
 };

@@ -75,6 +75,11 @@ const routes = [
             name: 'analytics-home',
             component: Pages.AnalyticsHome,
           },
+          {
+            path: 'traffic',
+            name: 'analytics-traffic',
+            component: Pages.AnalyticsTraffic,
+          },
         ],
       },
     ],
