@@ -5,18 +5,17 @@
         <h5 class="text-4xl">
           Donations
         </h5>
-        <!-- <our-daterange-picker v-model="dateRange" /> -->
       </header>
       <div class="stats flex mt-12">
         <div class="stat flex-grow">
           <p class="stat-title font-semibold font-circular">Total amt. donated</p>
-          <p class="stat-data">N 325,500</p>
-          <!-- <p class="stat-data">{{statistics.currentLeaders}}</p> -->
+          <p class="stat-data">
+            {{getCurrency(tabValue)}}{{totalAmountDonated | currencyFormat}}
+          </p>
         </div>
         <div class="stat flex-grow">
           <p class="stat-title font-semibold font-circular">Total donations</p>
-          <p class="stat-data">6</p>
-          <!-- <p class="stat-data">{{statistics.upcomingLeaders}}</p> -->
+          <p class="stat-data">{{donationData.length}}</p>
         </div>
       </div>
       <div class="py-5">
@@ -95,7 +94,7 @@ export default {
         case 'dollars':
           return '$';
         default:
-          return '-';
+          return '';
       }
     },
     tabChange(tab) {
@@ -125,6 +124,14 @@ export default {
   computed: {
     donationPlot() {
       return this.donationPlotData[this.tabValue] || [];
+    },
+    totalAmountDonated() {
+      if (this.donationData.length > 0) {
+        return this.donationData.filter(x => x.currency === this.tabValue)
+          .reduce((acc, x) => acc + x.amount, 0);
+      }
+
+      return 0;
     },
   },
   async mounted() {
