@@ -20,7 +20,7 @@
       </div>
       <div class="py-5">
         <our-tabs :tabs="tabs" @change="tabChange">
-          <our-daterange-picker v-model="dateRange" />
+          <our-daterange-picker v-model="dateRange" @input="dateChange" />
         </our-tabs>
       </div>
       <div class="mt-5">
@@ -121,9 +121,10 @@ export default {
     tabChange(tab) {
       this.tabValue = tab;
     },
-    async getDonationPlotDate(startDate, endDate) {
+    async getDonationPlotData(startDate, endDate) {
       const result = await this.donationsService.getDonationPlotStats({ startDate, endDate });
       const { donations: donationPlotData } = result.data;
+      this.donationPlotData = {};
       this.tabs = donationPlotData.map((value) => {
         const { currency, data } = value;
         this.donationPlotData[currency] = data;
@@ -143,6 +144,12 @@ export default {
     },
     handlePageChange(pageNumber) {
       this.page = pageNumber;
+    },
+    dateChange() {
+      this.$nextTick(() => {
+        this.getDonationPlotData(this.dateRange.start, this.dateRange.end);
+        this.getDonations(this.dateRange.start, this.dateRange.end);
+      });
     },
   },
   computed: {
@@ -172,7 +179,7 @@ export default {
     },
   },
   async mounted() {
-    this.getDonationPlotDate(this.dateRange.start, this.dateRange.end);
+    this.getDonationPlotData(this.dateRange.start, this.dateRange.end);
     this.getDonations(this.dateRange.start, this.dateRange.end);
   },
 };
