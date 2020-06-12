@@ -80,6 +80,11 @@ const routes = [
             name: 'analytics-traffic',
             component: Pages.AnalyticsTraffic,
           },
+          {
+            path: 'donations',
+            name: 'analytics-donations',
+            component: Pages.AnalyticsDonations,
+          },
         ],
       },
     ],
