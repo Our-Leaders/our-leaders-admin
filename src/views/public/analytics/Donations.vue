@@ -29,6 +29,7 @@
           :seriesData="donationPlot"
           xAxisValue="date"
           yAxisValue="donations"
+          :chartConfig="chartConfig[tabValue]"
         />
       </div>
       <div class="mt-10" v-if="donationData.length > 0">
@@ -83,6 +84,7 @@ export default {
       tabValue: '',
       xAxisValue: 'date',
       yAxisValue: 'donations',
+      chartConfig: {},
     };
   },
   methods: {
@@ -105,9 +107,13 @@ export default {
       this.tabs = donationPlotData.map((value) => {
         const { currency, data } = value;
         this.donationPlotData[currency] = data;
+        this.chartConfig[currency] = {
+          numberFormat: `${this.getCurrency(value.currency)}#,###`,
+        };
+
         return {
-          label: `Donations (${this.getCurrency(value.currency)})`,
-          value: value.currency,
+          label: `Donations (${this.getCurrency(currency)})`,
+          value: currency,
         };
       });
     },
