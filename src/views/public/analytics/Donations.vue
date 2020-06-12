@@ -43,19 +43,36 @@
           </thead>
           <tbody>
             <tr
-              v-for="donation of donationData"
+              v-for="donation of donationsToDisplay"
               :key="donation.id">
               <td class="border-b border-gray-db py-3 capitalize">
                 {{donation.name || 'Anonymous Donation'}}
               </td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{donation.email || '-'}}</td>
               <td class="border-b border-gray-db py-3 text-sm font-circular">{{donation.date | dateFormat('/')}}</td>
-              <td class="border-b border-gray-db py-3 text-sm font-circular text-semibold">
+              <td class="border-b border-gray-db py-3 text-sm font-circular font-semibold">
                 {{getCurrency(donation.currency)}} {{donation.amount | currencyFormat}}
               </td>
             </tr>
           </tbody>
-         </table>
+        </table>
+        <div class="mt-6 mb-20">
+          <paginate
+            :page-count="pageCount"
+            :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
+            :next-text="`<img src='${chevronLeft}' alt='dropdown indicator' class='transform rotate-180' style='height: 1.5rem;'>`"
+            page-link-class="px-3 py-1 block"
+            next-link-class="px-3 py-1 block"
+            prev-link-class="px-3 py-1 block"
+            page-class="font-circular border border-gray-96 inline-block ml-2"
+            next-class="font-circular border border-gray-96 inline-block ml-2 align-bottom"
+            prev-class="font-circular border border-gray-96 inline-block align-bottom"
+            active-class="text-white bg-primary border-primary"
+            disabled-class="border-gray-c4 text-gray-96"
+            :click-handler="handlePageChange"
+            v-model="page"
+            container-class="inline-block" />
+        </div>
       </div>
       <div v-else class="mt-10 flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
         No Donations for the selected dates
@@ -68,10 +85,13 @@
 <script>
 import moment from 'moment';
 
+import chevronLeft from '@/assets/img/chevron-left.svg';
+
 export default {
   name: 'Donations',
   data() {
     return {
+      chevronLeft,
       donationsService: this.$serviceFactory.donations,
       donationData: [],
       donationPlotData: {},
@@ -84,6 +104,7 @@ export default {
       xAxisValue: 'date',
       yAxisValue: 'donations',
       chartConfig: {},
+      page: 1,
     };
   },
   methods: {
@@ -120,6 +141,9 @@ export default {
       const { data } = await this.donationsService.getDonations({ startDate, endDate });
       this.donationData = data.donations || [];
     },
+    handlePageChange(pageNumber) {
+      this.page = pageNumber;
+    },
   },
   computed: {
     donationPlot() {
@@ -132,6 +156,19 @@ export default {
       }
 
       return 0;
+    },
+    pageCount() {
+      if (this.donationData.length > 0) {
+        return Math.ceil(this.donationData.length / 10);
+      }
+
+      return 1;
+    },
+    donationsToDisplay() {
+      const startIndex = (this.page - 1) * 10;
+      const endIndex = this.page * 10;
+
+      return this.donationData.slice(startIndex, endIndex);
     },
   },
   async mounted() {
