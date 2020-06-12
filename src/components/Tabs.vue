@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      currentTab: this.tabs[0].value,
+      currentTab: this.tabs[0] ? this.tabs[0].value : '',
     };
   },
   methods: {
@@ -32,6 +32,14 @@ export default {
     setTab(tab) {
       this.currentTab = tab;
       this.$emit('change', tab);
+    },
+  },
+  watch: {
+    // for dynamically generated tabs
+    tabs(newTabs) {
+      if (newTabs.length > 0) {
+        this.setTab(newTabs[0].value);
+      }
     },
   },
 };
