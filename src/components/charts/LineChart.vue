@@ -20,11 +20,20 @@ export default {
     },
     xAxisValue: String,
     yAxisValue: String,
+    chartConfig: {
+      type: Object,
+      default: () => ({
+        numberFormat: '#a',
+        dateFormat: 'yyyy-MM-dd',
+      }),
+    },
   },
   data() {
     return {
       chart: '',
       chartSeries: null,
+      dateAxis: null,
+      valueAxis: null,
     };
   },
   watch: {
@@ -38,11 +47,24 @@ export default {
     yAxisValue(newData) {
       this.chartSeries.dataFields.valueY = newData;
     },
+    chartConfig(newData) {
+      if (newData.numberFormat) {
+        this.valueAxis.numberFormatter.numberFormat = newData.numberFormat;
+      }
+
+      if (newData.dateFormat) {
+        this.dateAxis.dateFormatter.dateFormat = newData.dateFormat;
+      }
+    },
   },
   mounted() {
+    const {
+      numberFormat,
+      dateFormat,
+    } = this.chartConfig;
     const chart = am4core.create(this.$refs.chartDiv, am4charts.XYChart);
 
-    chart.dateFormatter.dateFormat = 'MMM dd yyyy';
+    // chart.dateFormatter.dateFormat = 'MMM dd yyyy';
 
     chart.paddingRight = 0;
     chart.paddingLeft = 0;
@@ -57,7 +79,7 @@ export default {
     dateAxis.renderer.labels.template.fill = am4core.color('#969696');
     dateAxis.cursorTooltipEnabled = false;
     dateAxis.dateFormatter = new am4core.DateFormatter();
-    dateAxis.dateFormatter.dateFormat = 'yyyy-MM-dd';
+    dateAxis.dateFormatter.dateFormat = dateFormat;
     dateAxis.baseInterval = {
       timeUnit: 'day',
       count: 1,
@@ -71,8 +93,9 @@ export default {
     valueAxis.renderer.labels.template.fontFamily = 'Circular Std';
     valueAxis.renderer.labels.template.fontSize = '14px';
     valueAxis.renderer.labels.template.fill = am4core.color('#969696');
+    // valueAxis.renderer.labels.
     valueAxis.cursorTooltipEnabled = false;
-    valueAxis.numberFormatter.numberFormat = '#a';
+    valueAxis.numberFormatter.numberFormat = numberFormat;
     // valueAxis.renderer.minGridDistance = 1000;
 
     const series = chart.series.push(new am4charts.LineSeries());
@@ -109,6 +132,8 @@ export default {
 
     this.chartSeries = series;
     this.chart = chart;
+    this.dateAxis = dateAxis;
+    this.valueAxis = valueAxis;
   },
   beforeDestroy() {
     if (this.chart) {
