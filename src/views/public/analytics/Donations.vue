@@ -122,21 +122,26 @@ export default {
       this.tabValue = tab;
     },
     async getDonationPlotData(startDate, endDate) {
-      const result = await this.donationsService.getDonationPlotStats({ startDate, endDate });
-      const { donations: donationPlotData } = result.data;
-      this.donationPlotData = {};
-      this.tabs = donationPlotData.map((value) => {
-        const { currency, data } = value;
-        this.donationPlotData[currency] = data;
-        this.chartConfig[currency] = {
-          numberFormat: `${this.getCurrency(value.currency)}#,###`,
-        };
+      try {
+        const result = await this.donationsService.getDonationPlotStats({ startDate, endDate });
+        const { donations: donationPlotData } = result.data;
+        this.donationPlotData = {};
+        this.tabs = donationPlotData.map((value) => {
+          const { currency, data } = value;
+          this.donationPlotData[currency] = data;
+          this.chartConfig[currency] = {
+            numberFormat: `${this.getCurrency(value.currency)}#,###`,
+          };
 
-        return {
-          label: `Donations (${this.getCurrency(currency)})`,
-          value: currency,
-        };
-      });
+          return {
+            label: `Donations (${this.getCurrency(currency)})`,
+            value: currency,
+          };
+        });
+      } catch (err) {
+        this.tabs = [];
+        this.donationPlot = {};
+      }
     },
     async getDonations(startDate, endDate) {
       const { data } = await this.donationsService.getDonations({ startDate, endDate });
