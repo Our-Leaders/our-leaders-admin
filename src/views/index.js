@@ -15,6 +15,7 @@ import Analytics from './public/Analytics.vue';
 import AnalyticsHome from './public/analytics/Home.vue';
 import AnalyticsTraffic from './public/analytics/Traffic.vue';
 import AnalyticsDonations from './public/analytics/Donations.vue';
+import AnalyticsSignups from './public/analytics/Signups.vue';
 
 export default {
   Home,
@@ -32,4 +33,5 @@ export default {
   AnalyticsHome,
   AnalyticsTraffic,
   AnalyticsDonations,
+  AnalyticsSignups,
 };

@@ -34,7 +34,7 @@
         <!-- <transition-group tag="div" name="list"> -->
           <div v-if="isActive">
             <router-link :to="{ name: 'analytics-traffic' }" active-class="active" key="traffic" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Traffic</router-link>
-            <a key="signups" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Signups</a>
+            <router-link :to="{ name: 'analytics-signups' }" active-class="active" key="singups" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Signups</router-link>
             <router-link :to="{ name: 'analytics-donations' }" active-class="active" key="donations" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Donations</router-link>
           </div>
         <!-- </transition-group> -->

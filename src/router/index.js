@@ -66,7 +66,6 @@ const routes = [
         component: Pages.Profile,
       },
       {
-        // name: 'analytics',
         path: 'analytics',
         component: Pages.Analytics,
         children: [
@@ -79,6 +78,11 @@ const routes = [
             path: 'traffic',
             name: 'analytics-traffic',
             component: Pages.AnalyticsTraffic,
+          },
+          {
+            path: 'signups',
+            name: 'analytics-signups',
+            component: Pages.AnalyticsSignups,
           },
           {
             path: 'donations',

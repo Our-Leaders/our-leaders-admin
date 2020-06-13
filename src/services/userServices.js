@@ -10,4 +10,7 @@ export default {
   getUsers(filter) {
     return instance.get(StringUtil.generateUrl(resource, filter));
   },
+  getUserStat() {
+    return instance.get(`${resource}/stats`);
+  },
 };
