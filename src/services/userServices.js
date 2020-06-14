@@ -13,4 +13,10 @@ export default {
   getUserStat() {
     return instance.get(`${resource}/stats`);
   },
+  updateUserBlockStatus(id, status) {
+    return instance.put(`${resource}/${id}/${status ? 'block' : 'unblock'}`);
+  },
+  deleteUser(id) {
+    return instance.delete(`${resource}/${id}`);
+  },
 };
