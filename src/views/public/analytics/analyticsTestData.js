@@ -6,6 +6,7 @@ export const visitorLocationData = [
     latitude: 50.8371,
     longitude: 4.3676,
     value: 850,
+    id: 1,
   },
   {
     city: 'Copenhagen',
@@ -13,6 +14,7 @@ export const visitorLocationData = [
     latitude: 55.6763,
     longitude: 12.5681,
     value: 926,
+    id: 2,
   },
   {
     city: 'Paris',
@@ -20,6 +22,7 @@ export const visitorLocationData = [
     latitude: 48.8567,
     longitude: 2.351,
     value: 937,
+    id: 3,
   },
   {
     city: 'Reykjavik',
@@ -27,6 +30,7 @@ export const visitorLocationData = [
     latitude: 64.1353,
     longitude: -21.8952,
     value: 321,
+    id: 4,
   },
   {
     city: 'Moscow',
@@ -34,6 +38,7 @@ export const visitorLocationData = [
     latitude: 55.7558,
     longitude: 37.6176,
     value: 480,
+    id: 5,
   },
   {
     city: 'Madrid',
@@ -41,6 +46,7 @@ export const visitorLocationData = [
     latitude: 40.4167,
     longitude: -3.7033,
     value: 58,
+    id: 6,
   },
   {
     city: 'London',
@@ -48,6 +54,7 @@ export const visitorLocationData = [
     latitude: 51.5002,
     longitude: -0.1262,
     value: 361,
+    id: 7,
   },
   {
     city: 'Peking',
@@ -55,6 +62,7 @@ export const visitorLocationData = [
     latitude: 39.9056,
     longitude: 116.3958,
     value: 824,
+    id: 8,
   },
   {
     city: 'New Delhi',
@@ -62,6 +70,7 @@ export const visitorLocationData = [
     latitude: 8.6353,
     longitude: 77.225,
     value: 93,
+    id: 9,
   },
   {
     city: 'Tokyo',
@@ -69,6 +78,7 @@ export const visitorLocationData = [
     latitude: 35.6785,
     longitude: 139.6823,
     value: 450,
+    id: 10,
   },
   {
     city: 'Ankara',
@@ -76,6 +86,7 @@ export const visitorLocationData = [
     latitude: 39.9439,
     longitude: 32.856,
     value: 386,
+    id: 11,
   },
   {
     city: 'Buenos Aires',
@@ -83,6 +94,7 @@ export const visitorLocationData = [
     latitude: 34.6118,
     longitude: -58.4173,
     value: 312,
+    id: 12,
   },
   {
     city: 'Brasilia',
@@ -90,6 +102,7 @@ export const visitorLocationData = [
     latitude: -15.7801,
     longitude: -47.9292,
     value: 506,
+    id: 13,
   },
   {
     city: 'Ottawa',
@@ -97,6 +110,7 @@ export const visitorLocationData = [
     latitude: 45.4235,
     longitude: -75.6979,
     value: 967,
+    id: 14,
   },
   {
     city: 'Washington',
@@ -104,6 +118,7 @@ export const visitorLocationData = [
     latitude: 38.8921,
     longitude: -77.0241,
     value: 753,
+    id: 15,
   },
   {
     city: 'Kinshasa',
@@ -111,6 +126,7 @@ export const visitorLocationData = [
     latitude: -4.3369,
     longitude: 15.3271,
     value: 161,
+    id: 16,
   },
   {
     city: 'Cairo',
@@ -118,6 +134,7 @@ export const visitorLocationData = [
     latitude: 30.0571,
     longitude: 31.2272,
     value: 468,
+    id: 17,
   },
   {
     city: 'Pretoria',
@@ -125,5 +142,6 @@ export const visitorLocationData = [
     latitude: -25.7463,
     longitude: 28.1876,
     value: 304,
+    id: 18,
   },
 ];

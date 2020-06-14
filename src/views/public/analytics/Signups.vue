@@ -75,7 +75,7 @@
         No data available
       </div>
     </div>
-    <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
+    <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative" ref="stickySidebar">
       <h5 class="text-2xl pb-4 border-b border-primary">
         Member details
       </h5>
@@ -129,11 +129,11 @@
             <span v-if="selectedUser.isBlocked">Unblock</span>
             <span v-else>Block</span>
           </button>
-        <button
-          class="relative border-black border w-1/2 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4"
-          @click="deleteUser"
-          :disabled="selectedUser.isDeleted || processing">Delete</button>
-      </div>
+          <button
+            class="relative border-black border w-1/2 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4"
+            @click="deleteUser"
+            :disabled="selectedUser.isDeleted || processing">Delete</button>
+        </div>
       </div>
       <div v-else class="flex items-center justify-center text-center text-2xl text-gray-c4 mt-20">
         Select a user from the left
@@ -144,6 +144,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import stickbits from 'stickybits';
 import chevronLeft from '@/assets/img/chevron-left.svg';
 import facebook from '@/assets/img/facebook.svg';
 import google from '@/assets/img/google.svg';
@@ -275,6 +276,7 @@ export default {
     },
   },
   mounted() {
+    stickbits(this.$refs.stickySidebar, { stickyBitStickyOffset: 144, useStickyClasses: false });
     this.getSignups();
     this.getUserStat();
   },
