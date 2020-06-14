@@ -140,8 +140,8 @@ export default {
     this.getPolitician(this.$route.params.id);
   },
   mounted() {
-    stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
-    stickbits(this.$refs.accomplishment, { stickyBitStickyOffset: 100, useStickyClasses: true });
+    stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: false });
+    stickbits(this.$refs.accomplishment, { stickyBitStickyOffset: 100, useStickyClasses: false });
     const observer = new window.IntersectionObserver((entries) => {
       const entry = entries[0];
       this.show = !entry.isIntersecting;
