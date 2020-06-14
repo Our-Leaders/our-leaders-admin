@@ -14,7 +14,7 @@ button, button:active, button:focus {
 .nav-links {
   a {
     &.active {
-      @apply border-primary;
+      @apply border-primary font-semibold;
     }
   }
 }
@@ -144,6 +144,11 @@ button:disabled {
     margin-inline-end: 0px;
     padding-inline-start: 40px;
   }
+}
+
+.statistic-list-container {
+  margin-bottom: 1.25rem;
+  flex: 0 0 calc(50% - 0.625rem);
 }
 
 .loading {

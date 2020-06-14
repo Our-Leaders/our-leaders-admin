@@ -1,17 +1,14 @@
 import instance from './services';
 
-const resource = '/statistics';
+const resource = '/statistics/donations';
 
 const parseQueryString = query => Object.keys(query).map(key => `${key}=${query[key]}`).join('&');
 
 export default {
-  getStats() {
-    return instance.get(resource);
-  },
-
-  getVisits(query = {}) {
+  getDonationPlotStats(query = {}) {
     const queryString = parseQueryString(query);
-    let url = `${resource}/visit`;
+
+    let url = `${resource}/plot`;
 
     if (queryString) {
       url = `${url}?${queryString}`;
@@ -19,10 +16,10 @@ export default {
 
     return instance.get(url);
   },
-
-  getSignups(query = {}) {
+  getDonations(query = {}) {
     const queryString = parseQueryString(query);
-    let url = `${resource}/signup`;
+
+    let url = `${resource}`;
 
     if (queryString) {
       url = `${url}?${queryString}`;

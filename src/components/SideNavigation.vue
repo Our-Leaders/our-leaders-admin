@@ -26,7 +26,27 @@
       <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Leaders</router-link>
       <router-link :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Web Pages</router-link>
       <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Political Parties</router-link>
-      <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</a>
+      <router-link :to="{ name: 'analytics-home' }" active-class="active"  v-slot="{ href, navigate, isActive, isExactActive }">
+      <div>
+        <a :href="href" @click="navigate" class="block py-2 pl-1 border-b-2 border-transparent w-5/6" :class="[isExactActive && 'active']">
+          Analytics
+        </a>
+        <!-- <transition-group tag="div" name="list"> -->
+          <div v-if="isActive">
+            <router-link :to="{ name: 'analytics-traffic' }" active-class="active" key="traffic" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Traffic</router-link>
+            <router-link :to="{ name: 'analytics-signups' }" active-class="active" key="singups" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Signups</router-link>
+            <router-link :to="{ name: 'analytics-donations' }" active-class="active" key="donations" class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-f8">Donations</router-link>
+          </div>
+        <!-- </transition-group> -->
+      </div>
+      </router-link>
+      <!-- <router-link :to="{ name: 'analytics' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">
+        Analytics
+          <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-db">Traffic</a>
+          <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-db">Signups</a>
+          <a class="block py-2 pl-5 border-b-2 border-transparent w-5/6 bg-gray-db">Donations</a>
+      </router-link> -->
+      <!-- <a href="#" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Analytics</a> -->
       <router-link :to="{ name: 'admins' }"  active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Admins</router-link>
       <router-link :to="{ name: 'archive' }" active-class="active" class="block py-2 pl-1 border-b-2 border-transparent w-5/6">Archive</router-link>
     </div>
@@ -63,5 +83,13 @@ export default {
       width: 1px;
       @apply border-gray-c4 border-r absolute top-0 right-0 z-30;
     }
+
+    // .list-enter-active, .list-leave-active {
+    //   transition: all 1s;
+    // }
+    // .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    //   opacity: 0;
+    //   transform: translateY(-30px);
+    // }
   }
 </style>

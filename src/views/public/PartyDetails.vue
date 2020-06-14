@@ -74,7 +74,7 @@ export default {
     },
   },
   mounted() {
-    stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: true });
+    stickbits(this.$refs.stickyHeader, { stickyBitStickyOffset: 100, useStickyClasses: false });
     const observer = new window.IntersectionObserver((entries) => {
       const entry = entries[0];
 

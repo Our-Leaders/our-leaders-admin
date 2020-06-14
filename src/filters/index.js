@@ -14,6 +14,8 @@ Vue.filter('numberFormat', (value) => {
   return value;
 });
 
+Vue.filter('currencyFormat', value => numeral(value).format('0,0'));
+
 Vue.filter('dateTimeFormat', value => moment(value).format('DD MMM, YYYY hh:mma'));
 
 Vue.filter('camelCaseSeperator', value => value.replace(/(?=[A-Z])/gm, ' '));

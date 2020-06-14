@@ -65,6 +65,32 @@ const routes = [
         path: 'profile',
         component: Pages.Profile,
       },
+      {
+        path: 'analytics',
+        component: Pages.Analytics,
+        children: [
+          {
+            path: '/',
+            name: 'analytics-home',
+            component: Pages.AnalyticsHome,
+          },
+          {
+            path: 'traffic',
+            name: 'analytics-traffic',
+            component: Pages.AnalyticsTraffic,
+          },
+          {
+            path: 'signups',
+            name: 'analytics-signups',
+            component: Pages.AnalyticsSignups,
+          },
+          {
+            path: 'donations',
+            name: 'analytics-donations',
+            component: Pages.AnalyticsDonations,
+          },
+        ],
+      },
     ],
     beforeEnter: (to, from, next) => {
       if (store.getters.isLoggedIn) {

@@ -1,8 +1,11 @@
 <template>
   <div>
-    <header class="flex w-full border-b border-primary tab-nav">
+    <header class="flex w-full border-b border-primary tab-nav relative">
       <div v-for="(tab, index) of tabs" :key="index" class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : currentTab === tab.value }" @click="setTab(tab.value)">
         <div class="active" v-if="isActive(tab.value)"></div>{{tab.label}}
+      </div>
+      <div class="absolute right-0 top-0 bottom-0 w-auto">
+        <slot></slot>
       </div>
     </header>
   </div>
@@ -19,7 +22,7 @@ export default {
   },
   data() {
     return {
-      currentTab: this.tabs[0].value,
+      currentTab: this.tabs[0] ? this.tabs[0].value : '',
     };
   },
   methods: {
@@ -29,6 +32,14 @@ export default {
     setTab(tab) {
       this.currentTab = tab;
       this.$emit('change', tab);
+    },
+  },
+  watch: {
+    // for dynamically generated tabs
+    tabs(newTabs) {
+      if (newTabs.length > 0) {
+        this.setTab(newTabs[0].value);
+      }
     },
   },
 };

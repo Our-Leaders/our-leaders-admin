@@ -9,6 +9,13 @@ import PartyDetails from './public/PartyDetails.vue';
 import LeaderDetails from './public/LeaderDetails.vue';
 import WebPages from './public/WebPages.vue';
 import Profile from './public/Profile.vue';
+import Analytics from './public/Analytics.vue';
+
+// Analytics view
+import AnalyticsHome from './public/analytics/Home.vue';
+import AnalyticsTraffic from './public/analytics/Traffic.vue';
+import AnalyticsDonations from './public/analytics/Donations.vue';
+import AnalyticsSignups from './public/analytics/Signups.vue';
 
 export default {
   Home,
@@ -22,4 +29,9 @@ export default {
   LeaderDetails,
   WebPages,
   Profile,
+  Analytics,
+  AnalyticsHome,
+  AnalyticsTraffic,
+  AnalyticsDonations,
+  AnalyticsSignups,
 };

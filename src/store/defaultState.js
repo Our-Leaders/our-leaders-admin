@@ -15,7 +15,16 @@ export default {
     page: 1,
     numberPerPage: 18,
   },
-  statistics: {},
+  statistics: {
+    parties: 0,
+    admins: 0,
+    currentLeaders: 0,
+    leaders: 0,
+    signUps: [],
+    signUpStats: [],
+    visitsStats: [],
+    upcomingLeaders: 0,
+  },
   admins: [],
   info: {
     header: null,
