@@ -33,7 +33,9 @@
       </div>
     </div>
     <div class="w-full mt-10">
-      <our-tabs :tabs="tabs" @change="tabChange"/>
+      <our-tabs :tabs="tabs" @change="tabChange">
+        <our-daterange-picker v-model="dateRange" @input="dateChange" />
+      </our-tabs>
       <div class="mt-4">
         <our-line-chart
           v-bind="{...selectedData}"/>
@@ -133,6 +135,10 @@ export default {
       tabValue: 'visits',
       startDate: moment(new Date(2020, 3, 5)).startOf('day'),
       endDate: moment(new Date(2020, 4, 30)).startOf('day'),
+      dateRange: {
+        start: moment().startOf('day').subtract(1, 'months').toDate(),
+        end: new Date(),
+      },
     };
   },
   computed: {
@@ -168,10 +174,11 @@ export default {
       this.tabValue = tab;
     },
     async getStats() {
-      const { startDate, endDate } = this;
+      const { dateRange } = this;
+      const { start, end } = dateRange;
       const response = await Promise.all([
-        this.statisticsService.getVisits({ startDate, endDate }),
-        this.statisticsService.getSignups({ startDate, endDate }),
+        this.statisticsService.getVisits({ startDate: start, endDate: end }),
+        this.statisticsService.getSignups({ startDate: start, endDate: end }),
         this.statisticsService.getStats(),
       ]);
 
@@ -182,6 +189,23 @@ export default {
         visitStats: visits.data?.visits ?? [],
       };
       this.$store.commit('storeStatistics', payload);
+    },
+    dateChange() {
+      this.$nextTick(async () => {
+        const { dateRange } = this;
+        const { start, end } = dateRange;
+        const response = await Promise.all([
+          this.statisticsService.getVisits({ startDate: start, endDate: end }),
+          this.statisticsService.getSignups({ startDate: start, endDate: end }),
+        ]);
+
+        const [visits, signUps] = response;
+        const payload = {
+          signUpStats: signUps.data?.signUps ?? [],
+          visitStats: visits.data?.visits ?? [],
+        };
+        this.$store.commit('storeStatistics', payload);
+      });
     },
   },
   async mounted() {
