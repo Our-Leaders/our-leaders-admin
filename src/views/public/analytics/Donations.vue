@@ -114,6 +114,8 @@ export default {
           return '₦';
         case 'dollars':
           return '$';
+        case 'dollar':
+          return '$';
         default:
           return '';
       }
