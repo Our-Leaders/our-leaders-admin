@@ -4,13 +4,13 @@
     <!-- <img v-else class="w-full mb-3" src="@/assets/img/osibanjo.png" alt=""> -->
     <div v-bind:style="{ 'background-image': 'url('+ politicianImage +')'  }" class="w-full h-48 bg-cover bg-no-repeat mb-3 bg-center"></div>
     <div class="flex justify-between">
-      <div class="flex likes mb-3 font-circular text-2xl lg:text-sm text-gray-96">
+      <div class="flex likes mb-3 font-circular text-xl lg:text-sm text-gray-96">
         <span class="flex mr-3 items-baseline cursor-pointer">
-          <img class="mr-2 w-8 lg:w-5 relative" src="@/assets/img/upvote.svg" alt="upvote">
+          <img class="mr-2 w-5 lg:w-8 lg:w-5 relative" src="@/assets/img/upvote.svg" alt="upvote">
           {{politician.vote.up | numberFormat}}
         </span>
         <span class="flex items-baseline cursor-pointer">
-          <img class="mr-2 w-8 lg:w-5 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
+          <img class="mr-2 w-5 lg:w-8 lg:w-5 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
           {{politician.vote.down | numberFormat}}
         </span>
       </div>
@@ -29,7 +29,7 @@
         </our-dropdown>
       </div>
     </div>
-    <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold leading-tight">{{politician.name}}</p>
+    <p class="name font-circular text-xl lg:text-base xl:text-xl font-bold leading-tight">{{politician.name}}</p>
     <p class="position text-lg lg:text-sm xl:text-base">{{position}}</p>
   </div>
 </template>
@@ -144,7 +144,7 @@ export default {
     }
 
     .downvote {
-      top: 12px;
+      top: 6px;
 
       @screen lg {
         top: 8px;
