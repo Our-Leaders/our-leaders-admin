@@ -1,24 +1,24 @@
 <template>
   <div class="lg:flex">
     <div class="xl:w-2/3">
-      <div class="banner w-full relative bg-primary h-32 text-white py-5 px-6">
+      <div class="banner w-full relative bg-primary md:h-32 text-white py-6 md:py-5 px-6">
         <h3 class="text-4xl">You're now {{statistics.leaders}} {{'leader' | pluralize(statistics.leaders)}} strong!</h3>
         <p>Keep making African leadership better</p>
       </div>
-      <div class="stats flex mt-6">
-        <div class="stat flex-grow">
+      <div class="stats flex flex-wrap mt-6 px-4">
+        <div class="stat w-1/2 mb-6 md:w-1/4">
           <p class="stat-title font-semibold font-circular">Current Leaders</p>
           <p class="stat-data">{{statistics.currentLeaders}}</p>
         </div>
-        <div class="stat flex-grow">
+        <div class="stat w-1/2 mb-6 md:w-1/4">
           <p class="stat-title font-semibold font-circular">Upcoming Leaders</p>
           <p class="stat-data">{{statistics.upcomingLeaders}}</p>
         </div>
-        <div class="stat flex-grow">
+        <div class="stat w-1/2 mb-6 md:w-1/4">
           <p class="stat-title font-semibold font-circular">Parties</p>
           <p class="stat-data">{{statistics.parties}}</p>
         </div>
-        <div class="stat flex-grow pl-10 border-l-2 border-gray-c4">
+        <div class="stat w-1/2 mb-6 md:w-1/4 md:pl-10 md:border-l-2 border-gray-c4">
           <p class="stat-title font-semibold font-circular">Admins</p>
           <p class="stat-data">{{statistics.admins}}</p>
         </div>
