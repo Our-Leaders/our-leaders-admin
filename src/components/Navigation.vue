@@ -124,8 +124,6 @@ export default {
   },
   methods: {
     toggleNav() {
-      console.log('Toggle Nav was clicked');
-      console.log(this.openNav);
       this.openNav = !this.openNav;
     },
     signout() {
