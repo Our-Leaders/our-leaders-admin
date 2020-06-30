@@ -60,7 +60,7 @@
         </button>
       </div>
     </div>
-    <!-- <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
+    <div :class="openNav ? 'block' : 'hidden'" class="mobile-menu lg:hidden w-full h-auto absolute left-0 right-0 p-10 shadow-md flex flex-col items-center bg-white">
       <div class="w-5/6 md:w-1/2 relative">
         <input
           class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -71,7 +71,7 @@
           placeholder="Search leader or party"
           required
         />
-        <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto">
+        <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto" @click="toggleNav">
       </div>
       <div>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-between items-center my-4">
@@ -81,20 +81,33 @@
       </div>
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
       <div class="nav-links mt-10">
-        <router-link :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
-        <router-link :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
-        <router-link :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Web Pages</router-link>
-        <router-link :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
-        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Analytics</a>
-        <a href="#" class="block w-auto py-2 pl-1 border-b border-transparent text-center">Admins</a>
+        <router-link  @click.native="toggleNav" :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
+        <router-link  @click.native="toggleNav" :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
+        <router-link  @click.native="toggleNav" :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Web Pages</router-link>
+        <router-link  @click.native="toggleNav" :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
+        <router-link  @click.native="toggleNav" :to="{ name: 'admins' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Admins</router-link>
+        <router-link :to="{ name: 'analytics-home' }" active-class="active"  v-slot="{ href, navigate, isActive, isExactActive }">
+        <div>
+          <a :href="href" @click="navigate" class="block py-2 pl-1 border-b border-transparent text-center" :class="[isExactActive && 'active']">
+            Analytics
+          </a>
+          <!-- <transition-group tag="div" name="list"> -->
+            <div v-if="isActive">
+              <router-link :to="{ name: 'analytics-traffic' }" active-class="active" key="traffic" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Traffic</router-link>
+              <router-link :to="{ name: 'analytics-signups' }" active-class="active" key="singups" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Signups</router-link>
+              <router-link :to="{ name: 'analytics-donations' }" active-class="active" key="donations" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Donations</router-link>
+            </div>
+          <!-- </transition-group> -->
+        </div>
+        </router-link>
       </div>
       <div class="w-12 h-1 border-b border-gray-db"></div>
-      <div>
+      <div @click="signout">
         <button class="h-10 w-40 border border-gray-96 font-circular mt-4">
           Log out
         </button>
       </div>
-    </div> -->
+    </div>
   </nav>
 </template>
 
@@ -111,6 +124,8 @@ export default {
   },
   methods: {
     toggleNav() {
+      console.log('Toggle Nav was clicked');
+      console.log(this.openNav);
       this.openNav = !this.openNav;
     },
     signout() {
