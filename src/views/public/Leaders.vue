@@ -1,16 +1,84 @@
 <template>
-  <div class="lg:pr-2 xl:pr-0 xl:flex">
+  <div class="lg:pr-2 xl:pr-0 xl:flex overflow-x-hidden">
     <div class="w-full xl:w-2/3">
       <header class="flex justify-between">
-        <h5 class="text-4xl">
+        <h5 class="text-4xl py-6 px-4">
           Leaders <!-- ({{leadersCount}}) -->
         </h5>
-        <div class="flex justify-between items-center">
-          <button class="relative border-black border w-full py-1 px-3 flex justify-between items-center font-circular mr-4">Leader Updates</button>
+        <div class="flex justify-between py-4 md:py-0 md:items-center">
+          <button class="relative hidden md:block border-black border w-full py-1 px-3 flex justify-between items-center font-circular mr-4">Leader Updates</button>
           <our-country-selector v-model="country" />
         </div>
       </header>
-      <div class="w-full mt-10">
+      <div class="lg:hidden w-full px-4">
+      <ValidationObserver v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(searchByName)">
+          <div class="flex w-full">
+            <ValidationProvider  rules="required" name="Search Name" v-slot="{ errors }" mode="lazy" slim>
+              <input
+                type="text"
+                name="politician-name-search"
+                id="politician-name-search"
+                class="w-4/5 pl-1 py-3 field border-b border-gray-c4 mr-2"
+                :class="errors.length > 0 ? 'border-red-600' : ''"
+                v-model="searchParam.name"
+                placeholder="Search by name">
+            </ValidationProvider>
+            <button
+              type="submit"
+              class="relative border-gray-96 border py-1 px-4 flex justify-between items-center font-circular">Search</button>
+          </div>
+        </form>
+      </ValidationObserver>
+      <p class="py-4 text-gray-96 text-center" @click="toggleFilter">
+        More Search Options
+        <img class="inline-block ml-2 w-3" src="@/assets/img/chevron-down.svg"/>
+      </p>
+      <ValidationObserver v-slot="{ invalid, handleSubmit }">
+        <form @submit.prevent="handleSubmit(searchByOtherParam); toggleFilter()" v-if="showFilter">
+          <div class="mt-0 lg:mt-6 flex items-center">
+            <div class="border-b border-gray-db h-0 flex-auto mr-3"></div>
+            <p class="text-gray-96">or search by</p>
+            <div class="border-b border-gray-db h-0 flex-auto ml-3"></div>
+          </div>
+          <div class="mt-6">
+            <label for="last-name" class="font-circular">Political Position</label>
+            <input
+              type="text"
+              name="politician-position-search"
+              id="politician-position-search"
+              v-model="searchParam.politicalPosition"
+              class="w-full pl-1 py-2 field border-b border-gray-400 mr-2">
+          </div>
+          <div class="mt-6">
+            <label for="last-name" class="font-circular">Political Party</label>
+            <v-select
+              id="politician-party-search"
+              name="politician-party-search"
+              label="name"
+              :reduce="party => party.id"
+              :clearable="true"
+              :options="politicalParties"
+              v-model="searchParam.politicalPartyId"
+              class="our-select"></v-select>
+          </div>
+          <div class="mt-6">
+            <label for="last-name" class="font-circular">Status</label>
+            <v-select
+              id="politician-status-search"
+              name="politician-status-search"
+              :clearable="true"
+              :options="['upcoming', 'current', 'past']"
+              v-model="searchParam.status"
+              class="our-select"></v-select>
+          </div>
+          <div class="mt-6 mb-4">
+            <button type="submit" class="w-full relative border-black border p-3 text-center font-circular mr-4">Search</button>
+          </div>
+        </form>
+      </ValidationObserver>
+    </div>
+      <div class="w-full mt-2 lg:mt-10 pl-4">
         <our-tabs :tabs="tabs" @change="setLeaderFilter" v-if="!hideTab"/>
 
         <p class="font-circular text-gray-c4 text-sm pt-5 pb-5" v-if="!hideTab">
@@ -26,7 +94,9 @@
               <span>Sorry, there are no politicians matching your search.</span>
             </div>
             <div class="leaders-grid flex flex-wrap" v-else>
-              <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+              <div class="w-1/2 md:w-1/3">
+                <our-politician v-for="(leader, index) of leaders" :key="index" :politician="leader" @click.native="goToPolitician(leader.id)"/>
+              </div>
             </div>
           </div>
         </div>
@@ -50,7 +120,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-20 mt-2">
+    <div class="hidden lg:block w-full xl:w-1/3 xl:ml-10 pr-16 pt-20 mt-2">
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(searchByName)">
           <div class="flex w-full">
@@ -147,6 +217,7 @@ export default {
         status: '',
         partyId: '',
       },
+      showFilter: false,
       hideTab: false,
     };
   },
@@ -186,6 +257,9 @@ export default {
       }, {});
 
       await this.getPoliticians(query);
+    },
+    toggleFilter() {
+      this.showFilter = !this.showFilter;
     },
   },
   async mounted() {
