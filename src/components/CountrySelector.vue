@@ -1,11 +1,11 @@
 <template>
   <div class="selector-container relative inline-block">
-    <div @click="toggleCountryList" class="country-indicator flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border lg:border-0 py-3 px-2 font-circular items-center relative">
+    <div @click="toggleCountryList" class="country-indicator flex lg:py-2 mt-4 lg:ml-9 lg:mt-0 border-0 py-3 px-2 font-circular items-center relative">
       <img class="mr-3" :src="countryFlag(selectedCountry.flag)"/>
       <span class="mr-3">{{selectedCountry.acronym}}</span>
       <img src="@/assets/img/chevron-down.svg"/>
     </div>
-    <div class="absolute w-64 country-list px-4 py-3 shadow right-0 bg-white" v-if="countryListOpen">
+    <div class="absolute w-64 country-list px-4 py-3 shadow right-0 bg-white z-20" v-if="countryListOpen">
       <ul>
         <li v-for="(countryObject, key) in countryList" :key="key" class="flex relative" @click="countrySelect(key)" :class="{ 'active': value === key }">
           <input type="radio" name="country" :value="key" :v-model="value" class="absolute invisible">
