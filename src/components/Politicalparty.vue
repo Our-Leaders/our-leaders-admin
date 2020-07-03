@@ -1,8 +1,8 @@
 <template>
   <div class="party-profile cursor-pointer">
-    <div v-bind:style="{ 'background-image': 'url('+ partyLogo +')'  }" class="w-full h-48 bg-cover bg-no-repeat mb-3 bg-center"></div>
+    <div v-bind:style="{ 'background-image': 'url('+ partyLogo +')'  }" class="w-full h-48 lg:h-56 bg-cover bg-no-repeat mb-3 bg-center"></div>
     <div class="flex justify-between">
-      <p class="name font-circular text-3xl lg:text-base xl:text-xl font-bold leading-tight">{{party.name}} ({{party.acronym}})</p>
+      <p class="name font-circular text-xl lg:text-3xl lg:text-base xl:text-xl font-bold leading-tight">{{party.name}} ({{party.acronym}})</p>
       <div class="relative">
         <our-dropdown position="bottom-end">
           <template v-slot:trigger="{ openDialog }">

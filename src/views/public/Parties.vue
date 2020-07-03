@@ -1,14 +1,35 @@
 <template>
   <div class="lg:pr-2 xl:pr-0 xl:flex pb-32">
-    <div class="w-full xl:w-2/3">
+    <div class="w-full xl:w-2/3 px-4 lg:px-0">
       <header class="flex justify-between">
-        <h5 class="text-4xl">
+        <h5 class="text-4xl mt-3">
           Parties (<span v-if="loading">...</span><span v-else>{{partyCount}}</span>)
         </h5>
         <div class="flex justify-between items-center">
           <our-country-selector v-model="country" />
         </div>
       </header>
+      <div class="lg:hidden w-full xl:w-1/3 xl:ml-10 lg:pr-16 pt-4 lg:pt-24 mt-2">
+        <ValidationObserver v-slot="{ invalid, handleSubmit }">
+          <form @submit.prevent="handleSubmit(partySearch)">
+            <div class="flex w-full">
+              <ValidationProvider  rules="required" name="Search Name" v-slot="{ errors }" mode="lazy" slim>
+                <input
+                  type="text"
+                  name="politician-name-search"
+                  id="politician-name-search"
+                  class="w-3/4 pl-1 py-3 field border-b border-gray-c4 mr-2"
+                  :class="errors.length > 0 ? 'border-red-600' : ''"
+                  v-model="searchParam.name"
+                  placeholder="Search by name">
+              </ValidationProvider>
+              <button
+                type="submit"
+                class="relative border-gray-96 border py-1 px-3 flex flex-1 items-center justify-center font-circular lg:mr-4">Search</button>
+            </div>
+          </form>
+        </ValidationObserver>
+      </div>
       <div class="w-full  mt-10">
         <div class="w-full text-center" v-if="loading">
           <span class="loading lg mx-auto mb-2"></span>
@@ -19,11 +40,13 @@
             <span>Sorry, there are no political parties matching your search.</span>
           </div>
           <div class="party-grid flex flex-wrap" v-else>
-            <our-party @click.native="goToPoliticalParty(party.id)" v-for="(party, index) of parties"
-                      :key="index" :party="party"/>
+            <div v-for="(party, index) of parties" :key="index" class="w-1/2 lg:w-1/3">
+              <our-party @click.native="goToPoliticalParty(party.id)"
+                  :party="party"/>
+            </div>
           </div>
         </div>
-        <div v-if="!loading && parties.length > 0">
+        <div class="text-center lg:text-left" v-if="!loading && parties.length > 0">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
@@ -43,7 +66,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2">
+    <div class="hidden lg:block w-full xl:w-1/3 xl:ml-10 pr-16 pt-24 mt-2">
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(partySearch)">
           <div class="flex w-full">
