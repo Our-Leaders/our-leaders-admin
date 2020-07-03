@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:flex">
+  <div class="px-4 lg:px-0 lg:flex">
     <div class="w-full xl:w-2/3">
       <header class="flex justify-between">
         <h5 class="text-4xl">
@@ -21,7 +21,7 @@
       </div>
       <div class="mt-12">
         <div class="flex flex-wrap justify-between">
-          <div class="statistic-list-container">
+          <div class="w-full lg:w-1/2 mb-4 lg:mb-0">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">{{totalVisits | numberFormat}} visits</span>
@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <div class="statistic-list-container">
+          <div class="w-full lg:w-1/2">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">Most viewed pages</span>
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full xl:w-1/3 xl:px-10 self-start" ref="stickySidebar">
+    <div class="w-full xl:w-1/3 xl:px-10 pb-16 lg:pb-0 self-start" ref="stickySidebar">
       <h5 class="text-2xl pb-4 border-b border-primary">
         Location details
       </h5>
