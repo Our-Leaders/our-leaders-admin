@@ -1,32 +1,32 @@
 <template>
-<div class="lg:pr-2 xl:pr-0 xl:flex pb-32">
+<div class="px-4 lg:pl-0 lg:pr-2 xl:pr-0 xl:flex pb-32">
   <div class="w-full xl:w-2/3">
-    <header class="flex justify-between">
-      <h5 class="text-4xl">
+    <header class="flex flex-wrap lg:flex-no-wrap justify-between">
+      <h5 class="w-full text-4xl mb-6 lg:mb-0">
         Analytics
       </h5>
-      <div class="flex justify-between items-center">
+      <div class="w-full flex items-center">
         <button class="border-black border py-1 w-32 text-center font-circular mr-3">Traffic</button>
         <button class="border-black border py-1 w-32 text-center font-circular">Signups</button>
       </div>
     </header>
-     <div class="stats flex mt-12">
-      <div class="stat flex-grow">
+     <div class="stats flex flex-wrap mt-6 lg:mt-12">
+      <div class="stat w-1/2 lg:w-1/4">
         <p class="stat-title font-semibold font-circular">Current Leaders</p>
         <p class="stat-data">6</p>
         <!-- <p class="stat-data">{{statistics.currentLeaders}}</p> -->
       </div>
-      <div class="stat flex-grow">
+      <div class="stat w-1/2 lg:w-1/4 mb-4 lg:mb-0">
         <p class="stat-title font-semibold font-circular">Upcoming Leaders</p>
         <p class="stat-data">6</p>
         <!-- <p class="stat-data">{{statistics.upcomingLeaders}}</p> -->
       </div>
-      <div class="stat flex-grow">
+      <div class="stat w-1/2 lg:w-1/4">
         <p class="stat-title font-semibold font-circular">Parties</p>
         <p class="stat-data">6</p>
         <!-- <p class="stat-data">{{statistics.parties}}</p> -->
       </div>
-      <div class="stat flex-grow pl-10 border-l-2 border-gray-c4">
+      <div class="stat w-1/2 lg:w-1/4 lg:pl-10 lg:border-l-2 border-gray-c4">
         <p class="stat-title font-semibold font-circular">Admins</p>
         <p class="stat-data">6</p>
         <!-- <p class="stat-data">{{statistics.admins}}</p> -->
@@ -43,7 +43,7 @@
       <div class="mt-10">
         <p class="font-circular text-xl font-semibold w-full mb-5">Statistics</p>
         <div class="flex flex-wrap justify-between">
-          <div class="statistic-list-container">
+          <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
                 <span class="font-bold capitalize">Top viewed page</span>
@@ -55,7 +55,7 @@
               </div>
             </div>
           </div>
-          <div class="statistic-list-container">
+          <div class="w-full lg:w-1/2 mb-4 lg:pl-2">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
                 <span class="font-bold capitalize">Traffic stats</span>
@@ -67,7 +67,7 @@
               </div>
             </div>
           </div>
-          <div class="statistic-list-container">
+          <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
                 <span class="font-bold capitalize">Most clicked links</span>
@@ -83,7 +83,7 @@
       </div>
     </div>
   </div>
-  <div class="w-full xl:w-1/3 xl:ml-10 pr-16 mt-2">
+  <div class="w-full xl:w-1/3 xl:ml-10 lg:pr-16 mt-2">
     <header class="flex justify-between items-center border-b border-primary pb-5">
       <p class="text-2xl">Recent Signups</p>
       <p class="text-sm font-circular">{{statistics.signUps.length}} new today</p>
@@ -215,10 +215,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.statistic-list-container {
-  margin-bottom: 1.25rem;
-  flex: 0 0 calc(50% - 0.625rem);
-}
+// .statistic-list-container {
+//   margin-bottom: 1.25rem;
+//   flex: 0 0 calc(50% - 0.625rem);
+// }
 
 .signup-panel {
   max-height: 70vh;
