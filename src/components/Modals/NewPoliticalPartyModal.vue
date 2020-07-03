@@ -2,24 +2,24 @@
   <our-modal @close-modal="closeModal()" :open="true" size="large">
     <template v-slot:header>
       <p class="text-4xl" v-if="isNew">New Party</p>
-      <p class="text-4xl" v-else>Edit Party</p>
+      <p class="text-4xl" v-else>Edit Party Profile</p>
     </template>
     <template v-slot:content>
       <our-image-crop v-if="isCropping" v-on:complete="onFileUpload" v-on:dismiss="toggleCropModal" />
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(submit)">
-          <div class="flex mt-6 social-links">
-            <div class="w-1/3 flex">
-              <label for="political-party-logo" class="w-40 h-32 block cursor-pointer" @click="toggleCropModal">
+          <div class="flex flex-wrap lg:flex-no-wrap mt-6 social-links">
+            <div class="w-full lg:w-1/3 mb-4 lg:mb-0 flex">
+              <label for="political-party-logo" class="w-full lg:w-40 h-64 lg:h-32 block cursor-pointer" @click="toggleCropModal">
                 <div class="w-full h-full political-party-logo flex items-center justify-center" v-if="!uploadedLogoSrc">
                   <span class="text-white text-sm font-circular">Upload picture</span>
                 </div>
                 <div v-bind:style="{ 'background-image': 'url('+ uploadedLogoSrc +')'  }" class="w-full h-full bg-cover bg-center bg-no-repeat"></div>
               </label>
             </div>
-            <div class="w-2/3">
-              <div class="flex mb-3">
-                <div class="w-1/2 mr-3 relative">
+            <div class="w-full lg:w-2/3">
+              <div class="flex flex-wrap lg:flex-no-wrap mb-3">
+                <div class="w-full lg:w-1/2 mb-3 lg:mb-0 lg:mr-3 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/facebook.svg" alt="facebook link">
                   </div>
@@ -31,7 +31,7 @@
                     placeholder="Facebook Handle"
                     v-model="partyData.facebook"/>
                 </div>
-                <div class="w-1/2 ml-3 relative">
+                <div class="w-full lg:w-1/2 mb-3 lg:mb-0 lg:ml-3 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/twitter.svg" alt="twitter link">
                   </div>
@@ -44,8 +44,8 @@
                     v-model="partyData.twitter"/>
                 </div>
               </div>
-              <div class="flex">
-                <div class="w-1/2 mr-3 relative">
+              <div class="flex flex-wrap lg:flex-no-wrap">
+                <div class="w-full lg:w-1/2 mb-3 lg:mb-0 lg:mr-3 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/instagram.svg" alt="instagram link">
                   </div>
@@ -62,11 +62,11 @@
             </div>
           </div>
           <div class="mt-10">
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Party Name
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Party name" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -79,11 +79,11 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Party Leader
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Political party leader" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -96,11 +96,11 @@
                   </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Party Acronym
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <input
                   class="w-full pl-1 py-2 field border-b border-gray-400"
                   type="text"
@@ -110,11 +110,11 @@
                   v-model="partyData.acronym" />
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Country
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Politician Country" v-slot="{ errors }">
                   <v-select
                     id="politician-country"
@@ -142,11 +142,11 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-6">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-6">
+              <div class="w-full lg:w-1/3 self-end">
                 Year Established
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider :rules="yearEstablishedValidationString" name="Year Established" v-slot="{ errors }">
                  <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -159,11 +159,11 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-">
-              <div class="w-1/3">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-5 lg:mb-">
+              <div class="w-full lg:w-1/3">
                 Party Background
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <textarea
                   v-model="partyData.partyBackground"
                   class="w-full pl-1 py-2 field border-b border-gray-400"
