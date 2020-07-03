@@ -139,6 +139,10 @@ export default {
     };
   },
   methods: {
+    openModal(modalName) {
+      this.toggleNav();
+      this.$store.commit('openModal', { modalName });
+    },
     toggleNav() {
       this.openNav = !this.openNav;
     },
