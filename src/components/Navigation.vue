@@ -73,26 +73,26 @@
         />
         <img src="@/assets/img/search.svg" alt="search" class="search-img absolute  right-0 top-0 bottom-0 my-auto" @click="toggleNav">
       </div>
-      <div>
+      <div class="w-40">
         <our-dropdown>
-        <template v-slot:trigger="{ openDialog }">
-          <button @click="openDialog()" class="relative focus:outline-none border-black border w-full py-2 px-3 flex justify-between items-center">
-            <span>New</span>
-            <span><img src="@/assets/img/add-primary.svg" alt=""></span>
-          </button>
-        </template>
-        <template v-slot:items class="font-circular">
-          <!-- <our-dropdown-item class="flex justify-between items-center">New Accomplishment</our-dropdown-item> -->
-          <!-- <our-dropdown-item class="flex justify-between items-center">New Update</our-dropdown-item> -->
-          <!-- <our-dropdown-divider /> -->
-          <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('JobModal')">New Job Post</our-dropdown-item>
-          <our-dropdown-divider />
-          <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewAdminModal')">New Admin</our-dropdown-item>
-          <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
-          <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
-          <!-- <our-dropdown-item class="flex justify-between items-center">New User</our-dropdown-item> -->
-        </template>
-      </our-dropdown>
+          <template v-slot:trigger="{ openDialog }">
+            <button @click="openDialog()" class="relative focus:outline-none border-black border w-full py-2 px-3 flex justify-between w-full items-center">
+              <span>New</span>
+              <span><img src="@/assets/img/add-primary.svg" alt=""></span>
+            </button>
+          </template>
+          <template v-slot:items class="font-circular">
+            <!-- <our-dropdown-item class="flex justify-between items-center">New Accomplishment</our-dropdown-item> -->
+            <!-- <our-dropdown-item class="flex justify-between items-center">New Update</our-dropdown-item> -->
+            <!-- <our-dropdown-divider /> -->
+            <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('JobModal')">New Job Post</our-dropdown-item>
+            <our-dropdown-divider />
+            <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewAdminModal')">New Admin</our-dropdown-item>
+            <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticalPartyModal')">New Party</our-dropdown-item>
+            <our-dropdown-item class="flex justify-between items-center" @click.native="openModal('NewPoliticianModal')">New Leader</our-dropdown-item>
+            <!-- <our-dropdown-item class="flex justify-between items-center">New User</our-dropdown-item> -->
+          </template>
+        </our-dropdown>
       </div>
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
       <div class="nav-links mt-10">
