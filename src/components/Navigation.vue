@@ -100,6 +100,7 @@
           <!-- </transition-group> -->
         </div>
         </router-link>
+        <router-link  @click.native="toggleNav" :to="{ name: 'archive' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Archive</router-link>
       </div>
       <div class="w-12 h-1 border-b border-gray-db"></div>
       <div @click="signout">
