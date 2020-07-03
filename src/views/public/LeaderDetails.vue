@@ -1,13 +1,40 @@
 <template>
-  <div class="lg:flex">
+  <div class="lg:flex px-4 lg:px-0">
     <div class="xl:w-2/3 relative">
-      <button class="border-black border py-1 px-3 flex justify-between items-center font-circular absolute top-0 right-0" @click="editProfile">Edit Profile</button>
+      <div class="flex flex-wrap lg:hidden mt-8">
+        <p class="w-full text-3xl leading-tight mb-4">{{politician.name}}</p>
+        <p class="w-full text-sm">{{presentPosition.description}}</p>
+        <p class="w-full text-sm">
+          <span v-if="presentPosition.startDate">{{getYear(presentPosition.startDate)}} - </span>
+          <span v-if="presentPosition.endDate">{{getYear(presentPosition.endDate)}}</span>
+        </p>
+      </div>
+      <button class="border-black border text-sm py-2 px-6 flex justify-between items-center font-circular my-4 lg:my-0 lg:absolute lg:top-0 lg:right-0" @click="editProfile">Edit Profile</button>
       <header ref="imageHere">
-        <div class="politician-image h-32 w-40 bg-gray-96" :style="{ 'background-image': 'url('+ politicianImage +')'  }"></div>
+        <div class="politician-image h-64 lg:h-32 w-full lg:w-40 bg-gray-96" :style="{ 'background-image': 'url('+ politicianImage +')'  }"></div>
       </header>
-      <header class="w-full h-auto bg-white z-50" ref="stickyHeader" style="padding-top: 2.5rem;">
+      <header class="w-full h-auto bg-white z-20 lg:z-50 pt-4 lg:pt-20" ref="stickyHeader">
         <!-- <header class="w-full h-auto sticky bg-white" style="top: 6rem; padding-top: 2.5rem;"> -->
-        <div class="mb-12" v-if="!show">
+        <div class="flex mb-10 lg:hidden">
+          <div class="w-1/2">
+            <div class="inline-flex likes mb-3 font-circular text-2xl lg:text-xs text-gray-96">
+              <span class="flex mr-3 text-base items-baseline cursor-pointer">
+                <img class="mr-2 w-5 lg:w-4 relative" src="@/assets/img/upvote.svg" alt="upvote">
+                {{politician.vote.up | numberFormat}}
+              </span>
+              <span class="flex text-base items-baseline cursor-pointer">
+                <img class="mr-2 w-5 lg:w-4 relative downvote" src="@/assets/img/downvote.svg" alt="downvote">
+                {{politician.vote.down | numberFormat}}
+              </span>
+            </div>
+          </div>
+          <div class="w-1/2">
+            <a class="ml-6 inline-block float-right" target="_blank" v-bind:href="politician.socials.instagram"><img class="h-4" src="@/assets/img/social/instagram.svg" alt="instagram link"></a>
+            <a class="ml-6 inline-block float-right" target="_blank" v-bind:href="politician.socials.twitter"><img class="h-4" src="@/assets/img/social/twitter.svg" alt="twitter link"></a>
+            <a class="ml-6 inline-block float-right" target="_blank" v-bind:href="politician.socials.facebook"><img class="h-4" src="@/assets/img/social/facebook.svg" alt="facebook link"></a>
+          </div>
+        </div>
+        <div class="mb-12" v-if="!show && !isMobile">
           <p class="text-5xl leading-tight">{{politician.name}}</p>
           <div class="inline-flex likes mb-3 font-circular text-2xl lg:text-xs text-gray-96 pr-4 border-r border-gray-c4">
             <span class="flex mr-3 items-baseline cursor-pointer">
@@ -33,7 +60,7 @@
             </p>
           </div>
         </div>
-        <div class="mb-12 flex items-center justify-between" v-else>
+        <div class="mb-12 flex items-center justify-between" v-if="show && !isMobile">
           <p class="text-2xl">{{politician.name}}</p>
           <div class="flex items-center">
             <span class="flex mr-3 items-baseline cursor-pointer font-circular text-2xl lg:text-xs text-gray-96">
@@ -70,6 +97,7 @@
 import find from 'lodash.find';
 import stickbits from 'stickybits';
 import defaultAvatar from '@/assets/img/default-avatar.svg';
+import NavigatorUtil from '@/helpers/navigatorUtil';
 
 // politician components
 import PoliticianBackground from '@/components/politicianDetails/PoliticianBackground.vue';
@@ -150,6 +178,9 @@ export default {
     observer.observe(this.$refs.imageHere);
   },
   computed: {
+    isMobile() {
+      return NavigatorUtil.isMobile();
+    },
     presentPosition() {
       const { politicalBackground = [] } = this.politician;
       const presentPosition = find(politicalBackground, { inOffice: true });
@@ -180,7 +211,7 @@ export default {
   }
 
   .downvote {
-    top: 12px;
+    top: 8px;
 
     @screen lg {
       top: 5px;
