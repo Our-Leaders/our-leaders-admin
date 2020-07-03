@@ -1,8 +1,8 @@
 <template>
-  <div class="lg:flex">
+  <div class="lg:flex px-4 lg:px-0">
     <div class="w-full">
       <header>
-        <h5 class="text-4xl">
+        <h5 class="text-4xl mt-6 lg:mt-0">
           Archive
         </h5>
       </header>
