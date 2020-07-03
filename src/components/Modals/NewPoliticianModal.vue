@@ -9,9 +9,9 @@
       <our-image-crop v-if="isCropping" v-on:complete="onFileUpload" v-on:dismiss="toggleCropModal" />
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(submit)">
-          <div class="flex mt-6 social-links">
-            <div class="w-1/3 flex">
-              <label for="politician-image" class="w-40 h-32 block cursor-pointer" @click="toggleCropModal">
+          <div class="flex flex-wrap lg:flex-no-wrap mt-6 social-links">
+            <div class="w-full lg:w-1/3 flex mb-4 lg:mb-0">
+              <label for="politician-image" class="w-full lg:w-40 h-64 lg:h-32 block cursor-pointer" @click="toggleCropModal">
                 <div class="w-full h-full politician-profile-image flex items-center justify-center" v-if="!uploadedImageSrc">
                   <span class="text-white text-sm font-circular">Upload picture</span>
                 </div>
@@ -19,9 +19,9 @@
                 <div v-bind:style="{ 'background-image': 'url('+ uploadedImageSrc +')'  }" class="w-full h-full bg-cover bg-no-repeat"></div>
               </label>
             </div>
-            <div class="w-2/3">
-              <div class="flex mb-3">
-                <div class="w-1/2 mr-3 relative">
+            <div class="w-full lg:w-2/3">
+              <div class="flex flex-wrap lg:flex-no-wrap mb-3">
+                <div class="w-full lg:w-1/2 lg:mr-3 mb-4 lg:mb-0 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/facebook.svg" alt="facebook link">
                   </div>
@@ -33,7 +33,7 @@
                     placeholder="Facebook Handle"
                     v-model="politicianData.facebook"/>
                 </div>
-                <div class="w-1/2 ml-3 relative">
+                <div class="w-full lg:w-1/2 lg:ml-3 mb-4 lg:mb-0 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/twitter.svg" alt="twitter link">
                   </div>
@@ -46,8 +46,8 @@
                     v-model="politicianData.twitter"/>
                 </div>
               </div>
-              <div class="flex">
-                <div class="w-1/2 mr-3 relative">
+              <div class="flex flex-wrap lg:flex-no-wrap">
+                <div class="w-full lg:w-1/2 lg:mr-3 mb-4 lg:mb-0 relative">
                   <div class="form-icon absolute pl-1 h-full">
                     <img src="@/assets/img/social/instagram.svg" alt="instagram link">
                   </div>
@@ -59,17 +59,17 @@
                     placeholder="Instagram Handle"
                     v-model="politicianData.instagram"/>
                 </div>
-                <div class="w-1/2"></div>
+                <div class="w-full lg:w-1/2"></div>
               </div>
             </div>
           </div>
           <div class="mt-10">
             <p class="font-circular text-xl font-semibold w-full">Personal Information</p>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Name
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Politician name" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 field border-b border-gray-400"
@@ -82,11 +82,11 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Date of birth
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Politician DOB" v-slot="{ errors }">
                   <v-datepicker
                     placeholder="DD/MM/YYYY"
@@ -98,11 +98,11 @@
                   </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Country
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Politician Country" v-slot="{ errors }">
                   <v-select
                     id="politician-country"
@@ -130,11 +130,11 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 State of origin
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Politician State of origin" v-slot="{ errors }">
                   <v-select
                     id="politician-party"
@@ -156,11 +156,11 @@
           </div>
           <div class="mt-10">
             <p class="font-circular text-xl font-semibold w-full">Political Information</p>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Status
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <v-select
                   id="politician-status"
                   name="politician-status"
@@ -170,11 +170,11 @@
                   class="our-select"></v-select>
               </div>
             </div>
-            <div class="flex mb-3">
-              <div class="w-1/3 self-end">
+            <div class="flex flex-wrap lg:flex-no-wrap mb-6 lg:mb-3">
+              <div class="w-full lg:w-1/3 self-end">
                 Party
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <v-select
                   id="politician-party"
                   name="politician-party"
