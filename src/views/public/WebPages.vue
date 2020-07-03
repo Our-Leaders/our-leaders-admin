@@ -1,23 +1,23 @@
 <template>
-  <div class="lg:pr-2 xl:pr-0 xl:flex">
+  <div class="px-2 lg:pr-2 xl:pr-0 xl:flex">
     <div class="w-full xl:w-2/3 relative">
       <header ref="stickyHeader" class="bg-white z-50 pb-3 sticky" style="top: 100px">
-        <h5 class="text-4xl">
+        <h5 class="text-4xl mt-6 lg:mt-0">
           Web Pages
         </h5>
         <our-tabs class="mt-10" :tabs="tabs" @change="setSelectedTab"/>
       </header>
       <div class="w-full pb-24">
         <div v-if="selectedTab === 'about-us'">
-          <div class="btn-container edit-btn-row mt-4" v-if="!isAboutUsInEdit">
-            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="enableEdit">Edit About Us</button>
+          <div class="btn-container flex-row lg:flex-row-reverse mt-4" v-if="!isAboutUsInEdit">
+            <button class="border-black border py-1 lg:py-2 px-3 flex justify-between items-center font-circular" @click="enableEdit">Edit About Us</button>
           </div>
 
           <div class="tab-header">About Us</div>
 
           <our-text-editor :editable="isAboutUsInEdit" v-model="page.aboutUs"/>
 
-          <div class="btn-container" v-if="isAboutUsInEdit">
+          <div class="btn-container mt-4" v-if="isAboutUsInEdit">
             <button class="bg-primary text-white font-circular py-3 px-12" @click="updatePages" :disabled="isUpdatingPages">
               <span v-if="!isUpdatingPages">Update</span>
               <span v-else>Updating...</span>
@@ -29,13 +29,13 @@
           <our-career />
         </div>
         <div v-if="selectedTab === 'contact'">
-          <div class="button-container my-4 flex justify-end">
-            <button class="border-black border py-2 px-3 flex justify-between items-center font-circular" @click="editContactDetails">Edit Contact</button>
+          <div class="button-container my-4 flex flex-row lg:flex-row-reverse">
+            <button class="border-black border py-1 lg:py-2 px-3 flex justify-between items-center font-circular" @click="editContactDetails">Edit Contact</button>
           </div>
-          <div>
+          <div class="mt-6 lg:mt-0">
             <p class="font-circular text-xl font-semibold w-full mb-5">Contact details</p>
           </div>
-          <div class="mt-1 w-1/2">
+          <div class="mt-1 w-full lg:w-1/2">
             <p class="font-circular font-semibold w-full">Address</p>
             <p>
               {{page.contact.address}}
@@ -184,10 +184,6 @@ export default {
     width: 100%;
     display: flex;
     // margin-top: 20px;
-  }
-
-  .edit-btn-row {
-    flex-direction: row-reverse;
   }
 
   .btn {

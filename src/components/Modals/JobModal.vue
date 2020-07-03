@@ -7,8 +7,8 @@
     <template v-slot:content>
       <ValidationObserver v-slot="{ invalid, handleSubmit }">
         <form @submit.prevent="handleSubmit(submit)">
-          <div class="flex mt-6">
-            <div class="w-48 flex mr-4">
+          <div class="flex flex-wrap lg:flex-no-wrap mt-6">
+            <div class="w-full lg:w-48 flex mr-4 mb-4 lg:mb-0">
               <label for="job-image" class="w-full h-40 block cursor-pointer">
                 <input type="file" name="political party logo" id="job-image" class="hidden" accept="image/*" @change="onFileUpload($event);">
                 <div class="w-full h-full job-image flex items-center justify-center relative" v-if="!jobImageSrc">
@@ -17,15 +17,15 @@
                 <div v-if="jobImageSrc" v-bind:style="{ 'background-image': 'url('+ jobImageSrc +')'  }" class="w-full h-full bg-cover bg-center bg-no-repeat"></div>
               </label>
             </div>
-            <div class="w-3/4">
-              <div class="mb-3">
+            <div class="w-full lg:w-3/4">
+              <div class="mb-6 lg:mb-3">
                 <ValidationProvider rules="required" name="Job Title" v-slot="{ errors }">
-                  <div class="flex relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
-                    <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
+                  <div class="flex flex-wrap lg:flex-no-wrap relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
+                    <div class="w-full lg:w-1/6 mt-1 pl-1 lg:pl-0 self-center font-semibold text-sm font-circular">
                       Job Title
                     </div>
                       <input
-                        class="w-5/6 pl-1 py-2 font-circular"
+                        class="w-full lg:w-5/6 pl-1 py-2 font-circular"
                         type="text"
                         id="job-title"
                         name="job-title"
@@ -34,14 +34,14 @@
                   </div>
                 </ValidationProvider>
               </div>
-              <div class="mb-3">
+              <div class="mb-6 lg:mb-3">
                 <ValidationProvider rules="required" name="Job Location" v-slot="{ errors }">
-                  <div class="flex relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
-                    <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
+                  <div class="flex flex-wrap lg:flex-no-wrap relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
+                    <div class="w-full lg:w-1/6 mt-1 pl-1 lg:pl-0 self-center font-semibold text-sm font-circular">
                       Location
                     </div>
                       <input
-                        class="w-5/6 pl-1 py-2 font-circular"
+                        class="w-full lg:w-5/6 pl-1 py-2 font-circular"
                         type="text"
                         id="job-location"
                         name="job-location"
@@ -50,13 +50,13 @@
                   </div>
                 </ValidationProvider>
               </div>
-              <div class="mb-3">
+              <div class="mb-6 lg:mb-3">
                 <ValidationProvider rules="required" name="Job Type" v-slot="{ errors }">
-                  <div class="flex relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
-                    <div class="w-1/6 mt-1 self-center font-semibold text-sm font-circular">
+                  <div class="flex flex-wrap lg:flex-no-wrap relative border-b border-gray-400" :class="errors.length > 0 ? 'border-red-600' : ''">
+                    <div class="w-full lg:w-1/6 mt-1 self-center font-semibold text-sm font-circular">
                       Job Type
                     </div>
-                    <div class="w-5/6  font-circular">
+                    <div class="w-full lg:w-5/6  font-circular">
                         <v-select
                           id="job-type"
                           name="job-type"
@@ -88,11 +88,11 @@
             </div>
           </div>
           <div class="mt-10">
-            <div class="flex relative">
-              <div class="w-1/3 mt-1 self-center">
+            <div class="flex flex-wrap lg:flex-no-wrap relative">
+              <div class="w-full lg:w-1/3 mt-1 self-center">
                 Application Link
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Job Application Link" v-slot="{ errors }">
                   <input
                     class="w-full pl-1 py-2 border-b border-gray-400"
@@ -107,11 +107,11 @@
             </div>
           </div>
           <div class="mt-10">
-            <div class="flex relative">
-              <div class="w-1/3 mt-1 self-center">
+            <div class="flex flex-wrap lg:flex-no-wrap relative">
+              <div class="w-full lg:w-1/3 mt-1 self-center">
                 Job Category
               </div>
-              <div class="w-2/3">
+              <div class="w-full lg:w-2/3">
                 <ValidationProvider rules="required" name="Job Category" v-slot="{ errors }">
                   <v-select
                     id="job-category"
