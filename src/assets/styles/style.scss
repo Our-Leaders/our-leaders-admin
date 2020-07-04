@@ -91,6 +91,18 @@ button, button:active, button:focus {
 }
 /* end of styling for form input icon */
 
+ /* Hide scrollbar for Chrome, Safari and Opera */
+ .hide-scroll::-webkit-scrollbar {
+  background: transparent; /* make scrollbar transparent */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  background: transparent; /* make scrollbar transparent */
+} 
+
 button:disabled {
   @apply opacity-50 cursor-not-allowed #{!important};
 }

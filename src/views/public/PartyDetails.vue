@@ -8,7 +8,7 @@
       <header ref="imageHere">
         <div class="politician-image h-64 lg:h-32 w-full lg:w-40 bg-gray-96" :style="{ 'background-image': 'url('+ partyLogo +')'  }"></div>
       </header>
-      <header class="w-full h-auto bg-white z-50 pt-4 lg:pt-20" ref="stickyHeader">
+      <header class="w-full h-auto bg-white z-20 lg:z-50 pt-4 lg:pt-20" ref="stickyHeader">
         <div class="mb-12" v-if="!show">
           <p class="hidden lg:block text-5xl leading-tight">{{party.name}} ({{party.acronym}})</p>
           <div class="flex lg:hidden">

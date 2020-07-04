@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overflow-x-scroll hide-scroll">
     <header class="flex w-full border-b border-primary tab-nav relative">
       <div v-for="(tab, index) of tabs" :key="index" class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : currentTab === tab.value }" @click="setTab(tab.value)">
         <div class="active" v-if="isActive(tab.value)"></div>{{tab.label}}
