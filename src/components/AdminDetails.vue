@@ -1,5 +1,5 @@
 <template>
-  <div class="admin-details fixed bottom-0 right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-2">
+  <div class="admin-details lg:fixed lg:bottom-0 lg:right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-2">
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
