@@ -1,21 +1,21 @@
 <template>
   <div class="lg:flex relative">
-    <div class="xl:w-2/3">
+    <div class="xl:w-2/3 px-4">
       <header>
         <h5 class="text-4xl">
           Signups
         </h5>
       </header>
-      <div class="stats flex mt-6 mb-16">
-        <div class="stat flex-grow">
+      <div class="flex flex-wrap flex mt-6 mb-16">
+        <div class="w-1/2 lg:w-1/3 flex-grow mb-6 lg:mb-0">
           <p class="stat-title font-semibold font-circular">Total members</p>
           <p class="stat-data">{{this.totalMembers | numberFormat}}</p>
         </div>
-        <div class="stat flex-grow">
+        <div class="w-1/2 lg:w-1/3 flex-grow">
           <p class="stat-title font-semibold font-circular">Active members</p>
           <p class="stat-data">{{this.activeMembers | numberFormat}}</p>
         </div>
-        <div class="stat flex-grow">
+        <div class="w-1/2 lg:w-1/3 flex-grow">
           <p class="stat-title font-semibold font-circular">Inactive members</p>
           <p class="stat-data">{{this.inactiveMembers | numberFormat}}</p>
         </div>
@@ -53,7 +53,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="mt-6 mb-20">
+        <div class="mt-6 mb-20 text-center lg:text-left">
           <paginate
             :page-count="pageCount"
             :prev-text="`<img src='${chevronLeft}' alt='dropdown indicator' style='height: 1.5rem;'>`"
@@ -75,9 +75,14 @@
         No data available
       </div>
     </div>
-    <div class="w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative" ref="stickySidebar">
+    <div class="w-full h-full xl:w-1/3 px-4 xl:pl-8 xl:pr-16 pt-4 bg-white fixed mt-24 lg:mt-0 top-0 left-0 lg:relative"
+      ref="stickySidebar"
+      v-if="!isMobile || showDetails">
       <h5 class="text-2xl pb-4 border-b border-primary">
         Member details
+        <button class="lg:hidden close-modal-button absolute" @click="selectedUser = null">
+          <img src="@/assets/img/close.svg" alt="close modal">
+        </button>
       </h5>
       <div v-if="selectedUserId">
         <div class="flex items-center mt-6 h-20">
@@ -148,6 +153,7 @@ import stickbits from 'stickybits';
 import chevronLeft from '@/assets/img/chevron-left.svg';
 import facebook from '@/assets/img/facebook.svg';
 import google from '@/assets/img/google.svg';
+import NavigatorUtil from '@/helpers/navigatorUtil';
 
 export default {
   name: 'Signups',
@@ -276,17 +282,25 @@ export default {
     },
   },
   mounted() {
-    stickbits(this.$refs.stickySidebar, { stickyBitStickyOffset: 144, useStickyClasses: false });
+    if (!NavigatorUtil.isMobile()) {
+      stickbits(this.$refs.stickySidebar, { stickyBitStickyOffset: 144, useStickyClasses: false });
+    }
     this.getSignups();
     this.getUserStat();
   },
   computed: {
+    isMobile() {
+      return NavigatorUtil.isMobile();
+    },
     pageCount() {
       if (this.users.length > 0) {
         return Math.ceil(this.userCount / 10);
       }
 
       return 1;
+    },
+    showDetails() {
+      return this.selectedUser !== null && this.selectedUser !== {};
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
   <div class="lg:flex">
-    <div class="w-full xl:w-2/3">
+    <div class="w-full xl:w-2/3 px-4 lg:px-0">
       <header class="flex justify-between">
         <h5 class="text-4xl">
           Donations

@@ -96,21 +96,21 @@
       </div>
       <div class="w-12 h-1 border-b border-gray-db my-2"></div>
       <div class="nav-links mt-10">
-        <router-link  @click.native="toggleNav" :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
-        <router-link  @click.native="toggleNav" :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
-        <router-link  @click.native="toggleNav" :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Web Pages</router-link>
-        <router-link  @click.native="toggleNav" :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
-        <router-link  @click.native="toggleNav" :to="{ name: 'admins' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Admins</router-link>
-        <router-link :to="{ name: 'analytics-home' }" active-class="active"  v-slot="{ href, navigate, isActive, isExactActive }">
-        <div>
-          <a :href="href" @click="navigate" class="block py-2 pl-1 border-b border-transparent text-center" :class="[isExactActive && 'active']">
+        <router-link @click.native="toggleNav" :to="{ name: 'home' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Home</router-link>
+        <router-link @click.native="toggleNav" :to="{ name: 'leaders' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Leaders</router-link>
+        <router-link @click.native="toggleNav" :to="{ name: 'web-pages' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Web Pages</router-link>
+        <router-link @click.native="toggleNav" :to="{ name: 'parties' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Political Parties</router-link>
+        <router-link @click.native="toggleNav" :to="{ name: 'admins' }" active-class="active" class="block py-2 pl-1 border-b border-transparent text-center">Admins</router-link>
+        <router-link @click.native="toggleNav" :to="{ name: 'analytics-home' }" active-class="active"  v-slot="{ href, navigate, isActive, isExactActive }">
+        <div @click="toggleNav">
+          <a :href="href" @click="navigate;toggleNav" class="block py-2 pl-1 border-b border-transparent text-center" :class="[isExactActive && 'active']">
             Analytics
           </a>
           <!-- <transition-group tag="div" name="list"> -->
             <div v-if="isActive">
-              <router-link :to="{ name: 'analytics-traffic' }" active-class="active" key="traffic" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Traffic</router-link>
-              <router-link :to="{ name: 'analytics-signups' }" active-class="active" key="singups" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Signups</router-link>
-              <router-link :to="{ name: 'analytics-donations' }" active-class="active" key="donations" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Donations</router-link>
+              <router-link @click.native="toggleNav" :to="{ name: 'analytics-traffic' }" active-class="active" key="traffic" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Traffic</router-link>
+              <router-link @click.native="toggleNav" :to="{ name: 'analytics-signups' }" active-class="active" key="singups" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Signups</router-link>
+              <router-link @click.native="toggleNav" :to="{ name: 'analytics-donations' }" active-class="active" key="donations" class="block py-2 pl-1 border-b border-transparent text-center bg-gray-f8">Donations</router-link>
             </div>
           <!-- </transition-group> -->
         </div>
