@@ -5,6 +5,7 @@
 <script>
 import { mapState } from 'vuex';
 
+import AdminDetailModal from './AdminDetailModal.vue';
 import JobModal from './JobModal.vue';
 import ActionModal from './ActionModal.vue';
 import NewAdminModal from './NewAdminModal.vue';
@@ -23,6 +24,7 @@ export default {
   data() {
     return {
       modals: {
+        AdminDetailModal,
         NewPoliticianModal,
         EditPoliticianManifestoModal,
         EditPoliticianBackgroundModal,
