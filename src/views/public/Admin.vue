@@ -1,5 +1,5 @@
 <template>
-  <div class="lg:flex">
+  <div class="lg:flex h-full">
     <div class="xl:w-2/3 px-4">
      <header>
         <h5 class="text-4xl">
@@ -55,9 +55,7 @@
         </table>
       </div>
     </div>
-    <div class="hidden lg:block w-full h-full xl:w-1/3 xl:pl-8 xl:pr-16 relative">
-      <our-admin-details :adminId="selectedAdminId"></our-admin-details>
-    </div>
+    <our-admin-details :adminId="selectedAdminId"></our-admin-details>
   </div>
 </template>
 
@@ -65,6 +63,7 @@
 // import find from 'lodash.find';
 import { mapGetters } from 'vuex';
 import NavigatorUtil from '@/helpers/navigatorUtil';
+import stickbits from 'stickybits';
 
 export default {
   name: 'Admins',
@@ -118,6 +117,9 @@ export default {
     },
   },
   async mounted() {
+    stickbits(this.$refs.stickySidebar, {
+      stickyBitStickyOffset: 144, useStickyClasses: false,
+    });
     await this.getAdmins();
   },
   computed: {
