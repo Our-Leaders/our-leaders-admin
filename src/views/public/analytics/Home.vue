@@ -215,11 +215,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .statistic-list-container {
-//   margin-bottom: 1.25rem;
-//   flex: 0 0 calc(50% - 0.625rem);
-// }
-
 .signup-panel {
   max-height: 70vh;
 }

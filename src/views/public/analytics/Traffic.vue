@@ -21,7 +21,7 @@
       </div>
       <div class="mt-12">
         <div class="flex flex-wrap justify-between">
-          <div class="w-full lg:w-1/2 mb-4 lg:mb-0">
+          <div class="statistic-list-container">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">{{totalVisits | numberFormat}} visits</span>
@@ -32,7 +32,7 @@
               </div>
             </div>
           </div>
-          <div class="w-full lg:w-1/2">
+          <div class="statistic-list-container">
             <div class="border border-gray-db">
               <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">Most viewed pages</span>
