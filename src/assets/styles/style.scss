@@ -1,0 +1,194 @@
+@font-face {
+  font-family: "Circular Std";
+  src: url("../fonts/CircularStd-Book.eot");
+  src: url("../fonts/CircularStd-Book.woff") format("woff"),
+  url("../fonts/CircularStd-Book.otf") format("opentype"),
+  url("../fonts/CircularStd-Book.svg#filename") format("svg");
+}
+@import "vue-select/src/scss/vue-select.scss";
+
+button, button:active, button:focus {
+  outline: none;
+}
+
+.nav-links {
+  a {
+    &.active {
+      @apply border-primary font-semibold;
+    }
+  }
+}
+
+/* styling for v-select component */
+.our-select .vs__dropdown-toggle {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
+  @apply w-full pl-1 py-2 border-b border-gray-400;
+}
+
+.our-select.no-border .vs__dropdown-toggle {
+  border: 0 !important;
+}
+
+.our-select.has-error .vs__dropdown-toggle {
+  @apply border-red-600 #{!important};
+}
+
+.our-select .vs__selected-options, 
+.our-select .vs__search, 
+.our-select .vs__selected {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.our-select .vs__dropdown-menu {
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-radius: 0;
+  @apply shadow;
+
+  li.vs__dropdown-option {
+    @apply p-2;
+  
+    &:hover, &--highlight {
+      // @apply bg-gray-f0;
+      background-color: darken($color: #f0f0f0, $amount: 10%)
+    }
+  }
+}
+/* end of styling for v-select component */
+
+/* styling for the datepicker */
+.vdp-datepicker__calendar .cell.selected {
+  @apply bg-primary text-white #{!important};
+}
+
+.vdp-datepicker__calendar .cell:hover {
+  @apply border border-primary #{!important};
+}
+/* end of styling for the datepicker */
+
+/* styling for form input icon */
+.form-icon img,
+.form-icon:before {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #fff;
+}
+
+.form-icon:before {
+  content: '';
+  width: 0;
+  height: 100%
+}
+
+.form-icon + input {
+  text-indent: 1.75rem;
+}
+/* end of styling for form input icon */
+
+ /* Hide scrollbar for Chrome, Safari and Opera */
+ .hide-scroll::-webkit-scrollbar {
+  background: transparent; /* make scrollbar transparent */
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  background: transparent; /* make scrollbar transparent */
+} 
+
+button:disabled {
+  @apply opacity-50 cursor-not-allowed #{!important};
+}
+
+.ProseMirror {
+  outline: none;
+
+  h1 {
+    font-size: 2em !important;
+    margin-block-start: 0.67em !important;
+    margin-block-end: 0.67em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
+  }
+
+  h2 {
+    font-size: 1.5em  !important;
+    margin-block-start: 0.83em !important;
+    margin-block-end: 0.83em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
+  }
+
+  h3 {
+    font-size: 1.17em !important;
+    margin-block-start: 1e !important;
+    margin-block-end: 1em !important;
+    margin-inline-start: 0px !important;
+    margin-inline-end: 0px !important;
+    font-weight: bold !important;
+  }
+
+  ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+  }
+}
+
+.statistic-list-container {
+  margin-bottom: 1.25rem;
+  flex: 0 0 calc(50% - 0.625rem);
+}
+
+.loading {
+  animation: rotate 2s infinite;
+  border: 3px dashed #CE9833;
+  display: block;
+  
+  &.sm {
+    border-radius: 10px;
+    height: 20px;
+    width: 20px;
+  }
+  
+  &.md {
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+  }
+  
+  &.lg {
+    border-radius: 30px;
+    height: 60px;
+    width: 60px;
+  }
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
