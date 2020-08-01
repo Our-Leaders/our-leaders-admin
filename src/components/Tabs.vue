@@ -1,10 +1,12 @@
 <template>
-  <div class="overflow-x-scroll hide-scroll">
-    <header class="flex w-full border-b border-primary tab-nav relative">
-      <div v-for="(tab, index) of tabs" :key="index" class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : currentTab === tab.value }" @click="setTab(tab.value)">
-        <div class="active" v-if="isActive(tab.value)"></div>{{tab.label}}
+  <div>
+    <header class="w-full md:border-b md:border-primary relative flex flex-col-reverse md:block">
+      <div class="flex tab-nav border-b border-primary md:border-none">
+        <div v-for="(tab, index) of tabs" :key="index" class="mr-10 pb-5 relative cursor-pointer" :class="{ 'selected' : currentTab === tab.value }" @click="setTab(tab.value)">
+          <div class="active" v-if="isActive(tab.value)"></div>{{tab.label}}
+        </div>
       </div>
-      <div class="absolute right-0 top-0 bottom-0 w-auto">
+      <div class="relative w-full md:absolute md:right-0 md:top-0 md:bottom-0 md:w-auto mb-5">
         <slot></slot>
       </div>
     </header>
