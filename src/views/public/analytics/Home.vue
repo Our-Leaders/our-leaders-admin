@@ -5,31 +5,27 @@
       <h5 class="w-full text-4xl mb-6 lg:mb-0">
         Analytics
       </h5>
-      <div class="w-full flex items-center">
-        <button class="border-black border py-1 w-32 text-center font-circular mr-3">Traffic</button>
-        <button class="border-black border py-1 w-32 text-center font-circular">Signups</button>
+      <div class="flex items-center">
+        <router-link :to="{ name: 'analytics-traffic' }" class="border-black border py-1 w-32 text-center font-circular mr-3">Traffic</router-link>
+        <router-link :to="{ name: 'analytics-signups' }" class="border-black border py-1 w-32 text-center font-circular">Signups</router-link>
       </div>
     </header>
      <div class="stats flex flex-wrap mt-6 lg:mt-12">
       <div class="stat w-1/2 lg:w-1/4">
         <p class="stat-title font-semibold font-circular">Current Leaders</p>
-        <p class="stat-data">6</p>
-        <!-- <p class="stat-data">{{statistics.currentLeaders}}</p> -->
+        <p class="stat-data">{{statistics.currentLeaders}}</p>
       </div>
       <div class="stat w-1/2 lg:w-1/4 mb-4 lg:mb-0">
         <p class="stat-title font-semibold font-circular">Upcoming Leaders</p>
-        <p class="stat-data">6</p>
-        <!-- <p class="stat-data">{{statistics.upcomingLeaders}}</p> -->
+        <p class="stat-data">{{statistics.upcomingLeaders}}</p>
       </div>
       <div class="stat w-1/2 lg:w-1/4">
         <p class="stat-title font-semibold font-circular">Parties</p>
-        <p class="stat-data">6</p>
-        <!-- <p class="stat-data">{{statistics.parties}}</p> -->
+        <p class="stat-data">{{statistics.parties}}</p>
       </div>
       <div class="stat w-1/2 lg:w-1/4 lg:pl-10 lg:border-l-2 border-gray-c4">
         <p class="stat-title font-semibold font-circular">Admins</p>
-        <p class="stat-data">6</p>
-        <!-- <p class="stat-data">{{statistics.admins}}</p> -->
+        <p class="stat-data">{{statistics.admins}}</p>
       </div>
     </div>
     <div class="w-full mt-10">
@@ -41,23 +37,32 @@
           v-bind="{...selectedData}"/>
       </div>
       <div class="mt-10">
-        <p class="font-circular text-xl font-semibold w-full mb-5">Statistics</p>
+        <!-- <p class="font-circular text-xl font-semibold w-full mb-5">Statistics</p> -->
         <div class="flex flex-wrap justify-between">
-          <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
+          <!-- top viewed page -->
+          <!-- <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
             <div class="border border-gray-db">
-              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">Top viewed page</span>
                 <span class="text-xs text-gray-96 capitalize">Today</span>
+              </div>
+              <div
+                class="py-2 px-2 border-b border-gray-db leading-none relative accomplishment flex justify-between items-center"
+                v-for="page of statistics.topPages" :key="page.url">
+                <span>{{page.name}}</span>
+                <span class="text-xs text-gray-96 font-circular">{{page.viewCount | currencyFormat}}</span>
               </div>
               <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment">
                 <span>View more</span>
                 <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
               </div>
             </div>
-          </div>
-          <div class="w-full lg:w-1/2 mb-4 lg:pl-2">
+          </div> -->
+
+          <!-- traffic stats -->
+          <!-- <div class="w-full lg:w-1/2 mb-4 lg:pl-2">
             <div class="border border-gray-db">
-              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">Traffic stats</span>
                 <span class="text-xs text-gray-96 capitalize">Today</span>
               </div>
@@ -66,10 +71,12 @@
                 <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
               </div>
             </div>
-          </div>
-          <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
+          </div> -->
+
+          <!-- most clicked links -->
+          <!-- <div class="w-full lg:w-1/2 mb-4 lg:pr-2">
             <div class="border border-gray-db">
-              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer" @click.once="goToQuarter(quarter, year)">
+              <div class="py-3 pl-2 pr-3 font-circular border-b border-gray-db flex justify-between items-center leading-none cursor-pointer">
                 <span class="font-bold capitalize">Most clicked links</span>
                 <span class="text-xs text-gray-96 capitalize">Today</span>
               </div>
@@ -78,7 +85,7 @@
                 <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -207,19 +214,20 @@ export default {
         this.$store.commit('storeStatistics', payload);
       });
     },
+    async getGneralStats() {
+      const { data } = await this.statisticsService.getStats();
+      const { statistics } = data;
+      this.$store.commit('storeStatistics', statistics);
+    },
   },
   async mounted() {
     await this.getStats();
+    await this.getGneralStats();
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// .statistic-list-container {
-//   margin-bottom: 1.25rem;
-//   flex: 0 0 calc(50% - 0.625rem);
-// }
-
 .signup-panel {
   max-height: 70vh;
 }

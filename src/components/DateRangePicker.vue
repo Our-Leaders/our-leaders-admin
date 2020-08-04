@@ -1,12 +1,13 @@
 <template>
-  <div class="inline-flex items-center">
+  <div class="items-center">
+  <!-- <div class="flex items-center justify-center"> -->
     <vc-datepicker
       :value="dateRangeValue"
       mode="range"
       @input="valueChanges"
       :max-date='new Date()'
       :theme="theme"
-      :popover="{ placement: this.placement, visibility: 'click' }"
+      :popover="{ placement: $screens({ md: this.placement }, 'bottom'), visibility: 'click' }"
       :columns="$screens({ lg: 2 }, 1)">
       <div class="font-circular text-sm cursor-pointer">
         <div class="flex items-center">

@@ -22,8 +22,10 @@ export default {
     leaders: 0,
     signUps: [],
     signUpStats: [],
-    visitsStats: [],
+    visitStats: [],
     upcomingLeaders: 0,
+    topLocations: [],
+    topPages: [],
   },
   admins: [],
   info: {

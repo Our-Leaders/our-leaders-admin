@@ -30,4 +30,15 @@ export default {
 
     return instance.get(url);
   },
+
+  getLocationPlot(query = {}) {
+    const queryString = parseQueryString(query);
+    let url = `${resource}/locations`;
+
+    if (queryString) {
+      url = `${url}?${queryString}`;
+    }
+
+    return instance.get(url);
+  },
 };

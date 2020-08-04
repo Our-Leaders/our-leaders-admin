@@ -143,6 +143,15 @@ export default {
       } catch (err) {
         this.tabs = [];
         this.donationPlot = {};
+      } finally {
+        if (this.tabs.length === 0) {
+          this.tabs = [
+            {
+              label: 'Donations',
+              value: '',
+            },
+          ];
+        }
       }
     },
     async getDonations(startDate, endDate) {
