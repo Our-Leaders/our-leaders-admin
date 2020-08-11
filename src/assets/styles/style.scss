@@ -159,8 +159,16 @@ button:disabled {
 }
 
 .statistic-list-container {
-  margin-bottom: 1.25rem;
-  flex: 0 0 calc(50% - 0.625rem);
+  @apply w-full;
+
+ &:not(:last-child) {
+   @apply mb-4;
+ }
+
+ @screen md {
+   margin-bottom: 1.25rem;
+   flex: 0 0 calc(50% - 0.625rem);
+ }
 }
 
 .loading {

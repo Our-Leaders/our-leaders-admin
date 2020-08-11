@@ -22,6 +22,7 @@ export default {
         return Array.isArray(value);
       },
     },
+    valueKey: String,
   },
   watch: {
     seriesData(newData) {
@@ -41,7 +42,7 @@ export default {
 
     chart.projection = new am4maps.projections.Miller();
 
-    chart.maxZoomLevel = 1;
+    // chart.maxZoomLevel = 1;
 
     const polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
     polygonSeries.exclude = ['AQ'];
@@ -51,29 +52,23 @@ export default {
     polygonTemplate.polygon.fillOpacity = 0.8;
     polygonTemplate.polygon.fill = am4core.color('#C5C5C5');
 
-    // const hs = polygonTemplate.states.create('hover');
-    // hs.properties.fill = '#C79947';
-    // hs.properties.fill = chart.colors.getIndex(0);
-
     // Add image series
     const imageSeries = chart.series.push(new am4maps.MapImageSeries());
     imageSeries.mapImages.template.propertyFields.longitude = 'longitude';
     imageSeries.mapImages.template.propertyFields.latitude = 'latitude';
-    imageSeries.dataFields.value = 'value';
+    imageSeries.dataFields.value = this.valueKey || 'value';
     // imageSeries.mapImages.template.tooltipText = '{title}\n{value} visitors';
     imageSeries.mapImages.template.tooltipHTML = `<p style="font-size: 13px;">{city}, {country}</p>
     <p style="font-size: 11px;">{value} visitors</p>`;
     imageSeries.tooltip.getFillFromObject = false;
     imageSeries.tooltip.label.fill = am4core.color('#000000');
     imageSeries.tooltip.label.fontFamily = 'Circular Std';
-    // imageSeries.tooltip.label.fontSize = '14px';
     imageSeries.tooltip.background.strokeWidth = '0px';
-    // imageSeries.tooltip.background.filters.clear();
     imageSeries.tooltip.background.fill = am4core.color('#ffffff');
 
     const circle = imageSeries.mapImages.template.createChild(am4core.Circle);
     circle.radius = 3;
-    circle.nonScaling = false;
+    circle.nonScaling = true;
     circle.fill = '#F96D00';
 
     imageSeries.data = this.seriesData;

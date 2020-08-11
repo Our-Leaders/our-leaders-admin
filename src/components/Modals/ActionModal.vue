@@ -40,7 +40,7 @@ export default {
       try {
         await this.action();
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       this.isLoading = false;
       this.closeModal();

@@ -40,7 +40,7 @@
             <span>Sorry, there are no political parties matching your search.</span>
           </div>
           <div class="party-grid flex flex-wrap" v-else>
-            <div v-for="(party, index) of parties" :key="index" class="w-1/2 lg:w-1/3">
+            <div v-for="(party, index) of parties" :key="index" class="w-1/2 md:w-1/3">
               <our-party @click.native="goToPoliticalParty(party.id)"
                   :party="party"/>
             </div>

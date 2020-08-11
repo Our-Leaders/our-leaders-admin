@@ -1,5 +1,8 @@
 <template>
-  <div class="admin-details lg:fixed lg:bottom-0 lg:right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-2">
+  <!-- <div class="admin-details lg:fixed lg:bottom-0 lg:right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-2"> -->
+  <div class="admin-details w-full xl:w-1/3 xl:px-10 pb-16 lg:pb-0 self-start overflow-y-scroll" ref="stickySidebar">
+  <!-- <div class="admin-details w-full h-full" ref="stickySidebar"> -->
+  <!-- <div class="admin-details fixed bottom-0 right-0 pb-6 overflow-y-scroll xl:pl-8 xl:pr-16"> -->
     <h5 class="text-2xl pb-4 border-b border-primary">
       Admin details
     </h5>
@@ -59,10 +62,10 @@
         </div>
       </div>
       <div class="flex pt-16 actions">
-    <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!admin.isBlocked)">
-       <span v-if="admin.isBlocked">Unblock</span>
-       <span v-else>Block</span>
-    </button>
+        <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" :disabled="processing" @click="updateBlockedStatus(!admin.isBlocked)">
+          <span v-if="admin.isBlocked">Unblock</span>
+          <span v-else>Block</span>
+        </button>
         <button class="relative border-black border w-40 py-2 px-3 flex justify-center disabled:font-gray-96 disabled:border-gray-96 items-center font-circular mr-4" @click="deleteAdmin" :disabled="admin.isDeleted || processing">Delete</button>
       </div>
     </div>
@@ -75,6 +78,7 @@
 <script>
 import { mapActions } from 'vuex';
 import cloneDeep from 'lodash.clonedeep';
+import stickbits from 'stickybits';
 
 import defaultPermissions from '@/assets/json/permissions.json';
 
@@ -144,12 +148,16 @@ export default {
       };
     },
   },
+  mounted() {
+    // stickbits(this.$refs.stickySidebar, { useFixed: true });
+    stickbits(this.$refs.stickySidebar, { stickyBitStickyOffset: 144, useStickyClasses: false });
+  },
 };
 </script>
 
 <style  lang="scss" scoped>
   .admin-details {
-    top: 9rem;
+    max-height: calc(100vh - 114px);
   }
 
   .admin-active {
