@@ -118,6 +118,7 @@
 <script>
 import moment from 'moment';
 import StringUtil from '@/helpers/stringUtil';
+import tagOptions from '@/assets/json/tags.json';
 
 const emptyAccomplishmentData = {
   title: '',
@@ -147,7 +148,7 @@ export default {
       isEdit: !!this.existingAccomplishment,
       imageId: `accomplishment-image-${this.existingAccomplishment ? 'edit' : 'new'}`,
       politicianServices: this.$serviceFactory.politicians,
-      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'],
+      tags: tagOptions,
       accomplishment: { ...emptyAccomplishmentData, ...this.existingAccomplishment || {} },
       accomplishmentImageFile: '',
       urlFocused: false,
