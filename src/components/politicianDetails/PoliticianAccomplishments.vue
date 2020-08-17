@@ -13,6 +13,7 @@
 
 <script>
 import moment from 'moment';
+import tagOptions from '@/assets/json/tags.json';
 import YearlyView from '@/components/politicianDetails/AccomplishmentsViews/YearView.vue';
 import QuarterView from '@/components/politicianDetails/AccomplishmentsViews/QuarterView.vue';
 
@@ -29,7 +30,7 @@ export default {
   },
   data() {
     return {
-      tags: ['health', 'education', 'tourism', 'technology', 'religion', 'agriculture'], // we'll eventually populate this with tags from the db
+      tags: tagOptions, // we'll eventually populate this with tags from the db
       quarterTags: {
         q1: 'january - march',
         q2: 'april - june',
