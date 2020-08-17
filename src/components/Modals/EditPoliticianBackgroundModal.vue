@@ -57,8 +57,7 @@
                   v-model="politicalBackground.startDate"
                   class="w-full xl:mr-2"
                   calendar-class="political-background-dates"
-                  input-class="field w-full py-2 border-gray-c4"
-                  :required="required(politicalBackground, politicalBackgroundData)">
+                  input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
                 <v-datepicker
                   name="end-date"

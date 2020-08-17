@@ -55,7 +55,7 @@
         </table>
       </div>
     </div>
-    <our-admin-details :adminId="selectedAdminId"></our-admin-details>
+    <our-admin-details ref="adminDetails" :adminId="selectedAdminId"></our-admin-details>
   </div>
 </template>
 
@@ -117,7 +117,7 @@ export default {
     },
   },
   async mounted() {
-    stickbits(this.$refs.stickySidebar, {
+    stickbits(this.$refs.adminDetails.$refs.stickySidebar, {
       stickyBitStickyOffset: 144, useStickyClasses: false,
     });
     await this.getAdmins();
