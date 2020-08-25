@@ -52,7 +52,7 @@
               <div class="flex">
                 <v-datepicker
                   name="start-date"
-                  placeholder="Start date *"
+                  placeholder="Start date"
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.startDate"
                   class="w-full xl:mr-2"
@@ -61,7 +61,7 @@
                 </v-datepicker>
                 <v-datepicker
                   name="end-date"
-                  placeholder="End date *"
+                  placeholder="End date"
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
