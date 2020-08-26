@@ -16,8 +16,7 @@
                        type="text"
                        name="position"
                        v-model="politicalBackground.position"
-                       placeholder="Office *"
-                       :required="required(politicalBackground, politicalBackgroundData)"
+                       placeholder="Office"
                 />
               </div>
               <div>
@@ -89,8 +88,7 @@
                      type="text"
                      name="degree"
                      v-model="educationalBackground.degree"
-                     placeholder="Degree *"
-                     :required="required(educationalBackground, educationalBackgroundData)"
+                     placeholder="Degree"
               />
             </div>
             <div class="w-2/3">
@@ -98,8 +96,7 @@
                      type="text"
                      name="background-description"
                      v-model="educationalBackground.institution"
-                     placeholder="Institution *"
-                     :required="required(educationalBackground, educationalBackgroundData)"
+                     placeholder="Institution"
               />
               <input class="field w-full py-2 border-gray-c4"
                      type="number"
@@ -129,8 +126,7 @@
                      type="text"
                      name="title"
                      v-model="professionalBackground.title"
-                     placeholder="Title *"
-                     :required="required(professionalBackground, professionalBackgroundData)"
+                     placeholder="Title"
               />
             </div>
             <div class="w-2/3">
