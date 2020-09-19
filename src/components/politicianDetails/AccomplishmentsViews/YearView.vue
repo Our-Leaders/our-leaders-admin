@@ -22,7 +22,7 @@
             <div class="py-2 px-2 border-gray-db leading-none accomplishment" v-if="accomplishments.length < 1">
               No accomplishments in this quarter
             </div>
-            <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment" v-if="accomplishments.length > 3">
+            <div class="py-3 pl-2 pr-3 font-circular border-gray-db text-xs leading-none cursor-pointer flex justify-between items-center accomplishment" v-if="accomplishments.length > 3" @click.once="goToQuarter(quarter, year)">
               <span>View {{ accomplishments.length - 3 }} more</span>
               <span><fa-icon :icon="['fas', 'arrow-right']"></fa-icon></span>
             </div>
