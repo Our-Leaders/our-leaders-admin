@@ -49,24 +49,30 @@
                 />
               </div>
               <div class="flex">
+                <div class="w-1/2">
                 <v-datepicker
                   name="start-date"
                   placeholder="Start date"
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.startDate"
                   class="w-full xl:mr-2"
+                  clear-button="true"
                   calendar-class="political-background-dates"
                   input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
+                </div>
+                <div class="w-1/2">
                 <v-datepicker
                   name="end-date"
                   placeholder="End date"
                   format="dd/MM/yyyy"
                   v-model="politicalBackground.endDate"
                   class="w-full xl:ml-2"
+                  clear-button="true"
                   calendar-class="political-background-dates"
                   input-class="field w-full py-2 border-gray-c4">
                 </v-datepicker>
+                </div>
               </div>
             </div>
           </div>
