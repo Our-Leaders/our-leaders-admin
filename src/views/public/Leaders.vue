@@ -237,7 +237,7 @@ export default {
     },
     async handlePageChange(pageNumber) {
       this.$store.commit('changePoliticianPageNumber', pageNumber);
-      await this.getPoliticians({ skip: (pageNumber - 1) * this.politicianPagination.numberPerPage });
+      await this.getPoliticians({ skip: pageNumber - 1 });
     },
     async searchByName() {
       this.hideTab = true;
@@ -263,7 +263,7 @@ export default {
   },
   async mounted() {
     await this.getPoliticians({
-      skip: (this.politicianPagination.page - 1) * this.politicianPagination.numberPerPage,
+      skip: this.politicianPagination.page - 1,
       country: 'NG',
       status: this.leaderStatusFilter,
     });
