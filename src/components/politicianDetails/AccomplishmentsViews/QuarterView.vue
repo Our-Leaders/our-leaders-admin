@@ -21,12 +21,13 @@
               <img src="./../../../assets/img/chevron-down.svg" alt="chevron-down">
             </span>
           </div>
+          <div class="inline-block items-center cursor-pointer">
+            <button class="py-1 px-4 text-xs text-white bg-black hover:bg-white hover:text-black font-circular" @click="editAccomplishment(accomplishment)">Edit</button>
+            <button class="py-1 px-4 text-xs text-white bg-black hover:bg-white hover:text-black font-circular" @click="deleteAccomplishment(accomplishment._id)">Delete</button>
+          </div>
           <div class="tags mt-2">
-            <div class="inline-block tag text-xs font-circular py-1 px-3 border border-gray-db mr-2 capitalize">
-              tourism
-            </div>
-            <div class="inline-block tag text-xs font-circular py-1 px-3 border border-gray-db mr-2 capitalize">
-              infrastructure
+            <div class="inline-block tag text-xs font-circular py-1 px-3 border border-gray-db mr-2 capitalize" v-for="(tag, tagIndex) of accomplishment.tags" :key="tagIndex" >
+              {{tag}}
             </div>
           </div>
         </header>
@@ -65,6 +66,12 @@ export default {
     };
   },
   methods: {
+    editAccomplishment(accomplishment) {
+      this.$store.commit('openModal', { modalName: 'EditPoliticianAccomplishmentModal', modalProps: { accomplishment } });
+    },
+    deleteAccomplishment(accomplishmentId) {
+      this.$store.commit('openModal', { modalName: 'DeletePoliticianAccomplishmentModal', modalProps: { accomplishmentId } });
+    },
     goToYearView() {
       this.$emit('onGoToYearView');
     },
